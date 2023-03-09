@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
@@ -6,6 +7,10 @@ import Account from "../components/Account";
 const Home = () => {
   const session = useSession();
   const supabase = useSupabaseClient();
+
+  const imgloader = ({ src, width, quality }) => {
+    return `${src}?w=${width}&q=${quality || 75}`;
+  };
 
   return (
     <div>
@@ -18,6 +23,7 @@ const Home = () => {
               theme="default"
               socialLayout="horizontal"
               providers={[]}
+              
               appearance={{
                 style: {
                   button: {
@@ -58,7 +64,16 @@ const Home = () => {
               }}
             />
           </div>
-          <div className="bg-gray-100 h-screen w-full max-md:hidden" />
+          <div className="bg-gray-100 h-screen w-full max-md:hidden border-l border-l-gray-200">
+              <Image
+                loader={imgloader}
+                src="/images/login/login_artwork.svg"
+                alt="Login Artwork"
+                width={1000}
+                height={1000}
+                className="object-cover h-full w-full"
+              />
+          </div>
         </div>
       ) : (
         <Account session={session} />
