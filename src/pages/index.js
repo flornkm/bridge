@@ -3,6 +3,7 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Account from "../components/Account";
+import Dashboard from "./dashboard";
 
 const Home = () => {
   const session = useSession();
@@ -76,7 +77,7 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <Account session={session} />
+        <Dashboard session={session} />
       )}
     </div>
   );
