@@ -70,9 +70,9 @@ const Home = () => {
                 loader={imgloader}
                 src="/images/login/login_artwork.svg"
                 alt="Login Artwork"
-                width={1000}
-                height={1000}
-                className="object-cover absolute top-0 bottom-0 right-0 left-0"
+                width={2000}
+                height={2000}
+                className="object-cover absolute top-0 bottom-0 right-0 left-0 h-full w-full"
               />
           </div>
         </div>
