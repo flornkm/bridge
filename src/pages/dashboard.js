@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Menu, Transition } from "@headlessui/react";
+import Account from "@/components/Account";
 import * as Icon from "phosphor-react";
 
 function classNames(...classes) {
@@ -11,6 +12,7 @@ function classNames(...classes) {
 function Dashboard(props) {
   const supabase = useSupabaseClient();
   const user = useUser();
+  const [settings, setSettings] = React.useState(false);
   const [projects, setProjects] = React.useState([
     {
       id: 1,
@@ -72,6 +74,7 @@ function Dashboard(props) {
                               : "text-gray-700",
                             "block px-4 py-2 text-sm rounded-md"
                           )}
+                          onClick={() => setSettings(true)}
                         >
                           Account settings
                         </a>
@@ -161,6 +164,9 @@ function Dashboard(props) {
           </div>
         ))}
       </div>
+      {settings && (
+        <Account session={props.session} setSettings={setSettings} />
+      )}
     </div>
   );
 }
