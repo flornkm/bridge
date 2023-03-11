@@ -1,8 +1,16 @@
 import Image from "next/image";
 import React from "react";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { Menu, Transition } from "@headlessui/react";
 import * as Icon from "phosphor-react";
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 function Dashboard(props) {
+  const supabase = useSupabaseClient();
+  const user = useUser();
   const [projects, setProjects] = React.useState([
     {
       id: 1,
@@ -25,17 +33,100 @@ function Dashboard(props) {
   };
 
   React.useEffect(() => {
-    console.log(props.session.user);
     fetchProjects(props.session.user.id);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/dashboard/dashboard_gradient.jpg')] bg-cover">
-      <div className="w-full bg-white py-6 bg-opacity-80 fixed top-0">
-        <div className="max-w-[80%] w-full mx-auto justify-between flex">
+      <div className="w-full bg-white py-4 bg-opacity-80 fixed top-0">
+        <div className="max-w-[80%] w-full mx-auto justify-between flex items-center">
           <h1 className="text-lg font-medium">Dashboard</h1>
           <div className="flex">
-            <Image />
+            <Menu as="div" className="relative inline-block text-left">
+              <div>
+                <Menu.Button className="p-2 bg-neutral-100 ring-1 ring-neutral-200 cursor-pointer rounded-full transition-all hover:opacity-80">
+                  <Icon.User
+                    size={24}
+                  />
+                </Menu.Button>
+              </div>
+
+              <Transition
+                as={React.Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="p-1 font-medium">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="#"
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm rounded-md"
+                          )}
+                        >
+                          Account settings
+                        </a>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="#"
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm rounded-md"
+                          )}
+                        >
+                          Support
+                        </a>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="#"
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm rounded-md"
+                          )}
+                        >
+                          License
+                        </a>
+                      )}
+                    </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            type="submit"
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block w-full px-4 py-2 text-left text-sm rounded-md"
+                            )}
+                            onClick={() => supabase.auth.signOut()}
+                          >
+                            Sign out
+                          </button>
+                        )}
+                      </Menu.Item>
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </Menu>
           </div>
         </div>
         <div className="h-[1px] w-full bg-gradient-to-r from-violet-300 to-neutral-50 absolute bottom-0" />

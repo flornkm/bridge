@@ -65,14 +65,14 @@ const Home = () => {
               }}
             />
           </div>
-          <div className="bg-gray-100 h-screen w-full max-md:hidden border-l border-l-gray-200">
+          <div className="bg-gray-100 h-screen w-full max-md:hidden border-l border-l-gray-200 relative">
               <Image
                 loader={imgloader}
                 src="/images/login/login_artwork.svg"
                 alt="Login Artwork"
                 width={1000}
                 height={1000}
-                className="object-cover h-full w-full"
+                className="object-cover absolute top-0 bottom-0 right-0 left-0"
               />
           </div>
         </div>
