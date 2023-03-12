@@ -99,7 +99,7 @@ function Dashboard(props) {
 
   return (
     <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/dashboard/dashboard_gradient.jpg')] bg-cover">
-      <div className="w-full bg-white py-4 bg-opacity-80 fixed top-0">
+      <div className="w-full bg-white py-6 bg-opacity-80 fixed top-0">
         <div className="max-w-[80%] w-full mx-auto justify-between flex items-center">
           <h1 className="text-lg font-medium">Dashboard</h1>
           <div className="flex">
@@ -204,7 +204,7 @@ function Dashboard(props) {
         </div>
         <div className="h-[1px] w-full bg-gradient-to-r from-violet-300 to-neutral-50 absolute bottom-0" />
       </div>
-      <div className="pt-32 text-3xl font-semibold max-w-[80%] mx-auto mb-8 flex justify-between items-center">
+      <div className="pt-40 text-3xl font-semibold max-w-[80%] mx-auto mb-8 flex justify-between items-center">
         <h2>Your projects</h2>
         <button
           onClick={() => {
@@ -222,6 +222,7 @@ function Dashboard(props) {
             className="col-span-1 bg-white rounded-lg ring-1 ring-neutral-200 p-6 cursor-pointer transition-all hover:bg-opacity-80 shadow-lg shadow-neutral-100  active:scale-[0.98]"
             onClick={() => {
               selectProject(project.id);
+              router.push("/editor/" + project.owner + project.id);
             }}
           >
             <div>
