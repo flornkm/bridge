@@ -12,6 +12,10 @@ function classNames(...classes) {
 function Dashboard(props) {
   const supabase = useSupabaseClient();
   const user = useUser();
+  const [username, setUsername] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [avatar_url, setAvatarUrl] = React.useState(null);
+  const [avatar, setAvatar] = React.useState(null);
   const [settings, setSettings] = React.useState(false);
   const [projects, setProjects] = React.useState([
     {
@@ -21,6 +25,54 @@ function Dashboard(props) {
       updated_at: "2021-08-01",
     },
   ]);
+
+  React.useEffect(() => {
+    getProfile();
+  }, [props.session]);
+
+  async function getProfile() {
+    try {
+      setLoading(true);
+
+      let { data, error, status } = await supabase
+        .from("profiles")
+        .select(`username, avatar_url`)
+        .eq("id", user.id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        setUsername(data.username);
+        setAvatarUrl(data.avatar_url);
+        if (data.avatar_url) {
+          downloadImage(data.avatar_url);
+        }
+      }
+    } catch (error) {
+      alert("Error loading user data!");
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function downloadImage(path) {
+    try {
+      const { data, error } = await supabase.storage
+        .from("avatars")
+        .download(path);
+      if (error) {
+        throw error;
+      }
+      const url = URL.createObjectURL(data);
+      setAvatar(url);
+    } catch (error) {
+      console.log("Error downloading image: ", error);
+    }
+  }
 
   const fetchProjects = async (id) => {
     const res = await fetch("/api/projects");
@@ -45,11 +97,19 @@ function Dashboard(props) {
           <h1 className="text-lg font-medium">Dashboard</h1>
           <div className="flex">
             <Menu as="div" className="relative inline-block text-left">
-              <div>
-                <Menu.Button className="p-2 bg-neutral-100 ring-1 ring-neutral-200 cursor-pointer rounded-full transition-all hover:opacity-80">
-                  <Icon.User
-                    size={24}
-                  />
+              <div className="h-full flex items-center">
+                <Menu.Button className="bg-neutral-100 ring-1 ring-neutral-200 cursor-pointer rounded-full transition-all hover:opacity-80">
+                  {!avatar ? (
+                    <Icon.User size={40} className="p-2" />
+                  ) : (
+                    <Image
+                      src={avatar}
+                      alt="Avatar"
+                      width={40}
+                      height={40}
+                      className="rounded-full"
+                    />
+                  )}
                 </Menu.Button>
               </div>
 
@@ -110,22 +170,22 @@ function Dashboard(props) {
                         </a>
                       )}
                     </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <button
-                            type="submit"
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block w-full px-4 py-2 text-left text-sm rounded-md"
-                            )}
-                            onClick={() => supabase.auth.signOut()}
-                          >
-                            Sign out
-                          </button>
-                        )}
-                      </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          type="submit"
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block w-full px-4 py-2 text-left text-sm rounded-md"
+                          )}
+                          onClick={() => supabase.auth.signOut()}
+                        >
+                          Sign out
+                        </button>
+                      )}
+                    </Menu.Item>
                   </div>
                 </Menu.Items>
               </Transition>
@@ -165,7 +225,14 @@ function Dashboard(props) {
         ))}
       </div>
       {settings && (
-        <Account session={props.session} setSettings={setSettings} />
+        <Account
+          session={props.session}
+          setSettings={setSettings}
+          avatar_url={avatar_url}
+          setAvatarUrl={setAvatarUrl}
+          avatar={avatar}
+          setAvatar={setAvatar}
+        />
       )}
     </div>
   );

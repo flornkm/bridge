@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import Avatar from "./Avatar";
 
-export default function Account({ session, setSettings }) {
+export default function Account({ session, setSettings, avatar_url, setAvatarUrl, avatar, setAvatar }) {
   const supabase = useSupabaseClient();
   const user = useUser();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [website, setWebsite] = useState(null);
-  const [avatar_url, setAvatarUrl] = useState(null);
 
   useEffect(() => {
     getProfile();
@@ -66,6 +66,18 @@ export default function Account({ session, setSettings }) {
     <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 bg-black bg-opacity-40 w-screen h-screen flex justify-center items-center px-[5%]">
       <div className="form-widget bg-white p-6 rounded-xl w-[550px] flex flex-col gap-4 relative z-20">
         <h2 className="text-xl font-semibold mb-2">Account Settings</h2>
+        <Avatar
+          uid={user.id}
+          url={avatar_url}
+          size={150}
+          onUpload={(url) => {
+            setAvatarUrl(url);
+            console.log(url);
+            updateProfile({ username, website, avatar_url: url });
+          }}
+          avatar={avatar}
+          setAvatar={setAvatar}
+        />
         <div className="w-full grid grid-cols-3 items-center">
           <label htmlFor="email" className="text-neutral-500">
             Email
@@ -104,17 +116,7 @@ export default function Account({ session, setSettings }) {
         </div>
 
         <div className="w-full flex justify-left gap-4 mt-14">
-        <div className="w-full"> 
-            <button
-              className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full"
-              onClick={() => updateProfile({ username, website, avatar_url })}
-              disabled={loading}
-            >
-              {loading ? "Loading ..." : "Update Settings"}
-            </button>
-          </div>
-
-          <div className="w-full"> 
+          <div className="w-full">
             <button
               className="font-medium px-3 py-2 rounded-lg ring-1 ring-neutral-200 bg-white text-black transition-all hover:bg-neutral-50 w-full"
               onClick={() => {
@@ -123,6 +125,15 @@ export default function Account({ session, setSettings }) {
               disabled={loading}
             >
               Done
+            </button>
+          </div>
+          <div className="w-full">
+            <button
+              className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full"
+              onClick={() => updateProfile({ username, website, avatar_url })}
+              disabled={loading}
+            >
+              {loading ? "Loading ..." : "Update Settings"}
             </button>
           </div>
 
