@@ -3,6 +3,7 @@ import React from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Menu, Transition } from "@headlessui/react";
 import Account from "@/components/Account";
+import ProjectSetup from "@/components/ProjectSetup";
 import * as Icon from "phosphor-react";
 
 function classNames(...classes) {
@@ -14,6 +15,7 @@ function Dashboard(props) {
   const user = useUser();
   const [username, setUsername] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
+  const [setup, setSetup] = React.useState(false);
   const [avatar_url, setAvatarUrl] = React.useState(null);
   const [avatar, setAvatar] = React.useState(null);
   const [settings, setSettings] = React.useState(false);
@@ -196,7 +198,7 @@ function Dashboard(props) {
       </div>
       <div className="pt-32 text-3xl font-semibold max-w-[80%] mx-auto mb-8 flex justify-between items-center">
         <h2>Your projects</h2>
-        <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800">
+        <button onClick={() => {setSetup(true)}} className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800">
           Create Project
         </button>
       </div>
@@ -233,6 +235,9 @@ function Dashboard(props) {
           avatar={avatar}
           setAvatar={setAvatar}
         />
+      )}
+      {setup && (
+        <ProjectSetup setSetup={setSetup} />
       )}
     </div>
   );
