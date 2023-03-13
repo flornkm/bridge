@@ -109,7 +109,7 @@ export default function Editor(props) {
           </div>
         </div>
         {project && project.elements.type === "cookie-banner" && (
-          <CookieBanner data={project.elements} />
+          <CookieBanner data={project.elements} session={session} id={router.query.id} />
         )}
       </div>
     )

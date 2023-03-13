@@ -77,7 +77,7 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <Dashboard session={session} />
+        <Dashboard />
       )}
     </div>
   );

@@ -16,6 +16,7 @@
     "@supabase/supabase-js": "^2.10.0",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
+    "lodash": "^4.17.21",
     "next": "13.2.3",
     "phosphor-react": "^1.4.1",
     "react": "18.2.0",
