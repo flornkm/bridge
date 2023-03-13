@@ -27,11 +27,11 @@ export default function Editor(props) {
     );
     const data = await res.json();
     setProject(data);
+    setLoading(false);
   };
 
   async function getProfile() {
     try {
-
       let { data, error, status } = await supabase
         .from("profiles")
         .select(`username, avatar_url`)
@@ -51,8 +51,6 @@ export default function Editor(props) {
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -73,14 +71,18 @@ export default function Editor(props) {
 
   useEffect(() => {
     getProfile();
-    console.log(project)
 
-    if (router.query.id)
-      fetchProjects(session.user.id, router.query.id.replace(user.id, ""));
   }, [session]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (router.query.id) {
+      fetchProjects(session.user.id, router.query.id.replace(user.id, ""))
+    }
+  }, [router.query.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    !loading && project && (
+    !loading &&
+    project && (
       <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/editor/canvas.svg')] bg-cover">
         <div className="w-full bg-white py-6 fixed top-0 border-b border-b-neutral-200">
           <div className="max-w-[80%] w-full mx-auto justify-between flex items-center">
@@ -106,9 +108,8 @@ export default function Editor(props) {
             </div>
           </div>
         </div>
-
-        {project && project.type === "cookie-banner" && (
-          <CookieBanner data={project.data} />
+        {project && project.elements.type === "cookie-banner" && (
+          <CookieBanner data={project.elements} />
         )}
       </div>
     )
