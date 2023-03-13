@@ -7,6 +7,7 @@ import {
   useSession,
 } from "@supabase/auth-helpers-react";
 import * as Icon from "phosphor-react";
+import CookieBanner from "@/components/CookieBanner";
 
 export default function Editor(props) {
   const supabase = useSupabaseClient();
@@ -16,7 +17,7 @@ export default function Editor(props) {
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [project, setProject] = useState([]);
+  const [project, setProject] = useState(null);
 
   const router = useRouter();
 
@@ -28,16 +29,8 @@ export default function Editor(props) {
     setProject(data);
   };
 
-  useEffect(() => {
-    getProfile();
-
-    if (session && router.query.id)
-      fetchProjects(session.user.id, router.query.id.replace(user.id, ""));
-  }, [session, router.query.id]); // eslint-disable-line react-hooks/exhaustive-deps
-
   async function getProfile() {
     try {
-      setLoading(true);
 
       let { data, error, status } = await supabase
         .from("profiles")
@@ -78,8 +71,16 @@ export default function Editor(props) {
     }
   }
 
+  useEffect(() => {
+    getProfile();
+    console.log(project)
+
+    if (router.query.id)
+      fetchProjects(session.user.id, router.query.id.replace(user.id, ""));
+  }, [session]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    !loading && (
+    !loading && project && (
       <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/editor/canvas.svg')] bg-cover">
         <div className="w-full bg-white py-6 fixed top-0 border-b border-b-neutral-200">
           <div className="max-w-[80%] w-full mx-auto justify-between flex items-center">
@@ -105,8 +106,10 @@ export default function Editor(props) {
             </div>
           </div>
         </div>
-        <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] px-10 py-4 bg-white ring-1 ring-neutral-200 rounded-2xl max-w-[80%] w-full">
-        </div>
+
+        {project && project.type === "cookie-banner" && (
+          <CookieBanner data={project.data} />
+        )}
       </div>
     )
   );
