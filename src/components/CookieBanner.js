@@ -34,25 +34,21 @@ function CookieBanner({ data, session, id }) {
       newValues[index] = value;
       return newValues;
     });
-  
-    const newContent = JSON.parse(JSON.stringify(data));
-  
-    const updateElementText = (element) => {
-      if (element.text === inputValues[index]) {
-        element.text = value;
-      }
-      if (element.content) {
-        element.content.forEach((childElement) => {
-          updateElementText(childElement);
-        });
-      }
-    };
-  
-    updateElementText(newContent);
-  
-    debouncedUpdateContent(newContent);
   };
   
+  const handleInputBlur = (index) => {
+    // Update the content in the database
+    const newContent = JSON.parse(JSON.stringify(data));
+    newContent.content[0].content[index].text = inputValues[index];
+    supabase
+      .from("projects")
+      .update({ elements: newContent })
+      .eq("id", id.replace(session.user.id, ""))
+      .eq("owner", session.user.id)
+      .then((res) => {
+        console.log(res);
+      });
+  }
   
   
 
@@ -69,6 +65,7 @@ function CookieBanner({ data, session, id }) {
                 fontWeight: item.styles["font-weight"],
               }}
               onChange={(event) => handleInputChange(event, index)}
+              onBlur={() => handleInputBlur(index)}
             />
           );
         })}

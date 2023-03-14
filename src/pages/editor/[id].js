@@ -83,7 +83,7 @@ export default function Editor(props) {
   return (
     !loading &&
     project && (
-      <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/editor/canvas.svg')] bg-cover">
+      <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/editor/canvas.svg')] bg-cover bg-center">
         <div className="w-full bg-white py-6 fixed top-0 border-b border-b-neutral-200">
           <div className="max-w-[80%] w-full mx-auto justify-between flex items-center">
             <div
