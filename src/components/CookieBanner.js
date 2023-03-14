@@ -1,6 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import debounce from "lodash/debounce";
+import {
+  DndContext, 
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import {SortableItem} from './SortableItem';
 
 function CookieBanner({ data, session, id }) {
   const supabase = useSupabaseClient();
@@ -9,6 +24,13 @@ function CookieBanner({ data, session, id }) {
   );
   const [buttonValues, setButtonValues] = useState(
     data.content[1].content.map((item) => item.text)
+  );
+  const [items, setItems] = useState([1, 2, 3]);
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
   );
 
   const styling = (item) => {
@@ -75,6 +97,19 @@ function CookieBanner({ data, session, id }) {
         console.log(res);
       });
   };
+
+  function handleDragEnd(event) {
+  const {active, over} = event;
+  
+  if (active.id !== over.id) {
+    setItems((items) => {
+      const oldIndex = items.indexOf(active.id);
+      const newIndex = items.indexOf(over.id);
+      
+      return arrayMove(items, oldIndex, newIndex);
+    });
+  }
+}
 
   return (
     <div className="absolute top-[50%] left-[50%] translate-x-[-50%] flex gap-10 justify-between translate-y-[-50%] px-10 py-4 bg-white ring-1 ring-neutral-200 rounded-2xl max-w-[80%] w-full shadow-lg">
