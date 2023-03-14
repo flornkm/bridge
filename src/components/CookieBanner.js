@@ -7,6 +7,9 @@ function CookieBanner({ data, session, id }) {
   const [inputValues, setInputValues] = useState(
     data.content[0].content.map((item) => item.text)
   );
+  const [buttonValues, setButtonValues] = useState(
+    data.content[1].content.map((item) => item.text)
+  );
 
   const styling = (item) => {
     let cssStyles = {};
@@ -35,7 +38,16 @@ function CookieBanner({ data, session, id }) {
       return newValues;
     });
   };
-  
+
+  const handleButtonChange = (event, index) => {
+    const { value } = event.target;
+    setButtonValues((prevState) => {
+      const newValues = [...prevState];
+      newValues[index] = value;
+      return newValues;
+    });
+  };
+
   const handleInputBlur = (index) => {
     // Update the content in the database
     const newContent = JSON.parse(JSON.stringify(data));
@@ -48,13 +60,25 @@ function CookieBanner({ data, session, id }) {
       .then((res) => {
         console.log(res);
       });
-  }
-  
-  
+  };
+
+  const handleButtonBlur = (index) => {
+    // Update the content in the database
+    const newContent = JSON.parse(JSON.stringify(data));
+    newContent.content[1].content[index].text = buttonValues[index];
+    supabase
+      .from("projects")
+      .update({ elements: newContent })
+      .eq("id", id.replace(session.user.id, ""))
+      .eq("owner", session.user.id)
+      .then((res) => {
+        console.log(res);
+      });
+  };
 
   return (
-    <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] px-10 py-4 bg-white ring-1 ring-neutral-200 rounded-2xl max-w-[80%] w-full shadow-lg">
-      <div className="flex flex-col gap-2">
+    <div className="absolute top-[50%] left-[50%] translate-x-[-50%] flex gap-10 justify-between translate-y-[-50%] px-10 py-4 bg-white ring-1 ring-neutral-200 rounded-2xl max-w-[80%] w-full shadow-lg">
+      <div className="flex flex-col gap-2 items-start w-full">
         {data.content[0].content.map((item, index) => {
           return (
             <input
@@ -64,9 +88,36 @@ function CookieBanner({ data, session, id }) {
                 ...styling(item),
                 fontWeight: item.styles["font-weight"],
               }}
+              className="w-full focus:outline-neutral-100 focus:bg-neutral-100 rounded-sm transition-all outline-transparent"
               onChange={(event) => handleInputChange(event, index)}
               onBlur={() => handleInputBlur(index)}
             />
+          );
+        })}
+      </div>
+      <div className="flex gap-6">
+        {data.content[1].content.map((item, index) => {
+          return (
+            <button
+              key={index}
+              style={{
+                ...styling(item),
+                fontWeight: item.styles["font-weight"],
+              }}
+              className="w-full px-8 focus:outline-neutral-100 focus:bg-neutral-100 rounded-xl hover:opacity-90 transition-all"
+            >
+              <input
+                value={buttonValues[index]}
+                onChange={(event) => {
+                  handleButtonChange(event, index);
+                }}
+                onBlur={() => {
+                  handleButtonBlur(index);
+                }}
+                style={{ ...styling(item) }}
+                className="focus:outline-none w-full text-center"
+              />
+            </button>
           );
         })}
       </div>
