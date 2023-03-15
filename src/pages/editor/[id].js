@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import {
   useUser,
   useSupabaseClient,
@@ -8,6 +8,11 @@ import {
 } from "@supabase/auth-helpers-react";
 import * as Icon from "phosphor-react";
 import CookieBanner from "@/components/CookieBanner";
+import { Menu, Transition } from "@headlessui/react";
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 export default function Editor(props) {
   const supabase = useSupabaseClient();
@@ -19,6 +24,13 @@ export default function Editor(props) {
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
 
+  const [colors, setColors] = useState({
+    heading: "#000000",
+    text: "#737373",
+    primary: "#22c55e",
+    secondary: "#ef4444",
+  });
+
   const router = useRouter();
 
   const fetchProjects = async (id, projectId) => {
@@ -27,6 +39,7 @@ export default function Editor(props) {
     );
     const data = await res.json();
     setProject(data);
+    
     setLoading(false);
   };
 
@@ -128,9 +141,9 @@ export default function Editor(props) {
             </div>
           </div>
         </div>
-        {project && project.elements.type === "cookie-banner" && (
+        {project && project.type === "cookieBanner" && (
           <CookieBanner
-            data={project.elements}
+            data={project}
             session={session}
             id={router.query.id}
           />
@@ -142,18 +155,121 @@ export default function Editor(props) {
           </button>
           <div className="w-[1px] bg-neutral-200" />
           <div className="flex">
-          <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
-            <Icon.Drop size={20} weight="bold" />
-            Colors
-          </button>
-          <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
-            <Icon.LineSegment size={20} weight="bold" />
-            Animation
-          </button>
-          <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
-            <Icon.Confetti size={20} weight="bold" />
-            Effects
-          </button>
+            <Menu as="div" className="relative inline-block text-left">
+              <div className="h-full flex items-center">
+                <Menu.Button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
+                  <Icon.Drop size={20} weight="bold" />
+                  Colors
+                </Menu.Button>
+              </div>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute bottom-[80px] left-[50%] translate-x-[-50%] rounded-full bg-white ring-neutral-200 ring-1">
+                  <div className="p-1 font-medium flex items-end">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="#"
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "flex px-4 py-2 text-xs rounded-full flex-col gap-3 items-center w-24"
+                          )}
+                        >
+                          <div
+                            className={
+                              "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                            }
+                            style={{ backgroundColor: colors.heading }}
+                          />
+                          Heading
+                        </a>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="#"
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "flex px-4 py-2 text-xs rounded-full flex-col gap-3 items-center w-24"
+                          )}
+                        >
+                          <div
+                            className={
+                              "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                            }
+                            style={{ backgroundColor: colors.text }}
+                          />
+                          Text
+                        </a>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="#"
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "flex px-4 py-2 text-xs rounded-full flex-col gap-3 items-center w-24"
+                          )}
+                        >
+                          <div
+                            className={
+                              "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                            }
+                            style={{ backgroundColor: colors.primary }}
+                          />
+                          Primary
+                        </a>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="#"
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "flex px-4 py-2 text-xs rounded-full flex-col gap-3 items-center w-24"
+                          )}
+                        >
+                          <div
+                            className={
+                              "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                            }
+                            style={{ backgroundColor: colors.secondary }}
+                          />
+                          Secondary
+                        </a>
+                      )}
+                    </Menu.Item>
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </Menu>
+            <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
+              <Icon.LineSegment size={20} weight="bold" />
+              Animation
+            </button>
+            <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
+              <Icon.Confetti size={20} weight="bold" />
+              Effects
+            </button>
           </div>
         </div>
       </div>
