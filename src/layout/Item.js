@@ -9,6 +9,7 @@ import React, {
 // eslint-disable-next-line react/display-name
 const Item = forwardRef(
   ({ id, index, withOpacity, isDragging, style, ...props }, ref) => {
+
     const inlineStyles = {
       opacity: isDragging ? "0.7" : "1",
       cursor: isDragging ? "grabbing" : "grab",
@@ -18,15 +19,15 @@ const Item = forwardRef(
     };
 
     useEffect(() => {
-      console.log(props);
+      console.log(id);
     }, []);
 
     return (
       <div ref={ref} style={inlineStyles} {...props}>
         {/* {props.items.map((item, index) => {
-          return <p key={index}>{item.text}</p>;
-        })} */}{" "}
-        Test
+          return <p key={index}>{item.text} {props.id}</p>;
+        })} */}
+        <p>Test {id}</p>
       </div>
     );
   }

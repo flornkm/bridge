@@ -7,6 +7,8 @@ import {
   DragOverlay,
   useSensor,
   useSensors,
+  MouseSensor,
+  TouchSensor,
   PointerSensor,
   KeyboardSensor,
   sortableKeyboardCoordinates,
@@ -23,37 +25,49 @@ export default function CookieBanner({ data, session, id }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
-  const [items, setItems] = useState([
-    [
-      {
-        type: "heading",
-        text: "We use cookies",
-      },
-      {
-        type: "text",
-        text: "Please accept",
-      },
-    ],
-    [
-      {
-        type: "primaryButton",
-        text: "Allow",
-      },
-      {
-        type: "secondaryButton",
-        text: "Deny",
-      },
-    ],
-  ]);
+  // const [items, setItems] = useState([
+  //   [
+  //     {
+  //       type: "heading",
+  //       text: "We use cookies",
+  //     },
+  //     {
+  //       type: "text",
+  //       text: "Please accept",
+  //     },
+  //   ],
+  //   [
+  //     {
+  //       type: "primaryButton",
+  //       text: "Allow",
+  //     },
+  //     {
+  //       type: "secondaryButton",
+  //       text: "Deny",
+  //     },
+  //   ],
+  // ]);
+  const [items, setItems] = useState(
+    Array.from({ length: 4 }, (_, i) => (i + 1).toString())
+  );
+
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        tolerance: 5,
+        delay: 150,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        tolerance: 5,
+        delay: 150,
+      },
     })
   );
 
   useEffect(() => {
-    setItems(data.content);
+    // setItems(data.content);
     console.log(items);
   }, [data]);
 
@@ -104,10 +118,12 @@ export default function CookieBanner({ data, session, id }) {
         onDragOver={handleDragOver}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          <div className="flex justify-between w-full relative">
+          <div className="flex justify-between w-full">
             {data &&
-              items.map((item, index) => {
-                return <SortableItem key={index} id={item} items={item} />;
+              items.map((id) => {
+                return (
+                  <SortableItem key={id} id={id} index={items.indexOf(id)} />
+                );
               })}
           </div>
         </SortableContext>
