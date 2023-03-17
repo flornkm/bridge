@@ -5,8 +5,6 @@ import React, {
   CSSProperties,
   useEffect,
 } from "react";
-import dynamic from "next/dynamic";
-import Image from "next/image";
 
 // eslint-disable-next-line react/display-name
 const Item = forwardRef(
@@ -16,16 +14,18 @@ const Item = forwardRef(
       cursor: isDragging ? "grabbing" : "grab",
       boxShadow: isDragging ? "rgb(0 0 0 / 0.1) 0 2px 4px -2px" : "none",
       transform: isDragging ? "scale(1.05)" : "scale(1)",
-      backgroundSize: "cover",
-      top: "0",
-      objectFit: "cover",
-      transformOrigin: "0 0",
-      gridRow: index === 1 || index === 2 ? "span 2 / span 2" : null,
       ...style,
     };
 
+    useEffect(() => {
+      console.log(props);
+    }, []);
+
     return (
       <div ref={ref} style={inlineStyles} {...props}>
+        {/* {props.items.map((item, index) => {
+          return <p key={index}>{item.text}</p>;
+        })} */}{" "}
         Test
       </div>
     );

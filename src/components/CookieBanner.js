@@ -4,18 +4,18 @@ import debounce from "lodash/debounce";
 import {
   DndContext,
   closestCenter,
-  MouseSensor,
-  TouchSensor,
   DragOverlay,
-  useSensor,s
+  useSensor,
   useSensors,
+  PointerSensor,
+  KeyboardSensor,
+  sortableKeyboardCoordinates,
 } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
-  rectSortingStrategy,
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import Grid from "@/layout/Grid";
 import SortableItem from "@/layout/SortableItem";
 import Item from "@/layout/Item";
 
@@ -104,12 +104,12 @@ export default function CookieBanner({ data, session, id }) {
         onDragOver={handleDragOver}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          <Grid columns={3}>
+          <div className="flex justify-between w-full relative">
             {data &&
               items.map((item, index) => {
-                return <SortableItem key={index} id={item} itemArray={item} />;
+                return <SortableItem key={index} id={item} items={item} />;
               })}
-          </Grid>
+          </div>
         </SortableContext>
         <DragOverlay adjustScale={true}>
           {activeId ? <Item id={activeId} isDragging /> : null}
