@@ -4,23 +4,22 @@ import debounce from "lodash/debounce";
 import {
   DndContext,
   closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
+  MouseSensor,
+  TouchSensor,
+  DragOverlay,
+  useSensor,s
   useSensors,
 } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-  DragOverlay,
+  rectSortingStrategy,
 } from "@dnd-kit/sortable";
-import { SortableItem } from "./SortableItem";
 import Grid from "@/layout/Grid";
+import SortableItem from "@/layout/SortableItem";
 import Item from "@/layout/Item";
 
-function CookieBanner({ data, session, id }) {
+export default function CookieBanner({ data, session, id }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
@@ -108,7 +107,7 @@ function CookieBanner({ data, session, id }) {
           <Grid columns={3}>
             {data &&
               items.map((item, index) => {
-                return <SortableItem key={index} itemArray={item} />;
+                return <SortableItem key={index} id={item} itemArray={item} />;
               })}
           </Grid>
         </SortableContext>
@@ -119,5 +118,3 @@ function CookieBanner({ data, session, id }) {
     </div>
   );
 }
-
-export default CookieBanner;

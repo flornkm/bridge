@@ -1,32 +1,36 @@
-import React, { FC } from "react";
+import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import Item from "@/layout/Item";
 
 const SortableItem = (props) => {
   const {
-    isDragging,
     attributes,
     listeners,
     setNodeRef,
     transform,
-    transition,
+    transition
   } = useSortable({ id: props.id });
 
-  const style = {
+  const itemStyle = {
     transform: CSS.Transform.toString(transform),
-    transition: transition || undefined,
+    transition,
+    width: 110,
+    height: 30,
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: 5,
+    border: "1px solid gray",
+    borderRadius: 5,
+    marginBottom: 5,
+    userSelect: "none",
+    cursor: "grab",
+    boxSizing: "border-box"
   };
 
   return (
-    <Item
-      ref={setNodeRef}
-      style={style}
-      withOpacity={isDragging}
-      {...props}
-      {...attributes}
-      {...listeners}
-    />
+    <div style={itemStyle} ref={setNodeRef} {...attributes} {...listeners}>
+      Item {props.id.text}
+    </div>
   );
 };
 
