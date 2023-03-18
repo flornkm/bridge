@@ -15,19 +15,15 @@ const Item = forwardRef(
       cursor: isDragging ? "grabbing" : "grab",
       boxShadow: isDragging ? "rgb(0 0 0 / 0.1) 0 2px 4px -2px" : "none",
       transform: isDragging ? "scale(1.05)" : "scale(1)",
+      objectFit: "cover",
       ...style,
     };
 
-    useEffect(() => {
-      console.log(id);
-    }, []);
-
     return (
       <div ref={ref} style={inlineStyles} {...props}>
-        {/* {props.items.map((item, index) => {
-          return <p key={index}>{item.text} {props.id}</p>;
-        })} */}
-        <p>Test {id}</p>
+        {props.items.content.map((item) => {
+          return <p key={index}>{item.text} {id}</p>;
+        })}
       </div>
     );
   }

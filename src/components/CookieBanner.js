@@ -25,31 +25,7 @@ export default function CookieBanner({ data, session, id }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
-  // const [items, setItems] = useState([
-  //   [
-  //     {
-  //       type: "heading",
-  //       text: "We use cookies",
-  //     },
-  //     {
-  //       type: "text",
-  //       text: "Please accept",
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       type: "primaryButton",
-  //       text: "Allow",
-  //     },
-  //     {
-  //       type: "secondaryButton",
-  //       text: "Deny",
-  //     },
-  //   ],
-  // ]);
-  const [items, setItems] = useState(
-    Array.from({ length: 4 }, (_, i) => (i + 1).toString())
-  );
+  const [items, setItems] = useState(data.content);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -66,10 +42,16 @@ export default function CookieBanner({ data, session, id }) {
     })
   );
 
-  useEffect(() => {
-    // setItems(data.content);
-    console.log(items);
-  }, [data]);
+  const update = async (items) => {
+    supabase
+      .from("projects")
+      .update({ content: items })
+      .eq("id", id.replace(session.user.id, ""))
+      .eq("owner", session.user.id)
+      .then((res) => {
+        console.log(res);
+      });
+  };
 
   const handleDragStart = useCallback((event) => {
     setActiveId(event.active.id);
@@ -80,8 +62,8 @@ export default function CookieBanner({ data, session, id }) {
 
     if (active.id !== over?.id) {
       setItems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
 
         return arrayMove(items, oldIndex, newIndex);
       });
@@ -99,11 +81,13 @@ export default function CookieBanner({ data, session, id }) {
 
     if (active.id !== over?.id) {
       setItems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
 
         return arrayMove(items, oldIndex, newIndex);
       });
+
+      console.log(items);
     }
   }, []);
 
@@ -120,16 +104,21 @@ export default function CookieBanner({ data, session, id }) {
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
           <div className="flex justify-between w-full">
             {data &&
-              items.map((id) => {
+              items.map((item, index) => {
                 return (
-                  <SortableItem key={id} id={id} index={items.indexOf(id)} />
+                  <SortableItem
+                    key={index}
+                    id={item.id}
+                    index={index}
+                    items={item}
+                  />
                 );
               })}
           </div>
         </SortableContext>
-        <DragOverlay adjustScale={true}>
+        {/* <DragOverlay adjustScale={true}>
           {activeId ? <Item id={activeId} isDragging /> : null}
-        </DragOverlay>
+        </DragOverlay> */}
       </DndContext>
     </div>
   );
