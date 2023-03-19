@@ -15,6 +15,7 @@ const Item = forwardRef(
       cursor: isDragging ? "grabbing" : "grab",
       boxShadow: isDragging ? "rgb(0 0 0 / 0.1) 0 2px 4px -2px" : "none",
       transform: isDragging ? "scale(1.05)" : "scale(1)",
+      transition: "all 0.2s ease",
       objectFit: "cover",
       ...style,
     };

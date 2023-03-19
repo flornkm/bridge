@@ -86,8 +86,6 @@ export default function CookieBanner({ data, session, id }) {
 
         return arrayMove(items, oldIndex, newIndex);
       });
-
-      console.log(items);
     }
   }, []);
 
@@ -116,9 +114,9 @@ export default function CookieBanner({ data, session, id }) {
               })}
           </div>
         </SortableContext>
-        {/* <DragOverlay adjustScale={true}>
-          {activeId ? <Item id={activeId} isDragging /> : null}
-        </DragOverlay> */}
+        <DragOverlay adjustScale={true}>
+          {activeId ? <Item id={activeId} items={items[activeId-1]} isDragging /> : null}
+        </DragOverlay>
       </DndContext>
     </div>
   );
