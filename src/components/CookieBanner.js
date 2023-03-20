@@ -53,6 +53,18 @@ export default function CookieBanner({ data, session, id }) {
       });
   };
 
+  const changeInput = (e, id, index) => {
+    console.log(e.target.value, id, index);
+
+    // change the value of the input
+    setItems(() => {
+      items[id-1].content[index].text = e.target.value;
+      return items;
+    });
+
+    e.target.value = items[id-1].content[index].text;
+  };
+
   const handleDragStart = useCallback((event) => {
     setActiveId(event.active.id);
   }, []);
@@ -111,7 +123,8 @@ export default function CookieBanner({ data, session, id }) {
                     id={item.id}
                     index={index}
                     items={item}
-                    className={item.content[0].type.includes("heading") ? "text-2xl font-semibold" : "text-base flex gap-4 items-center" + " bg-transparent"}
+                    changeInput={changeInput}
+                    className={item.content[0].type.includes("heading") ? "text-2xl" : "text-base flex gap-4 items-center" + " bg-transparent"}
                     colors={data.colors}
                   />
                 );

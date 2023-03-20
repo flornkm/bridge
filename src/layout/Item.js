@@ -19,10 +19,6 @@ const Item = forwardRef(
       ...style,
     };
 
-    useEffect(() => {
-      console.log(props.colors);
-    }, []);
-
     return (
       <div ref={ref} style={inlineStyles} {...props}>
         {props.items.content.map((item, index) => {
@@ -30,8 +26,9 @@ const Item = forwardRef(
             return (
               <input
                 key={index}
+                onChange={(e) => props.changeInput(e, id, index)}
                 type="text"
-                value={item.text}
+                value={item.text + " " + id}
                 className="text-2xl font-semibold w-full bg-transparent"
                 style={{ color: props.colors.heading }}
               />
@@ -40,6 +37,7 @@ const Item = forwardRef(
             return (
               <input
                 key={index}
+                onChange={(e) => props.changeInput(e, id, index)}
                 type="text"
                 value={item.text}
                 className="text-base w-full bg-transparent"
@@ -53,6 +51,7 @@ const Item = forwardRef(
             return (
               <input
                 key={index}
+                onChange={(e) => props.changeInput(e, id, index)}
                 type="text"
                 value={item.text}
                 className="px-8 py-4 font-medium transition-all hover:opacity-80 cursor-pointer text-white rounded-lg text-center"
