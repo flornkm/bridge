@@ -84,8 +84,10 @@ export default function CookieBanner({ data, session, id }) {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over.id);
 
+        update(arrayMove(items, oldIndex, newIndex));
         return arrayMove(items, oldIndex, newIndex);
       });
+      
     }
   }, []);
 
@@ -100,7 +102,7 @@ export default function CookieBanner({ data, session, id }) {
         onDragOver={handleDragOver}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between w-full max-md:flex-col max-md:gap-8">
             {data &&
               items.map((item, index) => {
                 return (
@@ -109,14 +111,13 @@ export default function CookieBanner({ data, session, id }) {
                     id={item.id}
                     index={index}
                     items={item}
+                    className={item.content[0].type.includes("heading") ? "text-2xl font-semibold" : "text-base flex gap-4 items-center" + " bg-transparent"}
+                    colors={data.colors}
                   />
                 );
               })}
           </div>
         </SortableContext>
-        <DragOverlay adjustScale={true}>
-          {activeId ? <Item id={activeId} items={items[activeId-1]} isDragging /> : null}
-        </DragOverlay>
       </DndContext>
     </div>
   );
