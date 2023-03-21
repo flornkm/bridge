@@ -25,7 +25,7 @@ export default function CookieBanner({ data, session, id }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
-  const [items, setItems] = useState(data.content);
+  const [items, setItems] = useState([...data.content]);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -54,15 +54,16 @@ export default function CookieBanner({ data, session, id }) {
   };
 
   const changeInput = (e, id, index) => {
-    console.log(e.target.value, id, index);
-
-    // change the value of the input
-    setItems(() => {
-      items[id-1].content[index].text = e.target.value;
-      return items;
+    setItems((items) => {
+      const newItems = [...items];
+      const itemIndex = newItems.findIndex((item) => item.id === id);
+      newItems[itemIndex].content[index].text = e.target.value;
+      return newItems;
     });
+  };
 
-    e.target.value = items[id-1].content[index].text;
+  const handleBlur = () => {
+    update(items);
   };
 
   const handleDragStart = useCallback((event) => {
@@ -99,7 +100,7 @@ export default function CookieBanner({ data, session, id }) {
         update(arrayMove(items, oldIndex, newIndex));
         return arrayMove(items, oldIndex, newIndex);
       });
-      
+
     }
   }, []);
 
@@ -123,6 +124,8 @@ export default function CookieBanner({ data, session, id }) {
                     id={item.id}
                     index={index}
                     items={item}
+                    setItems={setItems}
+                    onBlur={handleBlur}
                     changeInput={changeInput}
                     className={item.content[0].type.includes("heading") ? "text-2xl" : "text-base flex gap-4 items-center" + " bg-transparent"}
                     colors={data.colors}

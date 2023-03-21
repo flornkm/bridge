@@ -4,6 +4,7 @@ import React, {
   HTMLAttributes,
   CSSProperties,
   useEffect,
+  useState,
 } from "react";
 
 // eslint-disable-next-line react/display-name
@@ -26,9 +27,12 @@ const Item = forwardRef(
             return (
               <input
                 key={index}
-                onChange={(e) => props.changeInput(e, id, index)}
+                onChange={(e) => {
+                  props.changeInput(e, id, index)
+                }}
+                onBlur={props.handleBlur}
                 type="text"
-                value={item.text + " " + id}
+                value={item.text}
                 className="text-2xl font-semibold w-full bg-transparent"
                 style={{ color: props.colors.heading }}
               />
@@ -37,7 +41,10 @@ const Item = forwardRef(
             return (
               <input
                 key={index}
-                onChange={(e) => props.changeInput(e, id, index)}
+                onChange={(e) => {
+                  props.changeInput(e, id, index)
+                }}
+                onBlur={props.handleBlur}
                 type="text"
                 value={item.text}
                 className="text-base w-full bg-transparent"
@@ -51,10 +58,14 @@ const Item = forwardRef(
             return (
               <input
                 key={index}
-                onChange={(e) => props.changeInput(e, id, index)}
+                onChange={(e) => {
+                  // change this input value
+                  props.changeInput(e, id, index)
+                }}
+                onBlur={props.handleBlur}
                 type="text"
                 value={item.text}
-                className="px-8 py-4 font-medium transition-all hover:opacity-80 cursor-pointer text-white rounded-lg text-center"
+                className="px-8 py-4 font-medium transition-all hover:opacity-80 text-white rounded-lg text-center"
                 style={{
                   backgroundColor: props.colors[item.type],
                 }}
