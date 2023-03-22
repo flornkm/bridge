@@ -8,7 +8,9 @@ import {
 } from "@supabase/auth-helpers-react";
 import * as Icon from "phosphor-react";
 import CookieBanner from "@/components/CookieBanner";
-import { Menu, Transition } from "@headlessui/react";
+import { Popover, Transition } from '@headlessui/react'
+import { TwitterPicker } from "react-color";
+import { update } from "lodash";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -23,12 +25,13 @@ export default function Editor(props) {
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
+  const [colorSetting, setColorSetting] = useState(false);
 
   const [colors, setColors] = useState({
     heading: "#000000",
     text: "#737373",
-    primary: "#22c55e",
-    secondary: "#ef4444",
+    primaryButton: "#22c55e",
+    secondaryButton: "#ef4444",
   });
 
   const router = useRouter();
@@ -39,7 +42,12 @@ export default function Editor(props) {
     );
     const data = await res.json();
     setProject(data);
-    
+    setColors({
+      heading: data.colors.heading,
+      text: data.colors.text,
+      primaryButton: data.colors.primaryButton,
+      secondaryButton: data.colors.secondaryButton,
+    });
     setLoading(false);
   };
 
@@ -65,6 +73,17 @@ export default function Editor(props) {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async function updateColors(color, type) {
+    supabase
+      .from("projects")
+      .update({ colors: { ...colors, [type]: color } })
+      .eq("id", router.query.id.replace(session.user.id, ""))
+      .eq("owner", session.user.id)
+      .then((res) => {
+        console.log(res);
+      });
   }
 
   async function downloadImage(path) {
@@ -146,132 +165,274 @@ export default function Editor(props) {
             data={project}
             session={session}
             id={router.query.id}
+            colors={colors}
           />
         )}
-        <div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
-          <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
-            <Icon.Plus size={20} weight="bold" />
-            Add
-          </button>
-          <div className="w-[1px] bg-neutral-200" />
-          <div className="flex">
-            <Menu as="div" className="relative inline-block text-left">
-              <div className="h-full flex items-center">
-                <Menu.Button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
-                  <Icon.Drop size={20} weight="bold" />
-                  Colors
-                </Menu.Button>
-              </div>
-
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute bottom-[80px] left-[50%] translate-x-[-50%] rounded-full bg-white ring-neutral-200 ring-1">
-                  <div className="p-1 font-medium flex items-end">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "flex px-4 py-2 text-xs rounded-full flex-col gap-3 items-center w-24"
-                          )}
-                        >
-                          <div
-                            className={
-                              "rounded-full h-6 w-6 ring-1 ring-neutral-300"
-                            }
-                            style={{ backgroundColor: colors.heading }}
-                          />
-                          Heading
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "flex px-4 py-2 text-xs rounded-full flex-col gap-3 items-center w-24"
-                          )}
-                        >
-                          <div
-                            className={
-                              "rounded-full h-6 w-6 ring-1 ring-neutral-300"
-                            }
-                            style={{ backgroundColor: colors.text }}
-                          />
-                          Text
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "flex px-4 py-2 text-xs rounded-full flex-col gap-3 items-center w-24"
-                          )}
-                        >
-                          <div
-                            className={
-                              "rounded-full h-6 w-6 ring-1 ring-neutral-300"
-                            }
-                            style={{ backgroundColor: colors.primary }}
-                          />
-                          Primary
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "flex px-4 py-2 text-xs rounded-full flex-col gap-3 items-center w-24"
-                          )}
-                        >
-                          <div
-                            className={
-                              "rounded-full h-6 w-6 ring-1 ring-neutral-300"
-                            }
-                            style={{ backgroundColor: colors.secondary }}
-                          />
-                          Secondary
-                        </a>
-                      )}
-                    </Menu.Item>
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
-            <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
-              <Icon.LineSegment size={20} weight="bold" />
-              Animation
+        <Transition
+          show={!colorSetting}
+          enter="transition-opacity duration-75"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+            <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
+              <Icon.Plus size={20} weight="bold" />
+              Add
             </button>
-            <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
-              <Icon.Confetti size={20} weight="bold" />
-              Effects
-            </button>
+            <div className="w-[1px] bg-neutral-200" />
+            <div className="flex">
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setColorSetting(true) }}>
+                <Icon.Drop size={20} weight="bold" />
+                Colors
+              </button>
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
+                <Icon.LineSegment size={20} weight="bold" />
+                Animation
+              </button>
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
+                <Icon.Confetti size={20} weight="bold" />
+                Effects
+              </button>
+            </div>
           </div>
-        </div>
+        </Transition>
+        <Transition
+          show={colorSetting}
+          enter="transition-opacity duration-75"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+            <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setColorSetting(false) }}>
+              <Icon.ArrowLeft size={20} weight="bold" />
+              Back
+            </button>
+            <div className="w-[1px] bg-neutral-200" />
+            <div className="flex">
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <Popover className="relative">
+                  <Popover.Button className="flex gap-2 transition-all hover:opacity-80"><div
+                    className={
+                      "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                    }
+                    style={{ backgroundColor: colors.heading }}
+                  />
+                    Heading</Popover.Button>
+
+                  <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
+                    <TwitterPicker
+                      className="bg-white p-2"
+                      styles={{
+                        default: {
+                          card: {
+                            boxShadow: "none",
+                            border: "1px solid #e5e7eb",
+                            borderRadius: "1rem",
+                          },
+                          colorSettings: {
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "1rem",
+                          }
+                        },
+                      }}
+                      color={colors.heading}
+                      onBlur={() => {
+                        console.log("blur");
+                      }}
+                      onChangeComplete={(color) => {
+                        setColors({ ...colors, heading: color.hex });
+                        updateColors(color.hex, "heading");
+                      }}
+                      triangle="hide"
+                      width="330px"
+                      colors={[
+                        "#ffffff",
+                        "#f9fafb",
+                        "#f3f4f6",
+                        "#e5e7eb",
+                        "#d1d5db",
+                        "#9ca3af",
+                        "#6b7280",
+                        "#4b5563",
+                        "#374151",
+                        "#1f2937",
+                        "#111827",
+                      ]}
+                    />
+                  </Popover.Panel>
+                </Popover>
+              </button>
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <Popover className="relative">
+                  <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                    <div
+                      className={
+                        "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                      }
+                      style={{ backgroundColor: colors.text }}
+                    />
+                    Text</Popover.Button>
+
+                  <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
+                    <TwitterPicker
+                      className="bg-white p-2"
+                      styles={{
+                        default: {
+                          card: {
+                            boxShadow: "none",
+                            border: "1px solid #e5e7eb",
+                            borderRadius: "1rem",
+                          },
+                          colorSettings: {
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "1rem",
+                          }
+                        },
+                      }}
+                      color={colors.heading}
+                      onBlur={() => {
+                        console.log("blur");
+                      }}
+                      onChangeComplete={(color) => {
+                        setColors({ ...colors, text: color.hex });
+                        updateColors(color.hex, "text");
+                      }}
+                      triangle="hide"
+                      width="330px"
+                      colors={[
+                        "#ffffff",
+                        "#f9fafb",
+                        "#f3f4f6",
+                        "#e5e7eb",
+                        "#d1d5db",
+                        "#9ca3af",
+                        "#6b7280",
+                        "#4b5563",
+                        "#374151",
+                        "#1f2937",
+                        "#111827",
+                      ]}
+                    />
+                  </Popover.Panel>
+                </Popover>
+              </button>
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <Popover className="relative">
+                  <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                    <div
+                      className={
+                        "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                      }
+                      style={{ backgroundColor: colors.primaryButton }}
+                    />
+                    Primary</Popover.Button>
+
+                  <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
+                    <TwitterPicker
+                      className="bg-white p-2"
+                      styles={{
+                        default: {
+                          card: {
+                            boxShadow: "none",
+                            border: "1px solid #e5e7eb",
+                            borderRadius: "1rem",
+                          },
+                          colorSettings: {
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "1rem",
+                          }
+                        },
+                      }}
+                      color={colors.primaryButton}
+                      onBlur={() => {
+                        console.log("blur");
+                      }}
+                      onChangeComplete={(color) => {
+                        setColors({ ...colors, primaryButton: color.hex });
+                        updateColors(color.hex, "primaryButton");
+                      }}
+                      triangle="hide"
+                      width="330px"
+                      colors={[
+                        "#22c55e",
+                        "#10b981",
+                        "#06b6d4",
+                        "#0ea5e9",
+                      ]}
+                    />
+                  </Popover.Panel>
+                </Popover>
+              </button>
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <Popover className="relative">
+                  <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                    <div
+                      className={
+                        "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                      }
+                      style={{ backgroundColor: colors.secondaryButton }}
+                    />
+                    Secondary</Popover.Button>
+
+                  <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
+                    <TwitterPicker
+                      className="bg-white p-2"
+                      styles={{
+                        default: {
+                          card: {
+                            boxShadow: "none",
+                            border: "1px solid #e5e7eb",
+                            borderRadius: "1rem",
+                          },
+                          colorSettings: {
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "1rem",
+                          }
+                        },
+                      }}
+                      color={colors.secondaryButton}
+                      onBlur={() => {
+                        console.log("blur");
+                      }}
+                      onChangeComplete={(color) => {
+                        setColors({ ...colors, secondaryButton: color.hex });
+                        updateColors(color.hex, "secondaryButton");
+                      }}
+                      triangle="hide"
+                      width="330px"
+                      colors={[
+                        // some red tailwind colors
+                        "#ef4444",
+                        "#fbbf24",
+                        "#f59e0b",
+                      ]}
+                    />
+                  </Popover.Panel>
+                </Popover>
+              </button>
+            </div>
+          </div>
+        </Transition>
       </div>
     )
   );

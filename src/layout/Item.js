@@ -33,7 +33,7 @@ const Item = forwardRef(
                 onBlur={props.handleBlur}
                 type="text"
                 value={item.text}
-                className="text-2xl font-semibold w-full bg-transparent"
+                className="text-2xl font-semibold w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
                 style={{ color: props.colors.heading }}
               />
             );
@@ -47,7 +47,7 @@ const Item = forwardRef(
                 onBlur={props.handleBlur}
                 type="text"
                 value={item.text}
-                className="text-base w-full bg-transparent"
+                className="text-base w-full bg-transparent focus:outline-none transition-all rounded-md focus:bg-neutral-100 px-1"
                 style={{ color: props.colors.text }}
               />
             );
@@ -65,7 +65,7 @@ const Item = forwardRef(
                 onBlur={props.handleBlur}
                 type="text"
                 value={item.text}
-                className="px-8 py-4 font-medium transition-all hover:opacity-80 text-white rounded-lg text-center"
+                className="px-8 py-4 font-medium transition-all hover:opacity-80 text-white rounded-lg text-center focus:outline-none"
                 style={{
                   backgroundColor: props.colors[item.type],
                 }}

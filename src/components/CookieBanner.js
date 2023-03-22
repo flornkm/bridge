@@ -21,7 +21,7 @@ import {
 import SortableItem from "@/layout/SortableItem";
 import Item from "@/layout/Item";
 
-export default function CookieBanner({ data, session, id }) {
+export default function CookieBanner({ data, session, id, colors }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
@@ -128,7 +128,7 @@ export default function CookieBanner({ data, session, id }) {
                     onBlur={handleBlur}
                     changeInput={changeInput}
                     className={item.content[0].type.includes("heading") ? "text-2xl" : "text-base flex gap-4 items-center" + " bg-transparent"}
-                    colors={data.colors}
+                    colors={colors}
                   />
                 );
               })}
