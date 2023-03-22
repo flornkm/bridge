@@ -11,6 +11,7 @@ import CookieBanner from "@/components/CookieBanner";
 import { Popover, Transition } from '@headlessui/react'
 import { TwitterPicker } from "react-color";
 import { update } from "lodash";
+import { data } from "autoprefixer";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -27,6 +28,11 @@ export default function Editor(props) {
   const [project, setProject] = useState(null);
   const [colorSetting, setColorSetting] = useState(false);
   const [animationSetting, setAnimationSetting] = useState(false);
+  const [animCount, setAnimCount] = useState("1");
+  const [activeAnim, setActiveAnim] = useState({
+    animIn: "fadeIn 1s ease-in-out",
+    animOut: "fadeOut 1s ease-in-out",
+  });
 
   const [colors, setColors] = useState({
     heading: "#000000",
@@ -36,14 +42,31 @@ export default function Editor(props) {
   });
 
   const [animations, setAnimations] = useState({
-    animIn: "fadeIn 0.5s ease-in-out",
-    animOut: "fadeOut 0.5s ease-in-out",
+    animIn: "fadeIn 1s ease-in-out",
+    animOut: "fadeOut 1s ease-in-out",
   });
 
-  const [animationShowcase, setAnimationShowcase] = useState({
-    animIn: "fadeIn 0.5s ease-in-out",
-    animOut: "fadeOut 0.5s ease-in-out",
-  });
+  const colorStyles = {
+    default: {
+      card: {
+        boxShadow: "none",
+        border: "1px solid #e5e7eb",
+        borderRadius: "1rem",
+      },
+      colorSettings: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1rem",
+      },
+      swatch: {
+        borderRadius: "1000px",
+        boxShadow: "0 0 0 1px rgba(0,0,0,.1)",
+      },
+    }
+  }
 
   const router = useRouter();
 
@@ -58,6 +81,14 @@ export default function Editor(props) {
       text: data.colors.text,
       primaryButton: data.colors.primaryButton,
       secondaryButton: data.colors.secondaryButton,
+    });
+    setAnimations({
+      animIn: data.animation.animIn,
+      animOut: data.animation.animOut,
+    });
+    setActiveAnim({
+      animIn: data.animation.animIn,
+      animOut: data.animation.animOut,
     });
     setLoading(false);
   };
@@ -90,6 +121,16 @@ export default function Editor(props) {
     supabase
       .from("projects")
       .update({ colors: { ...colors, [type]: color } })
+      .eq("id", router.query.id.replace(session.user.id, ""))
+      .eq("owner", session.user.id)
+      .then((res) => {
+      });
+  }
+
+  async function updateAnimations(anim, type) {
+    supabase
+      .from("projects")
+      .update({ animation: { ...animations, [type]: anim } })
       .eq("id", router.query.id.replace(session.user.id, ""))
       .eq("owner", session.user.id)
       .then((res) => {
@@ -177,6 +218,7 @@ export default function Editor(props) {
             id={router.query.id}
             colors={colors}
             animations={animations}
+            animCount={animCount}
           />
         )}
         <Transition
@@ -237,23 +279,7 @@ export default function Editor(props) {
                   <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                     <TwitterPicker
                       className="bg-white p-2"
-                      styles={{
-                        default: {
-                          card: {
-                            boxShadow: "none",
-                            border: "1px solid #e5e7eb",
-                            borderRadius: "1rem",
-                          },
-                          colorSettings: {
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            padding: "1rem",
-                          }
-                        },
-                      }}
+                      styles={colorStyles}
                       color={colors.heading}
                       onBlur={() => {
                         console.log("blur");
@@ -295,23 +321,7 @@ export default function Editor(props) {
                   <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                     <TwitterPicker
                       className="bg-white p-2"
-                      styles={{
-                        default: {
-                          card: {
-                            boxShadow: "none",
-                            border: "1px solid #e5e7eb",
-                            borderRadius: "1rem",
-                          },
-                          colorSettings: {
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            padding: "1rem",
-                          }
-                        },
-                      }}
+                      styles={colorStyles}
                       color={colors.heading}
                       onBlur={() => {
                         console.log("blur");
@@ -353,23 +363,7 @@ export default function Editor(props) {
                   <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                     <TwitterPicker
                       className="bg-white p-2"
-                      styles={{
-                        default: {
-                          card: {
-                            boxShadow: "none",
-                            border: "1px solid #e5e7eb",
-                            borderRadius: "1rem",
-                          },
-                          colorSettings: {
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            padding: "1rem",
-                          }
-                        },
-                      }}
+                      styles={colorStyles}
                       color={colors.primaryButton}
                       onBlur={() => {
                         console.log("blur");
@@ -404,23 +398,7 @@ export default function Editor(props) {
                   <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                     <TwitterPicker
                       className="bg-white p-2"
-                      styles={{
-                        default: {
-                          card: {
-                            boxShadow: "none",
-                            border: "1px solid #e5e7eb",
-                            borderRadius: "1rem",
-                          },
-                          colorSettings: {
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            padding: "1rem",
-                          }
-                        },
-                      }}
+                      styles={colorStyles}
                       color={colors.secondaryButton}
                       onBlur={() => {
                         console.log("blur");
@@ -463,20 +441,84 @@ export default function Editor(props) {
                 <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
                   <Icon.ArrowLineRight size={20} weight="bold" />
                   Animation In</Popover.Button>
-                <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-xl flex gap-4 p-2 w-40 justify-center bg-white ring-1 ring-neutral-200" >
+                <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-xl flex gap-4 p-1 w-56 justify-between bg-white ring-1 ring-neutral-200" >
                   <p onClick={() => {
-                    setAnimations({
-                      ...animations,
-                      animationIn: "fadeIn 0.5s ease-in-out",
-                    });
-                  }}>Fade in</p>
-                  <p>Slide in</p>
+                    updateAnimations("fadeIn 1s ease-in-out", "animIn");
+                    setActiveAnim({ ...activeAnim, animIn: "fadeIn 1s ease-in-out" });
+                  }}
+                    onMouseOver={() => {
+                      setAnimations({
+                        ...animations,
+                        animIn: "fadeIn 1s ease-in-out",
+                      });
+                      setAnimCount("infinite");
+                    }}
+                    onMouseOut={() => {
+                      setAnimCount("1");
+                    }}
+                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (activeAnim.animIn === "fadeIn 1s ease-in-out" ? "bg-black text-white" : "bg-white text-black")}
+                  >Fade in</p>
+                  <p
+                    onClick={() => {
+                      updateAnimations("slideIn 1s ease-in-out", "animIn");
+                      setActiveAnim({ ...activeAnim, animIn: "slideIn 1s ease-in-out" });
+                    }}
+                    onMouseOver={() => {
+                      setAnimations({
+                        ...animations,
+                        animIn: "slideIn 1s ease-in-out",
+                      });
+                      setAnimCount("infinite");
+                    }}
+                    onMouseOut={() => {
+                      setAnimCount("1");
+                    }}
+                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (activeAnim.animIn === "slideIn 1s ease-in-out" ? "bg-black text-white" : "bg-white text-black")}
+                  >Slide in</p>
                 </Popover.Panel>
               </Popover>
             </button>
             <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setAnimationSetting(true) }}>
-              <Icon.ArrowLineLeft size={20} weight="bold" />
-              Animation Out
+              <Popover className="relative">
+                <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                  <Icon.ArrowLineLeft size={20} weight="bold" />
+                  Animation Out</Popover.Button>
+                <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-xl flex gap-4 p-1 w-56 justify-between bg-white ring-1 ring-neutral-200" >
+                  <p onClick={() => {
+                    updateAnimations("fadeOut 1s ease-in-out", "animOut");
+                    setActiveAnim({ ...activeAnim, animOut: "fadeOut 1s ease-in-out" });
+                  }}
+                    onMouseOver={() => {
+                      setAnimations({
+                        ...animations,
+                        animIn: "fadeOut 1s ease-in-out",
+                      });
+                      setAnimCount("infinite");
+                    }}
+                    onMouseOut={() => {
+                      setAnimCount("1");
+                    }}
+                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (activeAnim.animOut === "fadeOut 1s ease-in-out" ? "bg-black text-white" : "bg-white text-black")}
+                  >Fade out</p>
+                  <p
+                    onClick={() => {
+                      updateAnimations("slideOut 1s ease-in-out", "animOut");
+                      setActiveAnim({ ...activeAnim, animOut: "slideOut 1s ease-in-out" });
+                    }}
+                    onMouseOver={() => {
+                      setAnimations({
+                        ...animations,
+                        animIn: "slideOut 1s ease-in-out",
+                      });
+                      setAnimCount("infinite");
+                    }}
+                    onMouseOut={() => {
+                      setAnimCount("1");
+                    }}
+                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (activeAnim.animOut === "slideOut 1s ease-in-out" ? "bg-black text-white" : "bg-white text-black")}
+                  >Slide out</p>
+                </Popover.Panel>
+              </Popover>
             </button>
           </div>
         </Transition>

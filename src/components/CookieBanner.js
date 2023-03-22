@@ -21,7 +21,7 @@ import {
 import SortableItem from "@/layout/SortableItem";
 import Item from "@/layout/Item";
 
-export default function CookieBanner({ data, session, id, colors, animations }) {
+export default function CookieBanner({ data, session, id, colors, animations, animCount }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
@@ -104,7 +104,7 @@ export default function CookieBanner({ data, session, id, colors, animations }) 
   }, []);
 
   return (
-    <div style={{animation: animations.animIn}} className="absolute top-[50%] left-[50%] translate-x-[-50%] flex gap-10 justify-between translate-y-[-50%] px-10 py-4 bg-white ring-1 ring-neutral-200 rounded-2xl max-w-[80%] w-full shadow-lg">
+    <div style={{animation: animations.animIn, animationIterationCount: animCount}} className="absolute top-[50%] left-[50%] translate-x-[-50%] flex gap-10 justify-between translate-y-[-50%] px-10 py-4 bg-white ring-1 ring-neutral-200 rounded-2xl max-w-[80%] w-full shadow-lg">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
