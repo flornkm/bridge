@@ -26,12 +26,23 @@ export default function Editor(props) {
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
   const [colorSetting, setColorSetting] = useState(false);
+  const [animationSetting, setAnimationSetting] = useState(false);
 
   const [colors, setColors] = useState({
     heading: "#000000",
     text: "#737373",
     primaryButton: "#22c55e",
     secondaryButton: "#ef4444",
+  });
+
+  const [animations, setAnimations] = useState({
+    animIn: "fadeIn 0.5s ease-in-out",
+    animOut: "fadeOut 0.5s ease-in-out",
+  });
+
+  const [animationShowcase, setAnimationShowcase] = useState({
+    animIn: "fadeIn 0.5s ease-in-out",
+    animOut: "fadeOut 0.5s ease-in-out",
   });
 
   const router = useRouter();
@@ -82,7 +93,6 @@ export default function Editor(props) {
       .eq("id", router.query.id.replace(session.user.id, ""))
       .eq("owner", session.user.id)
       .then((res) => {
-        console.log(res);
       });
   }
 
@@ -166,10 +176,11 @@ export default function Editor(props) {
             session={session}
             id={router.query.id}
             colors={colors}
+            animations={animations}
           />
         )}
         <Transition
-          show={!colorSetting}
+          show={!colorSetting && !animationSetting}
           enter="transition-opacity duration-75"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -187,7 +198,7 @@ export default function Editor(props) {
                 <Icon.Drop size={20} weight="bold" />
                 Colors
               </button>
-              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setAnimationSetting(true) }}>
                 <Icon.LineSegment size={20} weight="bold" />
                 Animation
               </button>
@@ -431,6 +442,42 @@ export default function Editor(props) {
                 </Popover>
               </button>
             </div>
+          </div>
+        </Transition>
+        <Transition
+          show={animationSetting}
+          enter="transition-opacity duration-75"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+            <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setAnimationSetting(false) }}>
+              <Icon.ArrowLeft size={20} weight="bold" />
+              Back
+            </button>
+            <div className="w-[1px] bg-neutral-200" />
+            <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center" onClick={() => { setAnimationSetting(true) }}>
+              <Popover className="relative">
+                <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                  <Icon.ArrowLineRight size={20} weight="bold" />
+                  Animation In</Popover.Button>
+                <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-xl flex gap-4 p-2 w-40 justify-center bg-white ring-1 ring-neutral-200" >
+                  <p onClick={() => {
+                    setAnimations({
+                      ...animations,
+                      animationIn: "fadeIn 0.5s ease-in-out",
+                    });
+                  }}>Fade in</p>
+                  <p>Slide in</p>
+                </Popover.Panel>
+              </Popover>
+            </button>
+            <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setAnimationSetting(true) }}>
+              <Icon.ArrowLineLeft size={20} weight="bold" />
+              Animation Out
+            </button>
           </div>
         </Transition>
       </div>

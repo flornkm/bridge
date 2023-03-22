@@ -136,15 +136,6 @@ export default function Account({ session, setSettings, avatar_url, setAvatarUrl
               {loading ? "Loading ..." : "Update Settings"}
             </button>
           </div>
-
-          {/* <div>
-            <button
-              className="button block"
-              onClick={() => supabase.auth.signOut()}
-            >
-              Sign Out
-            </button>
-          </div> */}
         </div>
       </div>
     </div>

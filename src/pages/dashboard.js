@@ -55,7 +55,7 @@ function Dashboard(props) {
         }
       }
     } catch (error) {
-      router.push("/");
+      router.push("/login");
       console.log(error);
     } finally {
       setLoading(false);
@@ -188,7 +188,7 @@ function Dashboard(props) {
                             "block w-full px-4 py-2 text-left text-sm rounded-md"
                           )}
                           onClick={() => {
-                            router.push("/");
+                            router.push("/login");
                             supabase.auth.signOut();
                           }}
                         >
