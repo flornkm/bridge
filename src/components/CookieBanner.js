@@ -19,9 +19,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import SortableItem from "@/layout/SortableItem";
-import Item from "@/layout/Item";
 
-export default function CookieBanner({ data, session, id, colors, animations, animCount }) {
+export default function CookieBanner({ data, session, id, colors, animations, animCount, confetti, setConfetti, effects }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
@@ -128,6 +127,9 @@ export default function CookieBanner({ data, session, id, colors, animations, an
                     changeInput={changeInput}
                     className={item.content[0].type.includes("heading") ? "text-2xl" : "text-base flex gap-4 items-center" + " bg-transparent"}
                     colors={colors}
+                    effects={effects}
+                    confetti={confetti}
+                    setConfetti={setConfetti}
                   />
                 );
               })}

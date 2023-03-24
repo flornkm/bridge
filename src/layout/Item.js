@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import Confetti from 'react-dom-confetti';
 
 // eslint-disable-next-line react/display-name
 const Item = forwardRef(
@@ -17,7 +18,22 @@ const Item = forwardRef(
       transform: isDragging ? "scale(1.05)" : "scale(1)",
       transition: "all 0.2s ease",
       objectFit: "cover",
+      position: "relative",
       ...style,
+    };
+
+    const config = {
+      angle: 90,
+      spread: "61",
+      startVelocity: "30",
+      elementCount: "40",
+      dragFriction: 0.12,
+      duration: 3000,
+      stagger: "4",
+      width: "10px",
+      height: "10px",
+      perspective: "359px",
+      colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
     };
 
     return (
@@ -56,20 +72,31 @@ const Item = forwardRef(
             item.type === "secondaryButton"
           ) {
             return (
-              <input
-                key={index}
-                onChange={(e) => {
-                  // change this input value
-                  props.changeInput(e, id, index)
-                }}
-                onBlur={props.handleBlur}
-                type="text"
-                value={item.text}
-                className="px-8 py-4 font-medium transition-all hover:opacity-80 text-white rounded-lg text-center focus:outline-none cursor-default"
-                style={{
-                  backgroundColor: props.colors[item.type],
-                }}
-              />
+              <>
+                
+                <input
+                  key={index}
+                  onChange={(e) => {
+                    // change this input value
+                    props.changeInput(e, id, index)
+                  }}
+                  onBlur={props.handleBlur}
+                  onClick={() => {
+                    if (item.type === "primaryButton")
+                    props.setConfetti(true)
+                    setTimeout(() => {
+                      props.setConfetti(false)
+                    }, 3000)
+                  }}
+                  type="text"
+                  value={item.text}
+                  className="px-8 py-4 font-medium transition-all hover:opacity-80 text-white rounded-lg text-center focus:outline-none cursor-default"
+                  style={{
+                    backgroundColor: props.colors[item.type],
+                  }}
+                />
+                {item.type === "primaryButton" && props.effects.confetti  && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={props.confetti} config={config} /></div>}
+              </>
             );
           }
         })}

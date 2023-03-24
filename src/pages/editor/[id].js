@@ -10,7 +10,7 @@ import * as Icon from "phosphor-react";
 import CookieBanner from "@/components/CookieBanner";
 import { Popover, Transition } from '@headlessui/react'
 import { TwitterPicker } from "react-color";
-import { update } from "lodash";
+import { set, update } from "lodash";
 import { data } from "autoprefixer";
 
 function classNames(...classes) {
@@ -30,6 +30,7 @@ export default function Editor(props) {
   const [animationSetting, setAnimationSetting] = useState(false);
   const [effectSetting, setEffectSetting] = useState(false);
   const [animCount, setAnimCount] = useState("1");
+  const [confetti, setConfetti] = useState(false);
   const [activeAnim, setActiveAnim] = useState({
     animIn: "fadeIn 1s ease-in-out",
     animOut: "fadeOut 1s ease-in-out",
@@ -45,6 +46,10 @@ export default function Editor(props) {
   const [animations, setAnimations] = useState({
     animIn: "fadeIn 1s ease-in-out",
     animOut: "fadeOut 1s ease-in-out",
+  });
+
+  const [effects, setEffects] = useState({
+    confetti: false,
   });
 
   const colorStyles = {
@@ -77,6 +82,7 @@ export default function Editor(props) {
     );
     const data = await res.json();
     setProject(data);
+    console.log("TEST")
     setColors({
       heading: data.colors.heading,
       text: data.colors.text,
@@ -90,6 +96,9 @@ export default function Editor(props) {
     setActiveAnim({
       animIn: data.animation.animIn,
       animOut: data.animation.animOut,
+    });
+    setEffects({
+      confetti: data.effects.confetti,
     });
     setLoading(false);
   };
@@ -137,6 +146,32 @@ export default function Editor(props) {
       .then((res) => {
       });
   }
+
+  async function updateEffects(effect, bool) {
+    supabase
+      .from("projects")
+      .update({ effects: { ...effects, [effect]: bool } })
+      .eq("id", router.query.id.replace(session.user.id, ""))
+      .eq("owner", session.user.id)
+      .then((res) => {
+      });
+  }
+
+  async function add(content) {
+    setProject(prevState => {
+      return {
+        ...prevState,
+        content: [
+          ...prevState.content,
+          {
+            id: prevState.content.length + 1,
+            content: [content],
+          },
+        ],
+      };
+    });
+  }
+  
 
   async function downloadImage(path) {
     try {
@@ -220,6 +255,9 @@ export default function Editor(props) {
             colors={colors}
             animations={animations}
             animCount={animCount}
+            confetti={confetti}
+            setConfetti={setConfetti}
+            effects={effects}
           />
         )}
         <Transition
@@ -231,10 +269,32 @@ export default function Editor(props) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
-            <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
-              <Icon.Plus size={20} weight="bold" />
-              Add
-            </button>
+            <Popover className="relative">
+              <Popover.Button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
+                <Icon.Plus size={20} weight="bold" />
+                Add</Popover.Button>
+
+              <Popover.Panel className="absolute bottom-0 translate-y-[-72px] rounded-md bg-white ring-1 ring-neutral-200 p-1" >
+                <div className="flex gap-4 items-center justify-between cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
+                  add({
+                    "id": project.content.length + 1,
+                    "content": [
+                      {
+                        "text": "Allow",
+                        "type": "primaryButton"
+                      },
+                      {
+                        "text": "Deny",
+                        "type": "secondaryButton"
+                      }
+                    ]
+                  })
+                }}>
+                  <Icon.TextAa size={32} weight="bold" className="p-2" />
+                  Text
+                </div>
+              </Popover.Panel>
+            </Popover>
             <div className="w-[1px] bg-neutral-200" />
             <div className="flex">
               <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setColorSetting(true) }}>
@@ -541,13 +601,21 @@ export default function Editor(props) {
               <Popover className="relative">
                 <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
                   <Icon.Cursor size={20} weight="bold" />
-                  Button Click</Popover.Button>
+                  Confirm Click</Popover.Button>
                 <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-xl flex gap-4 p-1 w-56 justify-between bg-white ring-1 ring-neutral-200" >
                   <p
-                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (activeAnim.animIn === "fadeIn 1s ease-in-out" ? "bg-black text-white" : "bg-white text-black")}
+                    onClick={() => {
+                      setEffects({ ...effects, confetti: false });
+                      updateEffects("confetti", false);
+                    }}
+                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (!effects.confetti ? "bg-black text-white" : "bg-white text-black")}
                   >None</p>
                   <p
-                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (activeAnim.animIn === "slideIn 1s ease-in-out" ? "bg-black text-white" : "bg-white text-black")}
+                    onClick={() => {
+                      setEffects({ ...effects, confetti: true });
+                      updateEffects("confetti", true);
+                    }}
+                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (effects.confetti ? "bg-black text-white" : "bg-white text-black")}
                   >Confetti</p>
                 </Popover.Panel>
               </Popover>
