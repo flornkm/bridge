@@ -28,6 +28,7 @@ export default function Editor(props) {
   const [project, setProject] = useState(null);
   const [colorSetting, setColorSetting] = useState(false);
   const [animationSetting, setAnimationSetting] = useState(false);
+  const [effectSetting, setEffectSetting] = useState(false);
   const [animCount, setAnimCount] = useState("1");
   const [activeAnim, setActiveAnim] = useState({
     animIn: "fadeIn 1s ease-in-out",
@@ -222,7 +223,7 @@ export default function Editor(props) {
           />
         )}
         <Transition
-          show={!colorSetting && !animationSetting}
+          show={!colorSetting && !animationSetting && !effectSetting}
           enter="transition-opacity duration-75"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -244,7 +245,7 @@ export default function Editor(props) {
                 <Icon.LineSegment size={20} weight="bold" />
                 Animation
               </button>
-              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80">
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setEffectSetting(true) }}>
                 <Icon.Confetti size={20} weight="bold" />
                 Effects
               </button>
@@ -517,6 +518,37 @@ export default function Editor(props) {
                     }}
                     className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (activeAnim.animOut === "slideOut 1s ease-in-out" ? "bg-black text-white" : "bg-white text-black")}
                   >Slide out</p>
+                </Popover.Panel>
+              </Popover>
+            </button>
+          </div>
+        </Transition>
+        <Transition
+          show={effectSetting}
+          enter="transition-opacity duration-75"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+            <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setEffectSetting(false) }}>
+              <Icon.ArrowLeft size={20} weight="bold" />
+              Back
+            </button>
+            <div className="w-[1px] bg-neutral-200" />
+            <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center" onClick={() => { setEffectSetting(true) }}>
+              <Popover className="relative">
+                <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                  <Icon.Cursor size={20} weight="bold" />
+                  Button Click</Popover.Button>
+                <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-xl flex gap-4 p-1 w-56 justify-between bg-white ring-1 ring-neutral-200" >
+                  <p
+                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (activeAnim.animIn === "fadeIn 1s ease-in-out" ? "bg-black text-white" : "bg-white text-black")}
+                  >None</p>
+                  <p
+                    className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (activeAnim.animIn === "slideIn 1s ease-in-out" ? "bg-black text-white" : "bg-white text-black")}
+                  >Confetti</p>
                 </Popover.Panel>
               </Popover>
             </button>
