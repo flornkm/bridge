@@ -82,7 +82,6 @@ export default function Editor(props) {
     );
     const data = await res.json();
     setProject(data);
-    console.log("TEST")
     setColors({
       heading: data.colors.heading,
       text: data.colors.text,
@@ -342,9 +341,6 @@ export default function Editor(props) {
                       className="bg-white p-2"
                       styles={colorStyles}
                       color={colors.heading}
-                      onBlur={() => {
-                        console.log("blur");
-                      }}
                       onChangeComplete={(color) => {
                         setColors({ ...colors, heading: color.hex });
                         updateColors(color.hex, "heading");
@@ -384,9 +380,6 @@ export default function Editor(props) {
                       className="bg-white p-2"
                       styles={colorStyles}
                       color={colors.heading}
-                      onBlur={() => {
-                        console.log("blur");
-                      }}
                       onChangeComplete={(color) => {
                         setColors({ ...colors, text: color.hex });
                         updateColors(color.hex, "text");
@@ -426,9 +419,6 @@ export default function Editor(props) {
                       className="bg-white p-2"
                       styles={colorStyles}
                       color={colors.primaryButton}
-                      onBlur={() => {
-                        console.log("blur");
-                      }}
                       onChangeComplete={(color) => {
                         setColors({ ...colors, primaryButton: color.hex });
                         updateColors(color.hex, "primaryButton");

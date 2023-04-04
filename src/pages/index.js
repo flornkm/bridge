@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useInView } from 'react-intersection-observer';
 import { useRef, useEffect, useState, useCallback } from "react";
 import * as Icon from "phosphor-react";
 import {
@@ -24,6 +25,7 @@ import SortableItem from "@/layout/SortableItem";
 export default function Home() {
     const cursor = useRef(null);
     const [customCursor, setCustomCursor] = useState(false);
+    const [isInView, setIsInView] = useState(false);
     const [items, setItems] = useState([
         {
             id: "1",
@@ -99,6 +101,18 @@ export default function Home() {
 
         }
     }, []);
+
+    const { ref, inView } = useInView({
+        threshold: 0,
+        rootMargin: '200px',
+        triggerOnce: true,
+    });
+
+    useEffect(() => {
+        if (inView) {
+            setIsInView(true);
+        }
+    }, [inView]);
 
     return (
         <>
@@ -244,7 +258,7 @@ export default function Home() {
                                                     index={index}
                                                     items={item}
                                                     setItems={setItems}
-                                                    landingpage={true}
+                                                    landingpage="true"
                                                 />
                                             );
                                         })}
@@ -284,9 +298,13 @@ export default function Home() {
                         <h2 className="font-semibold text-4xl text-black flex gap-4 items-center">An intuitive Editor </h2>
                         <p className="text-gray-500 text-xl font-medium">Our editor works for everyone.</p>
                     </div>
-                    <video autoPlay className="rounded-2xl ring-1 ring-neutral-200">
-                        <source src="/videos/showcase.mp4" type="video/mp4" />
-                    </video>
+                    {isInView ? (
+                        <video autoPlay loop className="rounded-2xl ring-1 ring-neutral-200">
+                            <source src="/videos/showcase.mp4" type="video/mp4" />
+                        </video>
+                    ) : (
+                        <div ref={ref}></div>
+                    )}
                 </div>
             </main>
             {customCursor && <Image
