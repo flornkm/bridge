@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import * as Icon from "phosphor-react";
 import Confetti from 'react-dom-confetti';
 
 // eslint-disable-next-line react/display-name
@@ -38,7 +39,19 @@ const Item = forwardRef(
 
     return (
       <div ref={ref} style={inlineStyles} {...props}>
-        {props.items.content.map((item, index) => {
+        {!props.items.content && props.landingPage && (
+          id === "1" ? (
+            <div className="flex flex-col items-start justify-center h-full cursor-grab">
+              <p className="font-semibold text-black text-2xl">Drag me</p>
+              <p className="text-gray-500">Order differently</p>
+            </div>
+          ) : (
+            <button className="bg-violet-500 text-white font-medium p-2 rounded-lg transition-all hover:opacity-90 cursor-grab">
+              <Icon.Check size={32} weight="fill" />
+            </button>
+          )
+        )}
+        {props.items.content && props.items.content.map((item, index) => {
           if (item.type === "heading") {
             return (
               <input
@@ -73,7 +86,7 @@ const Item = forwardRef(
           ) {
             return (
               <>
-                
+
                 <input
                   key={index}
                   onChange={(e) => {
@@ -83,7 +96,7 @@ const Item = forwardRef(
                   onBlur={props.handleBlur}
                   onClick={() => {
                     if (item.type === "primaryButton")
-                    props.setConfetti(true)
+                      props.setConfetti(true)
                     setTimeout(() => {
                       props.setConfetti(false)
                     }, 3000)
@@ -95,7 +108,7 @@ const Item = forwardRef(
                     backgroundColor: props.colors[item.type],
                   }}
                 />
-                {item.type === "primaryButton" && props.effects.confetti  && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={props.confetti} config={config} /></div>}
+                {item.type === "primaryButton" && props.effects.confetti && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={props.confetti} config={config} /></div>}
               </>
             );
           }
