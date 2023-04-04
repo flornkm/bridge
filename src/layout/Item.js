@@ -39,7 +39,7 @@ const Item = forwardRef(
 
     return (
       <div ref={ref} style={inlineStyles} {...props}>
-        {!props.items.content && props.landingPage && (
+        {!props.items.content && props.landingpage && (
           id === "1" ? (
             <div className="flex flex-col items-start justify-center h-full cursor-grab">
               <p className="font-semibold text-black text-2xl">Drag me</p>

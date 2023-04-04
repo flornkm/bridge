@@ -244,7 +244,7 @@ export default function Home() {
                                                     index={index}
                                                     items={item}
                                                     setItems={setItems}
-                                                    landingPage={true}
+                                                    landingpage={true}
                                                 />
                                             );
                                         })}
@@ -261,11 +261,11 @@ export default function Home() {
                         <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-100 rounded-2xl overflow-hidden h-96">
                             <h3 className="text-black font-semibold text-2xl flex gap-4 items-center">Easily share <span className="rounded-full ring-2 ring-purple-300 text-purple-500 text-sm px-2 py-1">Soon</span></h3>
                             <div className="w-full flex justify-between h-full items-center gap-4">
-                                <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full" unoptimized={true} />
+                                <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl ring-1 ring-purple-300" unoptimized={true} />
                                 <Icon.Link size={40} weight="fill" className="text-gray-500 max-md:hidden" />
-                                <Image src="/images/general/memoji_2.jpg" alt="Isabelle" width={128} height={128} className="rounded-full" unoptimized={true} />
+                                <Image src="/images/general/memoji_2.jpg" alt="Isabelle" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl ring-1 ring-pink-300" unoptimized={true} />
                                 <Icon.Link size={40} weight="fill" className="text-gray-500 max-md:hidden" />
-                                <Image src="/images/general/memoji_3.jpg" alt="Nataly" width={128} height={128} className="rounded-full" unoptimized={true} />
+                                <Image src="/images/general/memoji_3.jpg" alt="Nataly" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl ring-1 ring-green-300" unoptimized={true} />
                             </div>
                         </div>
                         <div className="flex flex-col gap-3 p-6 bg-neutral-100 rounded-2xl overflow-hidden h-96">
@@ -278,6 +278,15 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="pt-40 pb-40">
+                    <div className="flex flex-col gap-3 mb-10">
+                        <h2 className="font-semibold text-4xl text-black flex gap-4 items-center">An intuitive Editor </h2>
+                        <p className="text-gray-500 text-xl font-medium">Our editor works for everyone.</p>
+                    </div>
+                    <video autoPlay className="rounded-2xl ring-1 ring-neutral-200">
+                        <source src="/videos/showcase.mp4" type="video/mp4" />
+                    </video>
                 </div>
             </main>
             {customCursor && <Image
