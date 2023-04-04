@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
@@ -10,6 +10,12 @@ const inter = Inter({
   subsets: ["latin"],
  });
 
+const jetbrainsMono = JetBrains_Mono({
+  display: "swap",
+  weights: [400, 500, 600, 700, 800, 900],
+  subsets: ["latin"],
+});
+
 function MyApp({ Component, pageProps }) {
   const [supabase] = useState(() => createBrowserSupabaseClient());
 
@@ -19,6 +25,7 @@ function MyApp({ Component, pageProps }) {
         {`
           :root {
             --inter-font: ${inter.style.fontFamily};
+            --jetbrains-mono-font: ${jetbrainsMono.style.fontFamily};
           }
         `}
       </style>
