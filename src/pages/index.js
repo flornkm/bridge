@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useInView } from 'react-intersection-observer';
 import { useRef, useEffect, useState, useCallback } from "react";
 import * as Icon from "phosphor-react";
@@ -35,6 +36,7 @@ export default function Home() {
         },
     ]);
     const [activeId, setActiveId] = useState(null);
+    const router = useRouter();
 
     const handleMouseMove = (e) => {
         requestAnimationFrame(() => {
@@ -157,7 +159,9 @@ export default function Home() {
                     className="cursor-pointer"
                 />
                 <div className="flex gap-8">
-                    <button className="font-semibold">Login</button>
+                    <button className="font-semibold" onClick={() => {
+                        router.push('/login')
+                    }}>Login</button>
                     <button className="font-medium px-4 py-2 bg-black text-white rounded-lg">
                         Try for free
                     </button>
@@ -299,7 +303,7 @@ export default function Home() {
                         <p className="text-gray-500 text-xl font-medium">Our editor works for everyone.</p>
                     </div>
                     {isInView ? (
-                        <video autoPlay loop className="rounded-2xl ring-1 ring-neutral-200">
+                        <video autoPlay loop muted className="rounded-2xl ring-1 ring-neutral-200">
                             <source src="/videos/showcase.mp4" type="video/mp4" />
                         </video>
                     ) : (
