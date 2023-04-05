@@ -158,7 +158,7 @@ export default function Home() {
                     height={40}
                     className="cursor-pointer"
                 />
-                <div className="flex gap-8">
+                <div className="flex gap-8"> 
                     <button className="font-semibold" onClick={() => {
                         router.push('/login')
                     }}>Login</button>
@@ -172,13 +172,14 @@ export default function Home() {
                     className="min-h-64 pt-48 relative z-20"
 
                 >
-                    <div className="max-w-2xl flex flex-col gap-6 mb-20">
+                    <div className="max-w-3xl flex flex-col gap-6 mb-20">
                         <h1 className="font-semibold text-5xl leading-tight">
-                            Supply your websites with interactive elements
+                            Streamline your hiring process
+                            with an interactive tool.
                         </h1>
                         <p className="text-gray-500 font-medium text-3xl">
-                            Bridge connects interactive, prestyled and modern popups to your
-                            application.
+                            Create a high-quality candidate experience and find
+                            the best talent for your business with bridge.
                         </p>
                     </div>
                     <div className="flex justify-between relative left-[50%] translate-x-[-50%] w-screen overflow-hidden py-10 pl-[5%] pr-[5%] items-center md:cursor-none" onMouseEnter={() => setCustomCursor(true)}
@@ -205,23 +206,7 @@ export default function Home() {
                             </code>
                         </div>
                         <div className="py-4 px-8 bg-white z-20 shadow-2xl rounded-2xl ring-1 ring-neutral-200 absolute left-[50%] translate-x-[-50%] w-[90%] md:max-w-5xl flex justify-between max-lg:flex-col gap-10 transition-all duration-500 md:hover:scale-105">
-                            <div className="flex flex-col gap-3">
-                                <h3 className="font-semibold text-3xl">
-                                    We use cookies on our site
-                                </h3>
-                                <p className="text-xl text-gray-500">
-                                    You can learn more about that on our privacy policy.
-                                </p>
-                            </div>
-                            <div className="flex gap-4">
-                                <button className="bg-violet-500 text-white font-medium p-4 rounded-lg md:cursor-none transition-all hover:opacity-90 relative">
-                                    <div className="bg-violet-500 animate-ping absolute top-0 bottom-0 right-0 left-0 z-0 rounded-xl opacity-25" />
-                                    <Icon.Check size={48} weight="fill" className="relative z-10" />
-                                </button>
-                                <button className="bg-fuchsia-200 text-fuchsia-400 font-medium p-4 rounded-lg md:cursor-none transition-all hover:opacity-90">
-                                    <Icon.X size={48} weight="fill" />
-                                </button>
-                            </div>
+                            <div className="h-56" />
                         </div>
                         <div className="bg-neutral-50 ring-1 ring-neutral-200 text-slate-100 text-xl px-7 py-4 rounded-2xl rotate-2 relative xl:right-32 max-xl:right-32 -top-16">
                             <div className="p-4 rounded-full h-56 w-56 bg-gradient-to-r from-violet-500 to-purple-400 flex justify-center items-center">
@@ -287,11 +272,11 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="flex flex-col gap-3 p-6 bg-neutral-100 rounded-2xl overflow-hidden h-96">
-                            <h3 className="text-black font-semibold text-2xl">Export made easy</h3>
+                            <h3 className="text-black font-semibold text-2xl">Publishing made easy</h3>
                             <div className="h-full w-full flex justify-center items-center">
                                 <button className="font-medium text-xl px-4 py-3 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-3 items-center cursor-default">
                                     <Icon.UploadSimple size={28} weight="bold" />
-                                    Export
+                                    Publish
                                 </button>
                             </div>
                         </div>
@@ -309,6 +294,14 @@ export default function Home() {
                     ) : (
                         <div ref={ref}></div>
                     )}
+                </div>
+                <div>
+                    <div className="flex flex-col gap-3 mb-10">
+                        <h2 className="font-semibold text-4xl text-black flex gap-4 items-center">Why tho?</h2>
+                    </div>
+                    <div className="mb-96">
+
+                    </div>
                 </div>
             </main>
             {customCursor && <Image

@@ -170,7 +170,7 @@ export default function Editor(props) {
       };
     });
   }
-  
+
 
   async function downloadImage(path) {
     try {
