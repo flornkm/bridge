@@ -12,6 +12,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { TwitterPicker } from "react-color";
 import { set, update } from "lodash";
 import { data } from "autoprefixer";
+import JobBoard from "@/components/JobBoard";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -200,8 +201,8 @@ export default function Editor(props) {
   return (
     !loading &&
     project && (
-      <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/editor/canvas.svg')] bg-cover bg-center">
-        <div className="w-full bg-white py-6 fixed top-0 border-b border-b-neutral-200">
+      <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/editor/canvas.svg')] bg-cover bg-center bg-repeat-y">
+        <div className="w-full bg-white py-6 fixed top-0 border-b border-b-neutral-200 z-10">
           <div className="max-w-[80%] w-full mx-auto justify-between flex items-center overflow-hidden">
             <div className="flex gap-10 items-center">
               <div
@@ -241,7 +242,7 @@ export default function Editor(props) {
               <div className="w-[1px] bg-neutral-200" />
               <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
                 <Icon.UploadSimple size={20} weight="bold" />
-                Export
+                Publish
               </button>
             </div>
           </div>
@@ -254,6 +255,17 @@ export default function Editor(props) {
             colors={colors}
             animations={animations}
             animCount={animCount}
+            confetti={confetti}
+            setConfetti={setConfetti}
+            effects={effects}
+          />
+        )}
+        {project && project.type === "job" && (
+          <JobBoard
+            data={project}
+            session={session}
+            id={router.query.id}
+            colors={colors}
             confetti={confetti}
             setConfetti={setConfetti}
             effects={effects}

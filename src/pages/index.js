@@ -119,7 +119,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Bridge - Supply your website with interactive elements</title>
+                <title>Bridge - Effiecient hiring process with joy</title>
                 <meta
                     name="description"
                     content="Bridge is a tool that allows you to create interactive elements for your website."
