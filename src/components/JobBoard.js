@@ -124,7 +124,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects })
                     setItems={setItems}
                     onBlur={handleBlur}
                     changeInput={changeInput}
-                    className={item.content[0].type.includes("heading") ? "text-2xl" : "text-base flex gap-4 items-center" + " bg-transparent"}
+                    className={"bg-transparent " + (item.content[0].type.includes("heading") ? "text-2xl" : "text-base flex gap-4 items-center") }
                     colors={colors}
                     effects={effects}
                     confetti={confetti}

@@ -38,7 +38,7 @@ const Item = forwardRef(
     };
 
     return (
-      <div ref={ref} style={inlineStyles} {...props} className="flex flex-col">
+      <div ref={ref} style={inlineStyles} {...props} className="flex flex-col border-l border-neutral-200 border-solid pl-6">
         {!props.items.content && props.landingpage === "true" && (
           id === "1" ? (
             <div className="flex flex-col items-start justify-center h-full cursor-grab">
@@ -83,7 +83,7 @@ const Item = forwardRef(
             )
           } else if (item.type === "textInput") {
             return (
-              <div key={index} className="px-1 flex flex-col gap-2 mb-8">
+              <div key={index} className={"px-1 flex flex-col gap-2 " + (props.items.content.indexOf(item) !== props.items.content.length - 1 && "mb-8")}>
                 <label>{item.label}</label>
                 <input
                   onChange={(e) => {
@@ -92,7 +92,7 @@ const Item = forwardRef(
                   onBlur={props.handleBlur}
                   type="text"
                   value={item.content}
-                  className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
+                  className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-3 py-2 ring-1 ring-neutral-200"
                   style={{ color: props.colors.text }}
                 />
               </div>
