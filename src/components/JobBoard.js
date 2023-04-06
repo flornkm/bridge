@@ -1,26 +1,26 @@
 import { useState, useCallback } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import {
-    DndContext,
-    closestCenter,
-    DragOverlay,
-    useSensor,
-    useSensors,
-    MouseSensor,
-    TouchSensor,
-    PointerSensor,
-    KeyboardSensor,
-    sortableKeyboardCoordinates,
-  } from "@dnd-kit/core";
-  import {
-    arrayMove,
-    SortableContext,
-    verticalListSortingStrategy,
-  } from "@dnd-kit/sortable";
-  import SortableItem from "@/layout/SortableItem";
+  DndContext,
+  closestCenter,
+  DragOverlay,
+  useSensor,
+  useSensors,
+  MouseSensor,
+  TouchSensor,
+  PointerSensor,
+  KeyboardSensor,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import SortableItem from "@/layout/SortableItem";
 
 function JobBoard({ data, session, id, colors, confetti, setConfetti, effects }) {
-    const supabase = useSupabaseClient();
+  const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
   const [items, setItems] = useState([...data.content]);
@@ -54,7 +54,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects })
     setItems((items) => {
       const newItems = [...items];
       const itemIndex = newItems.findIndex((item) => item.id === id);
-      newItems[itemIndex].content[index].text = e.target.value;
+      newItems[itemIndex].content[index].content = e.target.value;
       return newItems;
     });
   };
@@ -102,7 +102,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects })
   }, []);
 
   return (
-    <div className="absolute top-[50%] left-[50%] h-full mt-40 translate-x-[-50%] flex gap-10 justify-between translate-y-[-50%] px-10 py-4 bg-white ring-1 ring-neutral-200 rounded-2xl max-w-[80%] w-full shadow-lg">
+    <div className="absolute top-[50%] left-[50%] h-full mt-40 translate-x-[-50%] flex gap-10 justify-between translate-y-[-50%] px-24 py-24 bg-white ring-1 ring-neutral-200 rounded-t-2xl max-w-[80%] w-full shadow-lg pb-96 flex-col">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -112,7 +112,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects })
         onDragOver={handleDragOver}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          <div className="flex justify-between w-full max-md:flex-col max-md:gap-8">
+          <div className="flex flex-col gap-16 justify-between w-full max-md:flex-col max-md:gap-8">
             {data &&
               items.map((item, index) => {
                 return (

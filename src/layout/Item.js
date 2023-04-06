@@ -38,7 +38,7 @@ const Item = forwardRef(
     };
 
     return (
-      <div ref={ref} style={inlineStyles} {...props}>
+      <div ref={ref} style={inlineStyles} {...props} className="flex flex-col">
         {!props.items.content && props.landingpage === "true" && (
           id === "1" ? (
             <div className="flex flex-col items-start justify-center h-full cursor-grab">
@@ -52,6 +52,54 @@ const Item = forwardRef(
           )
         )}
         {props.items.content && props.items.content.map((item, index) => {
+          if (item.type === "heading") {
+            return (
+              <input
+                key={index}
+                onChange={(e) => {
+                  props.changeInput(e, id, index)
+                }}
+                onBlur={props.handleBlur}
+                type="text"
+                value={item.content}
+                className="text-4xl font-semibold w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1 mb-4"
+                style={{ color: props.colors.heading }}
+              />
+            )
+          } else if (item.type === "text") {
+            return (
+              <input
+                key={index}
+                onChange={(e) => {
+                  props.changeInput(e, id, index)
+                }
+                }
+                onBlur={props.handleBlur}
+                type="text"
+                value={item.content}
+                className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
+                style={{ color: props.colors.text }}
+              />
+            )
+          } else if (item.type === "textInput") {
+            return (
+              <div key={index} className="px-1 flex flex-col gap-2 mb-8">
+                <label>{item.label}</label>
+                <input
+                  onChange={(e) => {
+                    props.changeInput(e, id, index)
+                  }}
+                  onBlur={props.handleBlur}
+                  type="text"
+                  value={item.content}
+                  className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
+                  style={{ color: props.colors.text }}
+                />
+              </div>
+            )
+          }
+        })}
+        {/* {props.items.content && props.items.content.map((item, index) => {
           if (item.type === "heading") {
             return (
               <input
@@ -112,7 +160,7 @@ const Item = forwardRef(
               </>
             );
           }
-        })}
+        })} */}
       </div>
     );
   }

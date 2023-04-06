@@ -201,7 +201,7 @@ export default function Editor(props) {
   return (
     !loading &&
     project && (
-      <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/editor/canvas.svg')] bg-cover bg-center bg-repeat-y">
+      <div className={"w-screen h-screen bg-neutral-50 bg-cover bg-center " + (project.type === "cookieBanner" && "bg-[url('/images/editor/canvas.svg')]")}>
         <div className="w-full bg-white py-6 fixed top-0 border-b border-b-neutral-200 z-10">
           <div className="max-w-[80%] w-full mx-auto justify-between flex items-center overflow-hidden">
             <div className="flex gap-10 items-center">
@@ -279,7 +279,7 @@ export default function Editor(props) {
           leave="transition-opacity duration-150"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full fixed bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
             <Popover className="relative">
               <Popover.Button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
                 <Icon.Plus size={20} weight="bold" />
@@ -312,10 +312,10 @@ export default function Editor(props) {
                 <Icon.Drop size={20} weight="bold" />
                 Colors
               </button>
-              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setAnimationSetting(true) }}>
+              {project.type === "cookieBanner " && <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setAnimationSetting(true) }}>
                 <Icon.LineSegment size={20} weight="bold" />
                 Animation
-              </button>
+              </button>}
               <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setEffectSetting(true) }}>
                 <Icon.Confetti size={20} weight="bold" />
                 Effects
@@ -485,7 +485,7 @@ export default function Editor(props) {
             </div>
           </div>
         </Transition>
-        <Transition
+        {project.type === "cookieBanner" && <Transition
           show={animationSetting}
           enter="transition-opacity duration-75"
           enterFrom="opacity-0"
@@ -584,7 +584,7 @@ export default function Editor(props) {
               </Popover>
             </button>
           </div>
-        </Transition>
+        </Transition>}
         <Transition
           show={effectSetting}
           enter="transition-opacity duration-75"
