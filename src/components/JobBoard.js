@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import {
   DndContext,
@@ -23,7 +23,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects })
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
-  const [items, setItems] = useState([...data.content]);
+  const [items, setItems] = useState(data.content);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -50,11 +50,32 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects })
       });
   };
 
-  const changeInput = (e, id, index) => {
+  const changeInput = (e, id, index, type) => {
     setItems((items) => {
       const newItems = [...items];
       const itemIndex = newItems.findIndex((item) => item.id === id);
-      newItems[itemIndex].content[index].content = e.target.value;
+      if (type === "label") {
+        newItems[itemIndex].content[index].label = e.target.value;
+      } else if (type === "required") {
+        newItems[itemIndex].content[index].required = !newItems[itemIndex].content[index].required;
+      } else if (type === "visibility") {
+        newItems[itemIndex].content[index].visibility = !newItems[itemIndex].content[index].visibility;
+      } else {
+        newItems[itemIndex].content[index].content = e.target.value;
+      }
+      return newItems;
+    });
+    if (type === "required" || type === "visibility") {
+      update(items);
+    }
+  };
+
+  const deleteItem = (id) => {
+    setItems((items) => {
+      const newItems = [...items];
+      const itemIndex = newItems.findIndex((item) => item.id === id);
+      newItems.splice(itemIndex, 1);
+      update(newItems);
       return newItems;
     });
   };
@@ -102,7 +123,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects })
   }, []);
 
   return (
-    <div className="absolute top-[50%] left-[50%] h-full mt-40 translate-x-[-50%] flex gap-10 justify-between translate-y-[-50%] px-24 py-24 bg-white ring-1 ring-neutral-200 rounded-t-2xl max-w-[80%] w-full shadow-lg pb-96 flex-col">
+    <div className="absolute top-[50%] left-[50%] h-fit translate-x-[-50%] flex gap-10 justify-between -translate-y-80 px-24 py-24 bg-white ring-1 ring-neutral-200 rounded-t-2xl max-w-[80%] w-full shadow-lg pb-96 flex-col">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -124,11 +145,12 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects })
                     setItems={setItems}
                     onBlur={handleBlur}
                     changeInput={changeInput}
-                    className={"bg-transparent " + (item.content[0].type.includes("heading") ? "text-2xl" : "text-base flex gap-4 items-center") }
+                    className={"bg-transparent " + (item.content[0].type.includes("heading") ? "text-2xl" : "text-base flex gap-4 items-center")}
                     colors={colors}
                     effects={effects}
                     confetti={confetti}
                     setConfetti={setConfetti}
+                    deleteItem={deleteItem}
                   />
                 );
               })}

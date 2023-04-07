@@ -83,18 +83,165 @@ const Item = forwardRef(
             )
           } else if (item.type === "textInput") {
             return (
-              <div key={index} className={"px-1 flex flex-col gap-2 " + (props.items.content.indexOf(item) !== props.items.content.length - 1 && "mb-8")}>
-                <label>{item.label}</label>
-                <input
-                  onChange={(e) => {
-                    props.changeInput(e, id, index)
+              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center " + (!item.visibility && "opacity-50")}>
+                <div className={"px-1 grow flex flex-col gap-2 " + (props.items.content.indexOf(item) !== props.items.content.length - 1 && "mb-8")}>
+                  <div className="flex justify-start">
+                    <div>
+                      <div onClick={() => {
+                        props.changeInput(null, id, index, "required");
+                      }}
+                        className="flex flex-col items-center justify-center h-full cursor-pointer p-1 transition-all hover:bg-neutral-100 rounded-md relative group"
+                      >
+                        {item.required ? (
+                          <div className="flex flex-col gap-2">
+                            <Icon.Check size={20} weight="bold" />
+                          </div>
+                        ) : (
+                          <div className="flex flex-col gap-2 text-gray-300">
+                            <Icon.Check size={20} weight="bold" />
+                          </div>
+                        )}
+                        <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-10 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                          Required?
+                        </div>
+                      </div>
+                    </div>
+                    <input
+                      onChange={(e) => {
+                        props.changeInput(e, id, index, "label")
+                      }}
+                      onBlur={props.handleBlur}
+                      type="text"
+                      value={item.label}
+                      className="text-base flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1.5 py-1"
+                      style={{ color: props.colors.text }}
+                    />
+                  </div>
+                  <input
+                    onChange={(e) => {
+                      props.changeInput(e, id, index)
+                    }}
+                    onBlur={props.handleBlur}
+                    type="text"
+                    value={item.content}
+                    className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-3 py-2 ring-1 ring-neutral-200"
+                    style={{ color: props.colors.text }}
+                  />
+                </div>
+                <div className="h-full flex">
+                  <div onClick={() => {
+                    props.changeInput(null, id, index, "visibility");
                   }}
-                  onBlur={props.handleBlur}
-                  type="text"
-                  value={item.content}
-                  className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-3 py-2 ring-1 ring-neutral-200"
-                  style={{ color: props.colors.text }}
-                />
+                    className="flex flex-col items-center justify-center h-full cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
+                  >
+                    {item.visibility ? (
+                      <div className="flex flex-col gap-2">
+                        <Icon.Eye size={24} />
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-2">
+                        <Icon.EyeClosed size={24} />
+                      </div>
+                    )}
+                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                      Visible?
+                    </div>
+                  </div>
+                  <div onClick={() => {
+                    props.deleteItem(id);
+                  }}
+                    className="flex flex-col items-center justify-center h-full cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
+                  >
+                    <div className="flex flex-col gap-2">
+                      <Icon.Trash size={24} />
+                    </div>
+                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                      Remove
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          } else if (item.type === "fileUpload") {
+            return (
+              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center " + (!item.visibility && "opacity-50")}>
+                <div className="flex flex-col gap-2 justify-start w-full items-start">
+                  <div className="flex justify-start items-center w-full">
+                    <div onClick={() => {
+                      props.changeInput(null, id, index, "required");
+                    }}
+                      className="flex flex-col items-center justify-center h-full cursor-pointer p-1 transition-all hover:bg-neutral-100 rounded-md relative group"
+                    >
+                      {item.required ? (
+                        <div className="flex flex-col gap-2">
+                          <Icon.Check size={20} weight="bold" />
+                        </div>
+                      ) : (
+                        <div className="flex flex-col gap-2 text-gray-300">
+                          <Icon.Check size={20} weight="bold" />
+                        </div>
+                      )}
+                      <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-10 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                        Required?
+                      </div>
+                    </div>
+                    <input
+                      onChange={(e) => {
+                        props.changeInput(e, id, index, "label")
+                      }}
+                      onBlur={props.handleBlur}
+                      type="text"
+                      value={item.label}
+                      className="text-base flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1.5 py-1"
+                      style={{ color: props.colors.text }}
+                    />
+                  </div>
+                  <div className="flex justify-center gap-3 text-white bg-black rounded-lg pl-3 pr-2 py-2 transition-all hover:bg-zinc-800 group w-auto">
+                    <Icon.Upload size={24} width="bold" className="w-auto" />
+                    <input
+                      value={item.content}
+                      onChange={(e) => {
+                        props.changeInput(e, id, index)
+                      }}
+                      onBlur={props.handleBlur}
+                      className="bg-black text-white text-medium group-hover:bg-zinc-800 transition-all focus:outline-none"
+                      style={{ width: `${item.content.length + 1}ch` }}
+                    />
+                  </div>
+                </div>
+                <div className="flex-grow" />
+                <div className="h-full flex">
+                  <div onClick={() => {
+                    props.changeInput(null, id, index, "visibility");
+                  }}
+                    className="flex flex-col items-center justify-center h-full cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
+                  >
+                    {item.visibility ? (
+                      <div className="flex flex-col gap-2">
+                        <Icon.Eye size={24} />
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-2">
+                        <Icon.EyeClosed size={24} />
+                      </div>
+                    )}
+                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                      Visible?
+                    </div>
+                  </div>
+                  <div onClick={() => {
+                    props.deleteItem(id);
+                  }}
+                    className="flex flex-col items-center justify-center h-full cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
+                  >
+                    <div className="flex flex-col gap-2">
+                      <Icon.Trash size={24} />
+                    </div>
+                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                      Remove
+                    </div>
+                  </div>
+                </div>
               </div>
             )
           }

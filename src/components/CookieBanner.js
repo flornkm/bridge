@@ -50,11 +50,15 @@ export default function CookieBanner({ data, session, id, colors, animations, an
       });
   };
 
-  const changeInput = (e, id, index) => {
+  const changeInput = (e, id, index, type) => {
     setItems((items) => {
       const newItems = [...items];
       const itemIndex = newItems.findIndex((item) => item.id === id);
-      newItems[itemIndex].content[index].text = e.target.value;
+      if (type === "label"){
+      newItems[itemIndex].content[index].label = e.target.value;
+      } else {
+        newItems[itemIndex].content[index].content = e.target.value;
+      }
       return newItems;
     });
   };

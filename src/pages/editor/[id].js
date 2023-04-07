@@ -158,20 +158,23 @@ export default function Editor(props) {
   }
 
   async function add(content) {
-    setProject(prevState => {
-      return {
-        ...prevState,
-        content: [
-          ...prevState.content,
-          {
-            id: prevState.content.length + 1,
-            content: [content],
-          },
-        ],
-      };
-    });
-  }
+    project.content = [...project.content, content];
+    console.log(project.content);
 
+
+    // const items = project.content;
+    // items.push(content);
+
+    // project.content = items;
+
+    // supabase
+    //   .from("projects")
+    //   .update({ content: items })
+    //   .eq("id", router.query.id.replace(session.user.id, ""))
+    //   .eq("owner", session.user.id)
+    //   .then((res) => {
+    //   });
+  }
 
   async function downloadImage(path) {
     try {
@@ -285,24 +288,23 @@ export default function Editor(props) {
                 <Icon.Plus size={20} weight="bold" />
                 Add</Popover.Button>
 
-              <Popover.Panel className="absolute bottom-0 translate-y-[-72px] rounded-md bg-white ring-1 ring-neutral-200 p-1" >
+              <Popover.Panel className="absolute bottom-0 translate-y-[-72px] rounded-md bg-white ring-1 ring-neutral-200 p-1 w-40" >
                 <div className="flex gap-4 items-center justify-between cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
                   add({
-                    "id": project.content.length + 1,
-                    "content": [
+                    id: project.content.length + 1,
+                    content: [
                       {
-                        "text": "Allow",
-                        "type": "primaryButton"
-                      },
-                      {
-                        "text": "Deny",
-                        "type": "secondaryButton"
+                        type: "textInput",
+                        label: "Name",
+                        content: "John Doe",
+                        required: false,
+                        visibility: true
                       }
                     ]
-                  })
+                  },)
                 }}>
-                  <Icon.TextAa size={32} weight="bold" className="p-2" />
-                  Text
+                  <Icon.Textbox size={32} weight="bold" className="p-2" />
+                  Text Input
                 </div>
               </Popover.Panel>
             </Popover>
