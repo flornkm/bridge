@@ -331,7 +331,7 @@ export default function Editor(props) {
           leave="transition-opacity duration-150"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full fixed bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
             <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setColorSetting(false) }}>
               <Icon.ArrowLeft size={20} weight="bold" />
               Back
@@ -593,7 +593,7 @@ export default function Editor(props) {
           leave="transition-opacity duration-150"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+        ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full fixed  bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
             <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setEffectSetting(false) }}>
               <Icon.ArrowLeft size={20} weight="bold" />
               Back
