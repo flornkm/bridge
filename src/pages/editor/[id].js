@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect, Fragment } from "react";
 import {
   useUser,
@@ -33,6 +34,7 @@ export default function Editor(props) {
     animIn: "fadeIn 1s ease-in-out",
     animOut: "fadeOut 1s ease-in-out",
   });
+  const [publishing, setPublishing] = useState(false);
 
   const [colors, setColors] = useState({
     heading: "#000000",
@@ -151,7 +153,7 @@ export default function Editor(props) {
   }
 
   async function publish() {
-    // look if project is already in table published, if not add it and if yes update it
+    setPublishing(true);
     const { data, error } = await supabase
       .from("published")
       .select("*")
@@ -173,7 +175,8 @@ export default function Editor(props) {
         })
         .eq("id", router.query.id.replace(session.user.id, ""))
         .eq("owner", session.user.id)
-        .then((res) => {
+        .then(() => {
+          setPublishing(false);
         });
     } else {
       supabase
@@ -187,7 +190,8 @@ export default function Editor(props) {
           colors: colors,
           effects: effects,
         })
-        .then((res) => {
+        .then(() => {
+          setPublishing(false);
         });
     }
   }
@@ -222,7 +226,7 @@ export default function Editor(props) {
     project && (
       <div className={"w-screen h-screen bg-neutral-50 bg-cover bg-center " + (project.type === "cookieBanner" && "bg-[url('/images/editor/canvas.svg')]")}>
         <div className="w-full bg-white py-6 fixed top-0 border-b border-b-neutral-200 z-10">
-          <div className="max-w-[80%] w-full mx-auto justify-between flex items-center overflow-hidden">
+          <div className="max-w-[80%] w-full mx-auto justify-between flex items-center">
             <div className="flex gap-10 items-center">
               <div
                 className="flex gap-2 items-center cursor-pointer transition-all hover:opacity-80"
@@ -244,7 +248,11 @@ export default function Editor(props) {
                 />
               </div>
             </div>
-            <div className="flex gap-6 items-stretch">
+            <Link target="_blank" href={"/" + project.owner + "&" + project.name.toLowerCase().replace(/ /g, "-")} className="px-4 truncate py-2 text-gray-600 hover:text-black bg-white ring-1 ring-neutral-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-w-screen">
+              <Icon.Link size={20} />
+              {"bridge.supply/" + project.owner + "&" + project.name.toLowerCase().replace(/ /g, "-")}
+            </Link>
+            <div className="flex gap-6 items-stretch relative">
               <div className="bg-neutral-100 ring-1 ring-neutral-200 rounded-full">
                 {!avatar ? (
                   <Icon.User size={40} className="p-2" />
@@ -261,8 +269,9 @@ export default function Editor(props) {
               <div className="w-[1px] bg-neutral-200" />
               <button onClick={() => {
                 publish();
-              }} className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
-                <Icon.UploadSimple size={20} weight="bold" />
+              }} className={"font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center group " + (publishing && "pointer-events-none")}>
+                {publishing && <div className="h-5 w-5 relative rounded-full ring-2 ring-white z-0 animate-spin"> <div className="absolute -left-1 -top-1 bg-black z-10 h-3 w-3 transition-all group-hover:bg-zinc-800" /> </div>}
+                {!publishing && <Icon.UploadSimple size={20} weight="bold" />}
                 Publish
               </button>
             </div>

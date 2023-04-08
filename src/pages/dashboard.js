@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import React from "react";
 import {
   useUser,
@@ -81,7 +82,8 @@ function Dashboard(props) {
     const res = await fetch("/api/projects?user_id=" + id);
     const data = await res.json();
     console.log(data);
-    setProjects([...projects, ...data]);
+    setProjects(data);
+    // setProjects([...projects, ...data]);
   };
 
   const selectProject = (id) => {
@@ -94,7 +96,7 @@ function Dashboard(props) {
     router.push("/dashboard");
 
     if (session)
-    fetchProjects(session.user.id);
+      fetchProjects(session.user.id);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -220,16 +222,44 @@ function Dashboard(props) {
           <div
             key={project.id}
             className="col-span-1 bg-white rounded-lg ring-1 ring-neutral-200 p-6 cursor-pointer transition-all hover:bg-opacity-80 shadow-lg shadow-neutral-100  active:scale-[0.98]"
-            onClick={() => {
-              selectProject(project.id);
-              router.push("/editor/" + project.owner + project.id);
+            onClick={(e) => {
+              if (e.target.tagName !== "A") {
+                selectProject(project.id);
+                router.push("/editor/" + project.owner + project.id);
+              }
             }}
           >
             <div>
-              <div className="bg-neutral-50 mb-6 h-56 rounded-lg ring-1 ring-neutral-200"></div>
+              <div className="bg-violet-50 mb-6 h-56 rounded-lg ring-1 ring-violet-200 gap-1 px-10 flex flex-col items-left justify-center truncate">
+                <div className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-blue-600">
+                  <p className="text-xl font-semibold mb-1">
+                    {
+                      project.content.map((item) => {
+                        if (item.id === 1) {
+                          return item.content[0].content;
+                        }
+                      })
+                    }
+                  </p>
+                  <p className="text-lg font-medium">
+                    {
+                      project.content.map((item) => {
+                        if (item.id === 1) {
+                          return item.content[1].content;
+                        }
+                      })
+                    }
+                  </p>
+                </div>
+              </div>
             </div>
             <div>
-              <h1 className="text-lg font-medium">{project.name}</h1>
+              <div className="truncate">
+                <h1 className="text-lg font-medium mb-2">{project.name}</h1>
+                <Link target="_blank" href={"/" + project.owner + "&" + project.name.toLowerCase().replace(/ /g, "-")} className="text-xs text-gray-500 relative z-10 hover:text-black" >
+                  https://bridge.supply/{project.owner}&{project.name.toLowerCase().replace(/ /g, "-")}
+                </Link>
+              </div>
             </div>
           </div>
         ))}
