@@ -283,15 +283,15 @@ const Item = forwardRef(
                       style={{ color: props.colors.label }}
                     />
                   </div>
-                  <div className="flex justify-center gap-3 text-white rounded-lg pl-3 pr-2 py-2 transition-all hover:bg-zinc-800 group w-auto" style={{ backgroundColor: props.colors.primaryButton }}>
-                    <Icon.Upload size={24} width="bold" className="w-auto" />
+                  <div className="flex justify-center gap-3 text-white rounded-lg pl-3 pr-2 py-3 transition-all hover:bg-zinc-800 group w-auto" style={{ backgroundColor: props.colors.primaryButton }}>
+                    <Icon.Paperclip size={24} width="bold" className="w-auto" />
                     <input
                       value={item.content}
                       onChange={(e) => {
                         props.changeInput(e, id, index)
                       }}
                       onBlur={props.handleBlur}
-                      className="bg-transparent text-white text-medium transition-all focus:outline-none"
+                      className="bg-transparent text-white font-medium transition-all focus:outline-none"
                       style={{ width: `${item.content.length + 1}ch` }}
                     />
                   </div>
@@ -336,7 +336,7 @@ const Item = forwardRef(
             return (
               <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center " + (!item.visibility && "opacity-50")}>
                 <div className={"grow items-start flex flex-col gap-2 " + (props.items.content.indexOf(item) !== props.items.content.length - 1 && "mb-8")}>
-                  <div className="flex relative justify-center gap-3 text-white rounded-lg px-3 py-2 transition-all hover:bg-zinc-800 group w-auto" onClick={() => {
+                  <div className="flex relative justify-center gap-3 text-white rounded-lg px-3 py-3 transition-all hover:bg-zinc-800 group w-auto" onClick={() => {
                     if (item.type === "submit")
                       props.setConfetti(true)
                     setTimeout(() => {
@@ -351,7 +351,7 @@ const Item = forwardRef(
                         props.changeInput(e, id, index)
                       }}
                       onBlur={props.handleBlur}
-                      className="bg-transparent text-white text-medium transition-all text-center focus:outline-none"
+                      className="bg-transparent text-white font-medium transition-all text-center focus:outline-none"
                       style={{ width: `${item.content.length + 1}ch` }}
                     />
                   </div>
