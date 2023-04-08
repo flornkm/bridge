@@ -26,7 +26,6 @@ export default function Editor(props) {
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
   const [colorSetting, setColorSetting] = useState(false);
-  const [animationSetting, setAnimationSetting] = useState(false);
   const [effectSetting, setEffectSetting] = useState(false);
   const [animCount, setAnimCount] = useState("1");
   const [confetti, setConfetti] = useState(false);
@@ -41,11 +40,6 @@ export default function Editor(props) {
     label: "#ffffff",
     primaryButton: "#22c55e",
     secondaryButton: "#ef4444",
-  });
-
-  const [animations, setAnimations] = useState({
-    animIn: "fadeIn 1s ease-in-out",
-    animOut: "fadeOut 1s ease-in-out",
   });
 
   const [effects, setEffects] = useState({
@@ -91,14 +85,6 @@ export default function Editor(props) {
       primaryButton: data.colors.primaryButton,
       danger: data.colors.danger,
     });
-    setAnimations({
-      animIn: data.animation.animIn,
-      animOut: data.animation.animOut,
-    });
-    setActiveAnim({
-      animIn: data.animation.animIn,
-      animOut: data.animation.animOut,
-    });
     setEffects({
       confetti: data.effects.confetti,
     });
@@ -140,16 +126,6 @@ export default function Editor(props) {
       });
   }
 
-  async function updateAnimations(anim, type) {
-    supabase
-      .from("projects")
-      .update({ animation: { ...animations, [type]: anim } })
-      .eq("id", router.query.id.replace(session.user.id, ""))
-      .eq("owner", session.user.id)
-      .then((res) => {
-      });
-  }
-
   async function updateEffects(effect, bool) {
     supabase
       .from("projects")
@@ -172,6 +148,48 @@ export default function Editor(props) {
     //   .then((res) => {
     //     console.log(items);
     //   });
+  }
+
+  async function publish() {
+    // look if project is already in table published, if not add it and if yes update it
+    const { data, error } = await supabase
+      .from("published")
+      .select("*")
+      .eq("id", router.query.id.replace(session.user.id, ""))
+      .eq("owner", session.user.id)
+      .single();
+
+    if (data) {
+      supabase
+        .from("published")
+        .update({
+          id: router.query.id.replace(session.user.id, ""),
+          type: "job",
+          owner: session.user.id,
+          name: project.name,
+          content: items,
+          colors: colors,
+          effects: effects,
+        })
+        .eq("id", router.query.id.replace(session.user.id, ""))
+        .eq("owner", session.user.id)
+        .then((res) => {
+        });
+    } else {
+      supabase
+        .from("published")
+        .insert({
+          id: router.query.id.replace(session.user.id, ""),
+          type: "job",
+          owner: session.user.id,
+          name: project.name,
+          content: items,
+          colors: colors,
+          effects: effects,
+        })
+        .then((res) => {
+        });
+    }
   }
 
   async function downloadImage(path) {
@@ -241,7 +259,9 @@ export default function Editor(props) {
                 )}
               </div>
               <div className="w-[1px] bg-neutral-200" />
-              <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
+              <button onClick={() => {
+                publish();
+              }} className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
                 <Icon.UploadSimple size={20} weight="bold" />
                 Publish
               </button>
@@ -254,7 +274,6 @@ export default function Editor(props) {
             session={session}
             id={router.query.id}
             colors={colors}
-            animations={animations}
             animCount={animCount}
             confetti={confetti}
             setConfetti={setConfetti}
@@ -275,7 +294,7 @@ export default function Editor(props) {
           />
         )}
         <Transition
-          show={!colorSetting && !animationSetting && !effectSetting}
+          show={!colorSetting && !effectSetting}
           enter="transition-opacity duration-75"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -361,10 +380,6 @@ export default function Editor(props) {
                 <Icon.Drop size={20} weight="bold" />
                 Colors
               </button>
-              {project.type === "cookieBanner " && <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setAnimationSetting(true) }}>
-                <Icon.LineSegment size={20} weight="bold" />
-                Animation
-              </button>}
               <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setEffectSetting(true) }}>
                 <Icon.Confetti size={20} weight="bold" />
                 Effects
@@ -578,7 +593,6 @@ export default function Editor(props) {
           </div>
         </Transition>
         {project.type === "cookieBanner" && <Transition
-          show={animationSetting}
           enter="transition-opacity duration-75"
           enterFrom="opacity-0"
           enterTo="opacity-100"

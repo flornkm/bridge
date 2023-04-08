@@ -361,68 +361,6 @@ const Item = forwardRef(
             )
           }
         })}
-        {/* {props.items.content && props.items.content.map((item, index) => {
-          if (item.type === "heading") {
-            return (
-              <input
-                key={index}
-                onChange={(e) => {
-                  props.changeInput(e, id, index)
-                }}
-                onBlur={props.handleBlur}
-                type="text"
-                value={item.text}
-                className="text-2xl font-semibold w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1 cursor-default"
-                style={{ color: props.colors.heading }}
-              />
-            );
-          } else if (item.type === "text") {
-            return (
-              <input
-                key={index}
-                onChange={(e) => {
-                  props.changeInput(e, id, index)
-                }}
-                onBlur={props.handleBlur}
-                type="text"
-                value={item.text}
-                className="text-base w-full bg-transparent focus:outline-none transition-all rounded-md focus:bg-neutral-100 px-1 cursor-default"
-                style={{ color: props.colors.text }}
-              />
-            );
-          } else if (
-            item.type === "primaryButton" ||
-            item.type === "secondaryButton"
-          ) {
-            return (
-              <>
-
-                <input
-                  key={index}
-                  onChange={(e) => {
-                    // change this input value
-                    props.changeInput(e, id, index)
-                  }}
-                  onBlur={props.handleBlur}
-                  onClick={() => {
-                    if (item.type === "primaryButton")
-                      props.setConfetti(true)
-                    setTimeout(() => {
-                      props.setConfetti(false)
-                    }, 3000)
-                  }}
-                  type="text"
-                  value={item.text}
-                  className="px-8 py-4 font-medium transition-all hover:opacity-80 text-white rounded-lg text-center focus:outline-none cursor-default"
-                  style={{
-                    backgroundColor: props.colors[item.type],
-                  }}
-                />
-                {item.type === "primaryButton" && props.effects.confetti && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={props.confetti} config={config} /></div>}
-              </>
-            );
-          }
-        })} */}
       </div>
     );
   }
