@@ -218,6 +218,8 @@ export default function Editor(props) {
   useEffect(() => {
     if (router.query.id && session && user) {
       fetchProjects(session.user.id, router.query.id.replace(user.id, ""));
+    } else {
+      router.push("/dashboard");
     }
   }, [router.query.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
