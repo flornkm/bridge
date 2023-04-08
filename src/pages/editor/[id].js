@@ -10,8 +10,6 @@ import * as Icon from "phosphor-react";
 import CookieBanner from "@/components/CookieBanner";
 import { Popover, Transition } from '@headlessui/react'
 import { TwitterPicker } from "react-color";
-import { set, update } from "lodash";
-import { data } from "autoprefixer";
 import JobBoard from "@/components/JobBoard";
 
 function classNames(...classes) {
@@ -75,6 +73,8 @@ export default function Editor(props) {
     }
   }
 
+  const [items, setItems] = useState(null);
+
   const router = useRouter();
 
   const fetchProjects = async (id, projectId) => {
@@ -101,6 +101,7 @@ export default function Editor(props) {
       confetti: data.effects.confetti,
     });
     setLoading(false);
+    setItems(data.content);
   };
 
   async function getProfile() {
@@ -158,14 +159,8 @@ export default function Editor(props) {
   }
 
   async function add(content) {
-    project.content = [...project.content, content];
-    console.log(project.content);
-
-
-    // const items = project.content;
-    // items.push(content);
-
-    // project.content = items;
+    setItems([...items, content]);
+    project.content = items;
 
     // supabase
     //   .from("projects")
@@ -173,6 +168,7 @@ export default function Editor(props) {
     //   .eq("id", router.query.id.replace(session.user.id, ""))
     //   .eq("owner", session.user.id)
     //   .then((res) => {
+    //     console.log(items);
     //   });
   }
 
@@ -272,6 +268,8 @@ export default function Editor(props) {
             confetti={confetti}
             setConfetti={setConfetti}
             effects={effects}
+            items={items}
+            setItems={setItems}
           />
         )}
         <Transition
@@ -289,14 +287,14 @@ export default function Editor(props) {
                 Add</Popover.Button>
 
               <Popover.Panel className="absolute bottom-0 translate-y-[-72px] rounded-md bg-white ring-1 ring-neutral-200 p-1 w-40" >
-                <div className="flex gap-4 items-center justify-between cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
+                <div className="flex gap-4 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
                   add({
                     id: project.content.length + 1,
                     content: [
                       {
                         type: "textInput",
-                        label: "Name",
-                        content: "John Doe",
+                        label: "Label",
+                        content: "Placeholder",
                         required: false,
                         visibility: true
                       }
@@ -305,6 +303,21 @@ export default function Editor(props) {
                 }}>
                   <Icon.Textbox size={32} weight="bold" className="p-2" />
                   Text Input
+                </div>
+                <div className="flex gap-4 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
+                  add({
+                    id: project.content.length + 1,
+                    content: [
+                      {
+                        type: "text",
+                        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        visibility: true
+                      }
+                    ]
+                  },)
+                }}>
+                  <Icon.TextAa size={32} weight="bold" className="p-2" />
+                  Text
                 </div>
               </Popover.Panel>
             </Popover>
