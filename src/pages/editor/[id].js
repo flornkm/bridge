@@ -216,7 +216,7 @@ export default function Editor(props) {
   }, [session]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (router.query.id) {
+    if (router.query.id && session && user) {
       fetchProjects(session.user.id, router.query.id.replace(user.id, ""));
     }
   }, [router.query.id]); // eslint-disable-line react-hooks/exhaustive-deps
