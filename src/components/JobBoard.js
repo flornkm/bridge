@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import {
   DndContext,
@@ -19,11 +19,11 @@ import {
 } from "@dnd-kit/sortable";
 import SortableItem from "@/layout/SortableItem";
 
-function JobBoard({ data, session, id, colors, confetti, setConfetti, effects }) {
+function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, items, setItems }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
 
-  const [items, setItems] = useState(data.content);
+  // const [items, setItems] = useState(data.content);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {

@@ -68,8 +68,8 @@ const Item = forwardRef(
             )
           } else if (item.type === "text") {
             return (
+              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center " + (!item.visibility && "opacity-50")}>
               <input
-                key={index}
                 onChange={(e) => {
                   props.changeInput(e, id, index)
                 }
@@ -80,6 +80,39 @@ const Item = forwardRef(
                 className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
                 style={{ color: props.colors.text }}
               />
+              {id !== 1 && <div className="h-full flex">
+                  <div onClick={() => {
+                    props.changeInput(null, id, index, "visibility");
+                  }}
+                    className="flex flex-col items-center justify-center h-full cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
+                  >
+                    {item.visibility ? (
+                      <div className="flex flex-col gap-2">
+                        <Icon.Eye size={24} />
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-2">
+                        <Icon.EyeClosed size={24} />
+                      </div>
+                    )}
+                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                      Visible?
+                    </div>
+                  </div>
+                  <div onClick={() => {
+                    props.deleteItem(id);
+                  }}
+                    className="flex flex-col items-center justify-center h-full cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
+                  >
+                    <div className="flex flex-col gap-2">
+                      <Icon.Trash size={24} />
+                    </div>
+                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                      Remove
+                    </div>
+                  </div>
+                </div>}
+              </div>
             )
           } else if (item.type === "textInput") {
             return (
