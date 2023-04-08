@@ -69,18 +69,18 @@ const Item = forwardRef(
           } else if (item.type === "text") {
             return (
               <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center " + (!item.visibility && "opacity-50")}>
-              <input
-                onChange={(e) => {
-                  props.changeInput(e, id, index)
-                }
-                }
-                onBlur={props.handleBlur}
-                type="text"
-                value={item.content}
-                className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
-                style={{ color: props.colors.text }}
-              />
-              {id !== 1 && <div className="h-full flex">
+                <input
+                  onChange={(e) => {
+                    props.changeInput(e, id, index)
+                  }
+                  }
+                  onBlur={props.handleBlur}
+                  type="text"
+                  value={item.content}
+                  className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
+                  style={{ color: props.colors.text }}
+                />
+                {id !== 1 && <div className="h-full flex">
                   <div onClick={() => {
                     props.changeInput(null, id, index, "visibility");
                   }}
@@ -99,9 +99,11 @@ const Item = forwardRef(
                       Visible?
                     </div>
                   </div>
-                  <div onClick={() => {
-                    props.deleteItem(id);
-                  }}
+                  {id > 5 && <div
+
+                    onClick={() => {
+                      props.deleteItem(id);
+                    }}
                     className="flex flex-col items-center justify-center h-full cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
                   >
                     <div className="flex flex-col gap-2">
@@ -110,7 +112,57 @@ const Item = forwardRef(
                     <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
                       Remove
                     </div>
+                  </div>}
+                </div>}
+              </div>
+            )
+          } else if (item.type === "textArea") {
+            return (
+              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center h-40 " + (!item.visibility && "opacity-50")}>
+                <textarea
+                  onChange={(e) => {
+                    props.changeInput(e, id, index)
+                  }
+                  }
+                  onBlur={props.handleBlur}
+                  type="text"
+                  value={item.content}
+                  className="text-lg flex gap-4 h-full items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
+                  style={{ color: props.colors.text }}
+                />
+                {id !== 1 && <div className="h-full flex items-center">
+                  <div onClick={() => {
+                    props.changeInput(null, id, index, "visibility");
+                  }}
+                    className="flex flex-col items-center justify-center cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
+                  >
+                    {item.visibility ? (
+                      <div className="flex flex-col gap-2">
+                        <Icon.Eye size={24} />
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-2">
+                        <Icon.EyeClosed size={24} />
+                      </div>
+                    )}
+                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                      Visible?
+                    </div>
                   </div>
+                  {id > 5 && <div
+
+                    onClick={() => {
+                      props.deleteItem(id);
+                    }}
+                    className="flex flex-col items-center justify-center cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
+                  >
+                    <div className="flex flex-col gap-2">
+                      <Icon.Trash size={24} />
+                    </div>
+                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                      Remove
+                    </div>
+                  </div>}
                 </div>}
               </div>
             )
@@ -147,7 +199,7 @@ const Item = forwardRef(
                       type="text"
                       value={item.label}
                       className="text-base flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1.5 py-1"
-                      style={{ color: props.colors.text }}
+                      style={{ color: props.colors.label }}
                     />
                   </div>
                   <input
@@ -180,9 +232,11 @@ const Item = forwardRef(
                       Visible?
                     </div>
                   </div>
-                  <div onClick={() => {
-                    props.deleteItem(id);
-                  }}
+                  {id > 5 && <div
+
+                    onClick={() => {
+                      props.deleteItem(id);
+                    }}
                     className="flex flex-col items-center justify-center h-full cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
                   >
                     <div className="flex flex-col gap-2">
@@ -191,7 +245,7 @@ const Item = forwardRef(
                     <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
                       Remove
                     </div>
-                  </div>
+                  </div>}
                 </div>
               </div>
             )
@@ -226,10 +280,10 @@ const Item = forwardRef(
                       type="text"
                       value={item.label}
                       className="text-base flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1.5 py-1"
-                      style={{ color: props.colors.text }}
+                      style={{ color: props.colors.label }}
                     />
                   </div>
-                  <div className="flex justify-center gap-3 text-white bg-black rounded-lg pl-3 pr-2 py-2 transition-all hover:bg-zinc-800 group w-auto">
+                  <div className="flex justify-center gap-3 text-white rounded-lg pl-3 pr-2 py-2 transition-all hover:bg-zinc-800 group w-auto" style={{ backgroundColor: props.colors.primaryButton }}>
                     <Icon.Upload size={24} width="bold" className="w-auto" />
                     <input
                       value={item.content}
@@ -237,7 +291,7 @@ const Item = forwardRef(
                         props.changeInput(e, id, index)
                       }}
                       onBlur={props.handleBlur}
-                      className="bg-black text-white text-medium group-hover:bg-zinc-800 transition-all focus:outline-none"
+                      className="bg-transparent text-white text-medium transition-all focus:outline-none"
                       style={{ width: `${item.content.length + 1}ch` }}
                     />
                   </div>
@@ -262,9 +316,10 @@ const Item = forwardRef(
                       Visible?
                     </div>
                   </div>
-                  <div onClick={() => {
-                    props.deleteItem(id);
-                  }}
+                  {id > 5 && <div
+                    onClick={() => {
+                      props.deleteItem(id);
+                    }}
                     className="flex flex-col items-center justify-center h-full cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative group"
                   >
                     <div className="flex flex-col gap-2">
@@ -273,8 +328,35 @@ const Item = forwardRef(
                     <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
                       Remove
                     </div>
+                  </div>}
+                </div>
+              </div>
+            )
+          } else if (item.type === "submit") {
+            return (
+              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center " + (!item.visibility && "opacity-50")}>
+                <div className={"grow items-start flex flex-col gap-2 " + (props.items.content.indexOf(item) !== props.items.content.length - 1 && "mb-8")}>
+                  <div className="flex relative justify-center gap-3 text-white rounded-lg px-3 py-2 transition-all hover:bg-zinc-800 group w-auto" onClick={() => {
+                    if (item.type === "submit")
+                      props.setConfetti(true)
+                    setTimeout(() => {
+                      props.setConfetti(false)
+                    }, 3000)
+                  }} style={{ backgroundColor: props.colors.primaryButton }} >
+                    {item.type === "submit" && props.effects.confetti && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={props.confetti} config={config} /></div>}
+
+                    <input
+                      value={item.content}
+                      onChange={(e) => {
+                        props.changeInput(e, id, index)
+                      }}
+                      onBlur={props.handleBlur}
+                      className="bg-transparent text-white text-medium transition-all text-center focus:outline-none"
+                      style={{ width: `${item.content.length + 1}ch` }}
+                    />
                   </div>
                 </div>
+                <div className="flex-grow" />
               </div>
             )
           }

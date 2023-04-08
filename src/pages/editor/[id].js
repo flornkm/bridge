@@ -38,6 +38,7 @@ export default function Editor(props) {
   const [colors, setColors] = useState({
     heading: "#000000",
     text: "#737373",
+    label: "#ffffff",
     primaryButton: "#22c55e",
     secondaryButton: "#ef4444",
   });
@@ -86,8 +87,9 @@ export default function Editor(props) {
     setColors({
       heading: data.colors.heading,
       text: data.colors.text,
+      label: data.colors.label,
       primaryButton: data.colors.primaryButton,
-      secondaryButton: data.colors.secondaryButton,
+      danger: data.colors.danger,
     });
     setAnimations({
       animIn: data.animation.animIn,
@@ -286,7 +288,7 @@ export default function Editor(props) {
                 <Icon.Plus size={20} weight="bold" />
                 Add</Popover.Button>
 
-              <Popover.Panel className="absolute bottom-0 translate-y-[-72px] rounded-md bg-white ring-1 ring-neutral-200 p-1 w-40" >
+              <Popover.Panel className="absolute bottom-0 translate-y-[-72px] rounded-md bg-white ring-1 ring-neutral-200 p-1 w-48" >
                 <div className="flex gap-4 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
                   add({
                     id: project.content.length + 1,
@@ -318,6 +320,38 @@ export default function Editor(props) {
                 }}>
                   <Icon.TextAa size={32} weight="bold" className="p-2" />
                   Text
+                </div>
+                <div className="flex gap-4 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
+                  add({
+                    id: project.content.length + 1,
+                    content: [
+                      {
+                        type: "textArea",
+                        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        visibility: true
+                      }
+                    ]
+                  },)
+                }}>
+                  <Icon.TextAlignLeft size={32} weight="bold" className="p-2" />
+                  Textarea
+                </div>
+                <div className="flex gap-4 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
+                  add({
+                    id: project.content.length + 1,
+                    content: [
+                      {
+                        type: "fileUpload",
+                        label: "Label",
+                        content: "Upload",
+                        required: false,
+                        visibility: true
+                      }
+                    ]
+                  },)
+                }}>
+                  <Icon.File size={32} weight="bold" className="p-2" />
+                  File Upload
                 </div>
               </Popover.Panel>
             </Popover>
@@ -437,9 +471,51 @@ export default function Editor(props) {
                       className={
                         "rounded-full h-6 w-6 ring-1 ring-neutral-300"
                       }
+                      style={{ backgroundColor: colors.label }}
+                    />
+                    Labels</Popover.Button>
+
+                  <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
+                    <TwitterPicker
+                      className="bg-white p-2"
+                      styles={colorStyles}
+                      color={colors.label}
+                      onBlur={() => {
+                        console.log("blur");
+                      }}
+                      onChangeComplete={(color) => {
+                        setColors({ ...colors, label: color.hex });
+                        updateColors(color.hex, "label");
+                      }}
+                      triangle="hide"
+                      width="330px"
+                      colors={[
+                        "#ffffff",
+                        "#f9fafb",
+                        "#f3f4f6",
+                        "#e5e7eb",
+                        "#d1d5db",
+                        "#9ca3af",
+                        "#6b7280",
+                        "#4b5563",
+                        "#374151",
+                        "#1f2937",
+                        "#111827",
+                      ]}
+                    />
+                  </Popover.Panel>
+                </Popover>
+              </button>
+              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <Popover className="relative">
+                  <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                    <div
+                      className={
+                        "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                      }
                       style={{ backgroundColor: colors.primaryButton }}
                     />
-                    Primary</Popover.Button>
+                    Buttons</Popover.Button>
 
                   <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                     <TwitterPicker
@@ -453,10 +529,10 @@ export default function Editor(props) {
                       triangle="hide"
                       width="330px"
                       colors={[
-                        "#22c55e",
-                        "#10b981",
+                        "#14b8a6",
                         "#06b6d4",
                         "#0ea5e9",
+                        "#3b82f6"
                       ]}
                     />
                   </Popover.Panel>
@@ -469,29 +545,30 @@ export default function Editor(props) {
                       className={
                         "rounded-full h-6 w-6 ring-1 ring-neutral-300"
                       }
-                      style={{ backgroundColor: colors.secondaryButton }}
+                      style={{ backgroundColor: colors.danger }}
                     />
-                    Secondary</Popover.Button>
+                    Alerts</Popover.Button>
 
                   <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                     <TwitterPicker
                       className="bg-white p-2"
                       styles={colorStyles}
-                      color={colors.secondaryButton}
+                      color={colors.danger}
                       onBlur={() => {
                         console.log("blur");
                       }}
                       onChangeComplete={(color) => {
-                        setColors({ ...colors, secondaryButton: color.hex });
-                        updateColors(color.hex, "secondaryButton");
+                        setColors({ ...colors, danger: color.hex });
+                        updateColors(color.hex, "danger");
                       }}
                       triangle="hide"
                       width="330px"
                       colors={[
                         // some red tailwind colors
-                        "#ef4444",
-                        "#fbbf24",
-                        "#f59e0b",
+                        "#f43f5e",
+                        "#ec4899",
+                        "#d946ef",
+                        "#a855f7"
                       ]}
                     />
                   </Popover.Panel>

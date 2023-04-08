@@ -300,7 +300,7 @@ export default function Home() {
                         <div className="flex flex-col gap-3 mb-10">
                             <h2 className="font-semibold text-4xl text-black flex gap-4 items-center">Why tho?</h2>
                         </div>
-                        <div className="mb-96">
+                        <div className="pb-96">
 
                         </div>
                     </div>
