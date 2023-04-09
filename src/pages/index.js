@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useInView } from 'react-intersection-observer';
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import * as Icon from "phosphor-react";
 import {
     DndContext,
@@ -34,6 +34,11 @@ export default function Home() {
     const scrollDiv = useRef(null);
     const navRect = useRef(null);
     const navItems = [
+        useRef(null),
+        useRef(null),
+        useRef(null),
+    ]
+    const keys = [
         useRef(null),
         useRef(null),
     ]
@@ -147,12 +152,15 @@ export default function Home() {
                 const percentage = Math.abs(position.top) / scrollDiv.current.offsetHeight;
                 setScrollPosition(percentage);
 
-                if (percentage < 0.25) {
+                if (percentage < 0.2) {
                     navRect.current.style.width = navItems[0].current.offsetWidth + "px";
                     navRect.current.style.left = navItems[0].current.offsetLeft + "px";
-                } else {
+                } else if (percentage > 0.2 && percentage < 0.4) {
                     navRect.current.style.width = navItems[1].current.offsetWidth + "px";
                     navRect.current.style.left = navItems[1].current.offsetLeft + "px";
+                } else if (percentage > 0.4) {
+                    navRect.current.style.width = navItems[2].current.offsetWidth + "px";
+                    navRect.current.style.left = navItems[2].current.offsetLeft + "px";
                 }
             }
         };
@@ -160,6 +168,21 @@ export default function Home() {
         document.addEventListener("scroll", handleScroll);
         return () => document.removeEventListener("scroll", handleScroll);
     }, [navItems]);
+
+    // on keypress command + k
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.metaKey) {
+                
+            }
+            if (e.metaKey && e.key === "k") {
+                console.log("custom cursor");
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, []);
 
     return (
         <>
@@ -218,12 +241,12 @@ export default function Home() {
                         className="min-h-64 md:pt-48 max-md:pt-40 relative z-20 border-b border-b-neutral-200"
 
                     >
-                        <div className="max-w-3xl flex flex-col gap-6 md:mb-20">
-                            <h1 className="font-semibold md:text-5xl max-md:text-3xl leading-tight">
+                        <div className="max-w-3xl flex flex-col gap-6 md:mb-16">
+                            <h1 className="font-semibold md:text-5xl max-md:text-3xl md:leading-[1.3em]">
                                 Streamline your hiring process
                                 with an interactive tool.
                             </h1>
-                            <p className="text-gray-500 font-medium md:text-3xl max-md:text-xl leading-tight">
+                            <p className="text-gray-500 font-medium md:text-3xl max-md:text-xl leading-tight md:leading-[1.3em]">
                                 Create a high-quality candidate experience and find
                                 the best talent for your business with Bridge.
                             </p>
@@ -302,20 +325,28 @@ export default function Home() {
                                 </div>
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden relative h-96">
-                                <h3 className="text-black font-semibold md:text-2xl max-md:text-xl">Made for the future</h3>
-                                <div className="absolute left-16 top-[60%] translate-y-[-50%] h-48 w-full bg-no-repeat bg-right-center bg-[url('/images/general/privacy_badges.svg')]">
-                                    <div className="absolute z-10 bg-gradient-to-r from-transparent to-neutral-100 top-0 bottom-0 left-0 right-0" />
+                                <h3 className="text-black font-semibold md:text-2xl max-md:text-xl">Shortcuts from the future</h3>
+                                <div className="h-full w-full flex justify-center items-center gap-4">
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20" ref={keys[0]}>
+                                        <Icon.Command weight="fill" size={64} />
+                                    </div>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl" ref={keys[1]}>
+                                        K
+                                    </div>
                                 </div>
+                                {/* <div className="absolute left-16 top-[60%] translate-y-[-50%] h-48 w-full bg-no-repeat bg-right-center bg-[url('/images/general/privacy_badges.svg')]">
+                                    <div className="absolute z-10 bg-gradient-to-r from-transparent to-neutral-100 top-0 bottom-0 left-0 right-0" />
+                                </div> */}
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl flex gap-4 items-center">Connect with canditates
                                 </h3>
-                                <div className="w-full flex justify-between h-full items-center gap-4">
-                                    <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl ring-1 ring-purple-300" unoptimized={true} />
+                                <div className="w-full flex justify-between h-full items-center md:gap-4">
+                                    <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-neutral-200 relative max-md:z-20" unoptimized={true} />
                                     <Icon.Link size={40} weight="fill" className="text-gray-500 max-md:hidden" />
-                                    <Image src="/images/general/memoji_2.jpg" alt="Isabelle" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl ring-1 ring-pink-300" unoptimized={true} />
+                                    <Image src="/images/general/memoji_2.jpg" alt="Isabelle" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-neutral-200 relative max-md:z-10 max-md:-left-4" unoptimized={true} />
                                     <Icon.Link size={40} weight="fill" className="text-gray-500 max-md:hidden" />
-                                    <Image src="/images/general/memoji_3.jpg" alt="Nataly" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl ring-1 ring-green-300" unoptimized={true} />
+                                    <Image src="/images/general/memoji_3.jpg" alt="Nataly" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-neutral-200 relative max-md:-left-8" unoptimized={true} />
                                 </div>
                             </div>
                             <div className="flex flex-col gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden h-96">
@@ -352,21 +383,28 @@ export default function Home() {
                         <div className="flex flex-col gap-3 relative">
                             <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Why Bridge when there are a lot of other tools?</h2>
                         </div>
-                        <div className="h-[150vh] relative flex flex-col items-start pt-24" ref={scrollDiv}>
+                        <div className="h-[150vh] relative flex flex-col items-start pt-16" ref={scrollDiv}>
                             <div className="flex justify-center sticky top-6 w-full z-10 max-md:top-32">
-                                <div className="px-2 py-4 ring-1 ring-neutral-200 bg-white rounded-full flex gap-8 relative shadow-md max-md:w-full max-md:justify-between">
-                                    <h3 className={"font-medium md:text-lg max-md:text-bas flex gap-4 items-center relative z-10 " + (scrollPosition < 0.25 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customization</h3>
-                                    <h3 className={"font-medium md:text-lg max-md:text-base flex gap-4 items-center relative z-10 " + (scrollPosition < 0.25 ? "text-gray-400" : "text-black00")} ref={navItems[1]}>Easy to use</h3>
+                                <div className="px-2 ring-1 ring-neutral-200 bg-white rounded-full items-center flex relative shadow-md overflow-hidden">
+                                    <h3 className={"px-4 py-4 font-medium md:text-lg max-md:text-sm relative z-10 text-center " + (scrollPosition < 0.2 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customizable</h3>
+                                    <h3 className={"px-4 py-4 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate " + (scrollPosition > 0.2 && scrollPosition < 0.4 ? "text-black" : "text-gray-400")} ref={navItems[1]}>Organisable</h3>
+                                    <h3 className={"px-4 py-4 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate " + (scrollPosition > 0.4 ? "text-black" : "text-gray-400")} ref={navItems[2]}>Super fast</h3>
+
                                     <div className="bg-neutral-100 ring-4 ring-neutral-100 absolute top-2 bottom-2 rounded-full transition-all" ref={navRect} />
                                 </div>
                             </div>
                             <div className="sticky top-64 w-full h-auto col-span-2 flex items-center justify-center">
-                                {scrollPosition < 0.25 ? (
+                                {scrollPosition < 0.2 && (
                                     <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[512px] w-full rounded-3xl relative -top-8">
 
-                                    </div>
-                                ) : (
+                                    </div>)}
+                                {scrollPosition > 0.2 && scrollPosition < 0.4 && (
                                     <div className="bg-gradient-to-br from-blue-300 to-indigo-400 h-[512px] w-full rounded-3xl relative -top-8">
+
+                                    </div>
+                                )}
+                                {scrollPosition > 0.4 && (
+                                    <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[512px] w-full rounded-3xl relative -top-8">
 
                                     </div>
                                 )}
