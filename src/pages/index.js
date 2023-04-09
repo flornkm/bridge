@@ -281,7 +281,6 @@ export default function Home() {
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl flex gap-4 items-center">Connect with canditates
-                                    {/* <span className="rounded-full ring-2 ring-purple-300 text-purple-500 text-sm px-2 py-1">Soon</span> */}
                                 </h3>
                                 <div className="w-full flex justify-between h-full items-center gap-4">
                                     <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl ring-1 ring-purple-300" unoptimized={true} />
@@ -322,14 +321,24 @@ export default function Home() {
                         )}
                     </div>
                     <div className="pb-56">
-                        <div className="flex flex-col gap-3 mb-10">
+                        <div className="flex flex-col gap-3 relative top-48">
                             <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Why Bridge when there are a lot of other tools?</h2>
                         </div>
-                        <div className="">
+                        <div className="h-[170vh] relative grid grid-cols-3 gap-20 items-start">
+                            <div className="h-full flex flex-col justify-center gap-40">
+                                <h3 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Customization</h3>
+                                <h3 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Customization</h3>
+                                <h3 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Customization</h3>
+                                <h3 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Customization</h3>
+                            </div>
+                            <div className="sticky top-0 w-full h-screen col-span-2 flex items-center justify-center">
+                                <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-96 w-full rounded-3xl">
 
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="p-[1px] rounded-3xl bg-indigo-100 relative overflow-hidden">
+                    <div className="p-[1px] rounded-3xl bg-indigo-100 relative overflow-hidden -top-48">
                         <div className="pt-16 px-8 bg-white bg-opacity-90 rounded-[23px] relative z-20">
                             <div className="flex flex-col gap-3">
                                 <h2 className="font-semibold md:text-3xl max-md:text-2xl text-indigo-500 flex gap-4 items-center justify-center">Integrate in your Pipeline</h2>
@@ -338,7 +347,18 @@ export default function Home() {
                                 <RiveComponent src="/animations/bridge_explanation.riv" className="max-md:w-screen md:w-[85%] max-md:absolute max-md:translate-x-[-50%] left-[50%] aspect-video" />
                             </div>
                         </div>
-                        <div className="absolute top-0 bottom-0 right-0 left-0 bg-indigo-400 animate-[spin_10s_linear_infinite] blur-2xl z-10" />
+                        <div className="absolute top-0 bottom-0 right-0 left-0 bg-indigo-300 animate-[spin_10s_linear_infinite] blur-2xl z-10" />
+                    </div>
+                    <div className="p-[1px] rounded-3xl bg-fuchsia-100 relative overflow-hidden">
+                        <div className="pt-16 px-8 bg-white bg-opacity-90 rounded-[23px] relative z-20">
+                            <div className="flex flex-col gap-3">
+                                <h2 className="font-semibold md:text-3xl max-md:text-2xl text-fuchsia-500 flex gap-4 items-center justify-center">AI Choices <span className="rounded-full ring-2 ring-fuchsia-300 text-fuchsia-500 text-base px-2 py-1">Soon</span></h2>
+                            </div>
+                            <div className="max-md:h-80 w-full flex justify-center">
+                                <div className="h-96" />
+                            </div>
+                        </div>
+                        <div className="absolute top-0 bottom-0 right-0 left-0 bg-fuchsia-300 animate-[spin_7s_linear_infinite] blur-2xl z-10" />
                     </div>
                     <div className="h-56" />
                 </div>
