@@ -23,6 +23,7 @@ import {
 } from "@dnd-kit/sortable";
 import SortableItem from "@/layout/SortableItem";
 import Confetti from 'react-dom-confetti';
+import RiveComponent from '@rive-app/react-canvas';
 
 export default function Home() {
     const cursor = useRef(null);
@@ -313,22 +314,33 @@ export default function Home() {
                             <p className="text-gray-500 text-xl font-medium">Our editor works for everyone.</p>
                         </div>
                         {isInView ? (
-                            <video autoPlay loop muted className="rounded-2xl ring-1 w-full object-cover aspect-video ring-neutral-200">
+                            <video autoPlay loop muted className="rounded-2xl ring-1 w-full object-cover aspect-video bg-[#FAF9FA] ring-neutral-200">
                                 <source src="/videos/showcase.mp4" type="video/mp4" />
                             </video>
                         ) : (
                             <div ref={ref}></div>
                         )}
                     </div>
-                    <div>
+                    <div className="pb-56">
                         <div className="flex flex-col gap-3 mb-10">
                             <h2 className="font-semibold text-4xl text-black flex gap-4 items-center">Why tho?</h2>
                         </div>
-                        <div className="pb-96">
+                        <div className="">
 
                         </div>
                     </div>
+                    <div className="p-[1px] rounded-3xl relative overflow-hidden">
+                        <div className="pt-16 px-8 bg-indigo-50 rounded-[23px] relative z-20">
+                            <div className="flex flex-col gap-3">
+                                <h2 className="font-semibold text-3xl text-indigo-500 flex gap-4 items-center justify-center">Integrate with your favourite tools</h2>
+                            </div>
+                            <RiveComponent src="/animations/bridge_explanation.riv" className="w-full aspect-video" />
+                        </div>
+                        <div className="absolute top-0 bottom-0 right-0 left-0 bg-indigo-400 animate-[spin_10s_linear_infinite] blur-2xl z-10" />
+                    </div>
+                    <div className="h-56" />
                 </div>
+
             </main>
             {customCursor && <Image
                 src="/images/general/custom_cursor.svg"
