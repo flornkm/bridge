@@ -22,11 +22,13 @@ import {
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import SortableItem from "@/layout/SortableItem";
+import Confetti from 'react-dom-confetti';
 
 export default function Home() {
     const cursor = useRef(null);
     const [customCursor, setCustomCursor] = useState(false);
     const [isInView, setIsInView] = useState(false);
+    const [confetti, setConfetti] = useState(false);
     const [items, setItems] = useState([
         {
             id: "1",
@@ -43,6 +45,20 @@ export default function Home() {
             cursor.current.style.left = e.clientX + "px";
             cursor.current.style.top = e.clientY + "px";
         });
+    };
+
+    const config = {
+        angle: 90,
+        spread: "61",
+        startVelocity: "30",
+        elementCount: "40",
+        dragFriction: 0.12,
+        duration: 3000,
+        stagger: "4",
+        width: "10px",
+        height: "10px",
+        perspective: "359px",
+        colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
     };
 
     useEffect(() => {
@@ -194,11 +210,11 @@ export default function Home() {
                                         &quot;id&quot;: 1,<br />
                                         &quot;content&quot;: [<br />
                                         &#123;<br />
-                                        &quot;text&quot;: &quot;We use cookies!&quot;,<br />
+                                        &quot;content&quot;: &quot;Product Designer!&quot;,<br />
                                         &quot;type&quot;: &quot;heading&quot;<br />
                                         &#125;,<br />
                                         &#123;<br />
-                                        &quot;text&quot;: &quot;Please …&quot;,<br />
+                                        &quot;text&quot;: &quot;We need you!&quot;,<br />
                                         &quot;type&quot;: &quot;text&quot;<br />
                                         &#125;
                                         ]<br />
@@ -230,7 +246,7 @@ export default function Home() {
                         <div className="grid grid-cols-3 gap-4 max-md:grid-cols-1">
                             <div className="flex flex-col gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden relative h-96">
                                 <h3 className="text-black font-semibold text-2xl">Drag and Drop</h3>
-                                <div className="flex gap-4 items-center bg-white p-8 absolute right-0 bottom-8 pr-8 ring-1 ring-neutral-200 rounded-tl-2xl rounded-bl-2xl top-[60%] translate-y-[-50%]">
+                                <div className="flex flex-col gap-8 items-start bg-white left-8 p-8 absolute right-4 bottom-4 pr-8 ring-1 top-[30%] ring-neutral-200 rounded-2xl pb-8">
                                     <DndContext
                                         sensors={sensors}
                                         collisionDetection={closestCenter}
@@ -257,13 +273,15 @@ export default function Home() {
                                 </div>
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden relative h-96">
-                                <h3 className="text-black font-semibold text-2xl">Privacy compliant</h3>
+                                <h3 className="text-black font-semibold text-2xl">Made for the future</h3>
                                 <div className="absolute left-16 top-[60%] translate-y-[-50%] h-48 w-full bg-no-repeat bg-right-center bg-[url('/images/general/privacy_badges.svg')]">
                                     <div className="absolute z-10 bg-gradient-to-r from-transparent to-neutral-100 top-0 bottom-0 left-0 right-0" />
                                 </div>
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden h-96">
-                                <h3 className="text-black font-semibold text-2xl flex gap-4 items-center">Easily share <span className="rounded-full ring-2 ring-purple-300 text-purple-500 text-sm px-2 py-1">Soon</span></h3>
+                                <h3 className="text-black font-semibold text-2xl flex gap-4 items-center">Connect with canditates
+                                    {/* <span className="rounded-full ring-2 ring-purple-300 text-purple-500 text-sm px-2 py-1">Soon</span> */}
+                                </h3>
                                 <div className="w-full flex justify-between h-full items-center gap-4">
                                     <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl ring-1 ring-purple-300" unoptimized={true} />
                                     <Icon.Link size={40} weight="fill" className="text-gray-500 max-md:hidden" />
@@ -275,9 +293,15 @@ export default function Home() {
                             <div className="flex flex-col gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden h-96">
                                 <h3 className="text-black font-semibold text-2xl">Publishing made easy</h3>
                                 <div className="h-full w-full flex justify-center items-center">
-                                    <button className="font-medium text-xl px-4 py-3 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-3 items-center cursor-default">
+                                    <button onClick={() => {
+                                        setConfetti(true)
+                                        setTimeout(() => {
+                                            setConfetti(false)
+                                        }, 3000)
+                                    }} className="relative font-medium text-xl px-4 py-3 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-3 items-center">
                                         <Icon.UploadSimple size={28} weight="bold" />
                                         Publish
+                                        <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={confetti} config={config} /></div>
                                     </button>
                                 </div>
                             </div>
@@ -289,7 +313,7 @@ export default function Home() {
                             <p className="text-gray-500 text-xl font-medium">Our editor works for everyone.</p>
                         </div>
                         {isInView ? (
-                            <video autoPlay loop muted className="rounded-2xl ring-1 ring-neutral-200">
+                            <video autoPlay loop muted className="rounded-2xl ring-1 w-full object-cover aspect-video ring-neutral-200">
                                 <source src="/videos/showcase.mp4" type="video/mp4" />
                             </video>
                         ) : (

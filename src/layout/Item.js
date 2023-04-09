@@ -38,7 +38,7 @@ const Item = forwardRef(
     };
 
     return (
-      <div ref={ref} style={inlineStyles} {...props} className="flex flex-col border-l border-neutral-200 border-solid pl-6">
+      <div ref={ref} style={inlineStyles} {...props} className={"flex flex-col " + (!props.landingpage && "border-l border-neutral-200 border-solid pl-6") }>
         {!props.items.content && props.landingpage === "true" && (
           id === "1" ? (
             <div className="flex flex-col items-start justify-center h-full cursor-grab">
@@ -46,8 +46,9 @@ const Item = forwardRef(
               <p className="text-gray-500">Order differently</p>
             </div>
           ) : (
-            <button className="bg-violet-500 text-white font-medium p-2 rounded-lg transition-all hover:opacity-90 cursor-grab">
+            <button className="bg-violet-500 text-white font-medium py-2 pl-3 pr-4 rounded-lg transition-all hover:opacity-90 cursor-grab flex gap-4 items-center">
               <Icon.Check size={32} weight="fill" />
+              Apply
             </button>
           )
         )}
