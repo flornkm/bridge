@@ -1,4 +1,4 @@
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Lora } from "next/font/google";
 import "../styles/globals.css";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
@@ -16,6 +16,12 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const serifFont = Lora({ 
+  weights: [400, 500, 600, 700, 800, 900],
+  display: 'swap',
+  subsets: ['latin'],
+})
+
 function MyApp({ Component, pageProps }) {
   const [supabase] = useState(() => createBrowserSupabaseClient());
 
@@ -26,7 +32,7 @@ function MyApp({ Component, pageProps }) {
           :root {
             --inter-font: ${inter.style.fontFamily};
             --jetbrains-mono-font: ${jetbrainsMono.style.fontFamily};
-          }
+            --display-font: ${serifFont.style.fontFamily};
         `}
       </style>
       <SessionContextProvider

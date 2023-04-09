@@ -15,6 +15,7 @@ module.exports = {
     fontFamily: {
       sans: ['var(--inter-font)', ...fontFamily.sans],
       mono: ['var(--jetbrains-mono-font)', ...fontFamily.mono],
+      display: ['var(--display-font)', ...fontFamily.sans],
     },
   },
   plugins: [],

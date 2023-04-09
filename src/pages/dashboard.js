@@ -223,43 +223,47 @@ function Dashboard(props) {
             key={project.id}
             className="col-span-1 bg-white rounded-lg ring-1 ring-neutral-200 p-6 cursor-pointer transition-all hover:bg-opacity-80 shadow-lg shadow-neutral-100  active:scale-[0.98]"
             onClick={(e) => {
-              if (e.target.tagName !== "A") {
+              console.log(e.target.tagName);
+              if (e.target.tagName !== "A" && e.target.tagName !== "BUTTON") {
                 selectProject(project.id);
                 router.push("/editor/" + project.owner + project.id);
               }
             }}
           >
             <div>
-              <div className="bg-violet-50 mb-6 h-56 rounded-lg ring-1 ring-violet-200 gap-1 px-10 flex flex-col items-left justify-center truncate">
-                <div className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-blue-600">
-                  <p className="text-xl font-semibold mb-1">
-                    {
-                      project.content.map((item) => {
-                        if (item.id === 1) {
-                          return item.content[0].content;
-                        }
-                      })
-                    }
-                  </p>
-                  <p className="text-lg font-medium">
-                    {
-                      project.content.map((item) => {
-                        if (item.id === 1) {
-                          return item.content[1].content;
-                        }
-                      })
-                    }
-                  </p>
+              <div className="bg-indigo-50 mb-6 h-56 rounded-lg ring-1 ring-indigo-200 gap-1 px-8 flex flex-col items-left justify-center truncate">
+                <div className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-blue-600 flex flex-col gap-4">
+                  {
+                    project.content.map((item, index) => {
+                      if (item.id < 6) {
+                        const maxLength = Math.max(...project.content.map(item => item.content[0].content.length));
+                        const percentage = ((item.content[0].content.length + 1) / maxLength) * 100;
+                        const limitedPercentage = percentage > 100 ? 100 : percentage;
+                        return (
+                          <div
+                            key={index}
+                            className="h-3 bg-indigo-500 opacity-30 rounded-full"
+                            style={{ width: `${limitedPercentage}%` }}
+                          />
+                        )
+                      }
+                    })
+                  }
                 </div>
               </div>
             </div>
-            <div>
+            <div className="flex w-full justify-between gap-4 items-center">
               <div className="truncate">
                 <h1 className="text-lg font-medium mb-2">{project.name}</h1>
                 <Link target="_blank" href={"/" + project.owner + "&" + project.name.toLowerCase().replace(/ /g, "-")} className="text-xs text-gray-500 relative z-10 hover:text-black" >
                   https://bridge.supply/{project.owner}&{project.name.toLowerCase().replace(/ /g, "-")}
                 </Link>
               </div>
+              <div>
+              </div>
+              <button className="flex flex-col items-center justify-center cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative text-gray-500 hover:text-black ">
+                <Icon.DotsThree weight="bold" className="w-6 h-6 pointer-events-none" />
+              </button>
             </div>
           </div>
         ))}
