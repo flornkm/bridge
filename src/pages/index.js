@@ -30,6 +30,13 @@ export default function Home() {
     const [customCursor, setCustomCursor] = useState(false);
     const [isInView, setIsInView] = useState(false);
     const [confetti, setConfetti] = useState(false);
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const scrollDiv = useRef(null);
+    const navRect = useRef(null);
+    const navItems = [
+        useRef(null),
+        useRef(null),
+    ]
     const [items, setItems] = useState([
         {
             id: "1",
@@ -132,6 +139,27 @@ export default function Home() {
             setIsInView(true);
         }
     }, [inView]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const position = scrollDiv.current.getBoundingClientRect();
+            if (position.top < 0 && position.bottom > 0) {
+                const percentage = Math.abs(position.top) / scrollDiv.current.offsetHeight;
+                setScrollPosition(percentage);
+
+                if (percentage < 0.25) {
+                    navRect.current.style.width = navItems[0].current.offsetWidth + "px";
+                    navRect.current.style.left = navItems[0].current.offsetLeft + "px";
+                } else {
+                    navRect.current.style.width = navItems[1].current.offsetWidth + "px";
+                    navRect.current.style.left = navItems[1].current.offsetLeft + "px";
+                }
+            }
+        };
+
+        document.addEventListener("scroll", handleScroll);
+        return () => document.removeEventListener("scroll", handleScroll);
+    }, [navItems]);
 
     return (
         <>
@@ -321,44 +349,49 @@ export default function Home() {
                         )}
                     </div>
                     <div className="pb-56">
-                        <div className="flex flex-col gap-3 relative top-48">
+                        <div className="flex flex-col gap-3 relative">
                             <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Why Bridge when there are a lot of other tools?</h2>
                         </div>
-                        <div className="h-[170vh] relative grid grid-cols-3 gap-20 items-start">
-                            <div className="h-full flex flex-col justify-center gap-40">
-                                <h3 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Customization</h3>
-                                <h3 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Customization</h3>
-                                <h3 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Customization</h3>
-                                <h3 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Customization</h3>
-                            </div>
-                            <div className="sticky top-0 w-full h-screen col-span-2 flex items-center justify-center">
-                                <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-96 w-full rounded-3xl">
-
+                        <div className="h-[150vh] relative flex flex-col items-start pt-24" ref={scrollDiv}>
+                            <div className="flex justify-center sticky top-6 w-full z-10 max-md:top-32">
+                                <div className="px-2 py-4 ring-1 ring-neutral-200 bg-white rounded-full flex gap-8 relative shadow-md max-md:w-full max-md:justify-between">
+                                    <h3 className={"font-medium md:text-lg max-md:text-bas flex gap-4 items-center relative z-10 " + (scrollPosition < 0.25 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customization</h3>
+                                    <h3 className={"font-medium md:text-lg max-md:text-base flex gap-4 items-center relative z-10 " + (scrollPosition < 0.25 ? "text-gray-400" : "text-black00")} ref={navItems[1]}>Easy to use</h3>
+                                    <div className="bg-neutral-100 ring-4 ring-neutral-100 absolute top-2 bottom-2 rounded-full transition-all" ref={navRect} />
                                 </div>
+                            </div>
+                            <div className="sticky top-64 w-full h-auto col-span-2 flex items-center justify-center">
+                                {scrollPosition < 0.25 ? (
+                                    <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[512px] w-full rounded-3xl relative -top-8">
+
+                                    </div>
+                                ) : (
+                                    <div className="bg-gradient-to-br from-blue-300 to-indigo-400 h-[512px] w-full rounded-3xl relative -top-8">
+
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
-                    <div className="p-[1px] rounded-3xl bg-indigo-100 relative overflow-hidden -top-48">
-                        <div className="pt-16 px-8 bg-white bg-opacity-90 rounded-[23px] relative z-20">
+                    <div className="rounded-3xl bg-neutral-50 relative overflow-hidden mb-24">
+                        <div className="pt-10 px-8 rounded-[23px] relative z-20">
                             <div className="flex flex-col gap-3">
-                                <h2 className="font-semibold md:text-3xl max-md:text-2xl text-indigo-500 flex gap-4 items-center justify-center">Integrate in your Pipeline</h2>
+                                <h2 className="font-semibold md:text-3xl max-md:text-2xl text-black flex gap-4 items-center justify-center">Integrate in your Pipeline</h2>
                             </div>
                             <div className="max-md:h-80 w-full flex justify-center">
                                 <RiveComponent src="/animations/bridge_explanation.riv" className="max-md:w-screen md:w-[85%] max-md:absolute max-md:translate-x-[-50%] left-[50%] aspect-video" />
                             </div>
                         </div>
-                        <div className="absolute top-0 bottom-0 right-0 left-0 bg-indigo-300 animate-[spin_10s_linear_infinite] blur-2xl z-10" />
                     </div>
-                    <div className="p-[1px] rounded-3xl bg-fuchsia-100 relative overflow-hidden">
-                        <div className="pt-16 px-8 bg-white bg-opacity-90 rounded-[23px] relative z-20">
+                    <div className="rounded-3xl bg-neutral-50 relative overflow-hidden">
+                        <div className="pt-10 px-8 rounded-[23px] relative z-20 bg-neutral-50">
                             <div className="flex flex-col gap-3">
-                                <h2 className="font-semibold md:text-3xl max-md:text-2xl text-fuchsia-500 flex gap-4 items-center justify-center">AI Choices <span className="rounded-full ring-2 ring-fuchsia-300 text-fuchsia-500 text-base px-2 py-1">Soon</span></h2>
+                                <h2 className="font-semibold md:text-3xl max-md:text-2xl text-black flex gap-4 items-center justify-center">AI Choices <span className="rounded-full ring-2 ring-fuchsia-300 text-fuchsia-500 text-base px-2 py-1">Soon</span></h2>
                             </div>
                             <div className="max-md:h-80 w-full flex justify-center">
                                 <div className="h-96" />
                             </div>
                         </div>
-                        <div className="absolute top-0 bottom-0 right-0 left-0 bg-fuchsia-300 animate-[spin_7s_linear_infinite] blur-2xl z-10" />
                     </div>
                     <div className="h-56" />
                 </div>
