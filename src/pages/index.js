@@ -31,6 +31,7 @@ export default function Home() {
     const [isInView, setIsInView] = useState(false);
     const [confetti, setConfetti] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
+    const [shortcuts, setShortcuts] = useState(0);
     const scrollDiv = useRef(null);
     const navRect = useRef(null);
     const navItems = [
@@ -39,6 +40,8 @@ export default function Home() {
         useRef(null),
     ]
     const keys = [
+        useRef(null),
+        useRef(null),
         useRef(null),
         useRef(null),
     ]
@@ -167,22 +170,62 @@ export default function Home() {
 
         document.addEventListener("scroll", handleScroll);
         return () => document.removeEventListener("scroll", handleScroll);
-    }, [navItems]);
+    }, [scrollPosition, navItems]);
+
 
     // on keypress command + k
     useEffect(() => {
+
         const handleKeyDown = (e) => {
-            if (e.metaKey) {
-                
+
+            if (e.metaKey && shortcuts === 0) {
+                e.preventDefault();
+                keys[0].current.style.transform = "scale(0.9)";
+                keys[1].current.style.transform = "scale(1)";
             }
-            if (e.metaKey && e.key === "k") {
-                console.log("custom cursor");
+
+            if (e.key === "k" && shortcuts === 0) {
+                e.preventDefault();
+                keys[1].current.style.transform = "scale(0.9)";
+                keys[0].current.style.transform = "scale(1)";
             }
-        };
+
+            if (e.metaKey && shortcuts === 1) {
+                e.preventDefault();
+                keys[0].current.style.transform = "scale(0.9)";
+                keys[2].current.style.transform = "scale(1)";
+            }
+
+            if (e.key === "c" && shortcuts === 1) {
+                e.preventDefault();
+                keys[2].current.style.transform = "scale(0.9)";
+                keys[0].current.style.transform = "scale(1)";
+            }
+
+            if (e.key === "k" && e.metaKey && shortcuts === 0) {
+                e.preventDefault();
+                keys[1].current.style.transform = "scale(0.9)";
+                keys[0].current.style.transform = "scale(0.9)";
+                keys[1].current.style.opacity = 0.5;
+                keys[0].current.style.opacity = 0.5;
+                setTimeout(() => {
+                    setShortcuts(shortcuts + 1);
+                }, 200);
+            } else if (e.key === "c" && e.metaKey && shortcuts === 1) {
+                e.preventDefault();
+                keys[2].current.style.transform = "scale(0.9)";
+                keys[0].current.style.transform = "scale(0.9)";
+                keys[2].current.style.opacity = 0.5;
+                keys[0].current.style.opacity = 0.5;
+                setTimeout(() => {
+                    setShortcuts(shortcuts - 1);
+                }, 200);
+            }
+        }
 
         document.addEventListener("keydown", handleKeyDown);
         return () => document.removeEventListener("keydown", handleKeyDown);
-    }, []);
+    }, [shortcuts]);
 
     return (
         <>
@@ -326,14 +369,22 @@ export default function Home() {
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden relative h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl">Shortcuts from the future</h3>
-                                <div className="h-full w-full flex justify-center items-center gap-4">
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20" ref={keys[0]}>
-                                        <Icon.Command weight="fill" size={64} />
+                                {shortcuts === 0 && <div className="h-full w-full flex justify-center items-center gap-4">
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all" ref={keys[0]}>
+                                        <Icon.Command weight="fill" size={56} />
                                     </div>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl" ref={keys[1]}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all" ref={keys[1]}>
                                         K
                                     </div>
-                                </div>
+                                </div>}
+                                {shortcuts === 1 && <div className="h-full w-full flex justify-center items-center gap-4">
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all" ref={keys[0]}>
+                                        <Icon.Command weight="fill" size={56} />
+                                    </div>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all" ref={keys[2]}>
+                                        C
+                                    </div>
+                                </div>}
                                 {/* <div className="absolute left-16 top-[60%] translate-y-[-50%] h-48 w-full bg-no-repeat bg-right-center bg-[url('/images/general/privacy_badges.svg')]">
                                     <div className="absolute z-10 bg-gradient-to-r from-transparent to-neutral-100 top-0 bottom-0 left-0 right-0" />
                                 </div> */}
