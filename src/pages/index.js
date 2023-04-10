@@ -24,6 +24,7 @@ import {
 import SortableItem from "@/layout/SortableItem";
 import Confetti from 'react-dom-confetti';
 import RiveComponent from '@rive-app/react-canvas';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 export default function Home() {
     const cursor = useRef(null);
@@ -40,6 +41,7 @@ export default function Home() {
         useRef(null),
     ]
     const keys = [
+        useRef(null),
         useRef(null),
         useRef(null),
         useRef(null),
@@ -172,60 +174,79 @@ export default function Home() {
         return () => document.removeEventListener("scroll", handleScroll);
     }, [scrollPosition, navItems]);
 
+    useHotkeys('meta', (e) => {
+        e.preventDefault();
+        keys[0].current.style.transform = "scale(0.9)";
+        if (shortcuts === 0)
+            keys[1].current.style.transform = "scale(1)";
+        if (shortcuts === 1)
+            keys[2].current.style.transform = "scale(1)";
+        if (shortcuts === 2)
+            keys[3].current.style.transform = "scale(1)";
+    });
 
-    // on keypress command + k
-    useEffect(() => {
-
-        const handleKeyDown = (e) => {
-
-            if (e.metaKey && shortcuts === 0) {
-                e.preventDefault();
-                keys[0].current.style.transform = "scale(0.9)";
-                keys[1].current.style.transform = "scale(1)";
-            }
-
-            if (e.key === "k" && shortcuts === 0) {
-                e.preventDefault();
-                keys[1].current.style.transform = "scale(0.9)";
-                keys[0].current.style.transform = "scale(1)";
-            }
-
-            if (e.metaKey && shortcuts === 1) {
-                e.preventDefault();
-                keys[0].current.style.transform = "scale(0.9)";
-                keys[2].current.style.transform = "scale(1)";
-            }
-
-            if (e.key === "c" && shortcuts === 1) {
-                e.preventDefault();
-                keys[2].current.style.transform = "scale(0.9)";
-                keys[0].current.style.transform = "scale(1)";
-            }
-
-            if (e.key === "k" && e.metaKey && shortcuts === 0) {
-                e.preventDefault();
-                keys[1].current.style.transform = "scale(0.9)";
-                keys[0].current.style.transform = "scale(0.9)";
-                keys[1].current.style.opacity = 0.5;
-                keys[0].current.style.opacity = 0.5;
-                setTimeout(() => {
-                    setShortcuts(shortcuts + 1);
-                }, 200);
-            } else if (e.key === "c" && e.metaKey && shortcuts === 1) {
-                e.preventDefault();
-                keys[2].current.style.transform = "scale(0.9)";
-                keys[0].current.style.transform = "scale(0.9)";
-                keys[2].current.style.opacity = 0.5;
-                keys[0].current.style.opacity = 0.5;
-                setTimeout(() => {
-                    setShortcuts(shortcuts - 1);
-                }, 200);
-            }
+    useHotkeys('h', (e) => {
+        e.preventDefault();
+        if (shortcuts === 2) {
+            keys[3].current.style.transform = "scale(0.9)";
+            keys[0].current.style.transform = "scale(1)";
         }
+    });
 
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
-    }, [shortcuts]);
+    useHotkeys('k', (e) => {
+        e.preventDefault();
+        if (shortcuts === 0) {
+            keys[1].current.style.transform = "scale(0.9)";
+            keys[0].current.style.transform = "scale(1)";
+        }
+    });
+
+    useHotkeys('e', (e) => {
+        e.preventDefault();
+        if (shortcuts === 1) {
+            keys[2].current.style.transform = "scale(0.9)";
+            keys[0].current.style.transform = "scale(1)";
+        }
+    });
+
+    useHotkeys('meta+h', (e) => {
+        e.preventDefault();
+        if (shortcuts === 2) {
+            keys[3].current.style.transform = "scale(0.9)";
+            keys[0].current.style.transform = "scale(0.9)";
+            keys[3].current.style.opacity = 0.5;
+            keys[0].current.style.opacity = 0.5;
+            setTimeout(() => {
+                setShortcuts(0);
+            }, 500);
+        }
+    });
+
+    useHotkeys('meta+e', (e) => {
+        e.preventDefault();
+        if (shortcuts === 1) {
+            keys[0].current.style.transform = "scale(0.9)";
+            keys[2].current.style.transform = "scale(0.9)";
+            keys[0].current.style.opacity = 0.5;
+            keys[2].current.style.opacity = 0.5;
+            setTimeout(() => {
+                setShortcuts(shortcuts + 1);
+            }, 500);
+        }
+    });
+
+    useHotkeys('meta+k', (e) => {
+        e.preventDefault();
+        if (shortcuts === 0) {
+            keys[1].current.style.transform = "scale(0.9)";
+            keys[0].current.style.transform = "scale(0.9)";
+            keys[1].current.style.opacity = 0.5;
+            keys[0].current.style.opacity = 0.5;
+            setTimeout(() => {
+                setShortcuts(shortcuts + 1);
+            }, 500);
+        }
+    });
 
     return (
         <>
@@ -265,15 +286,15 @@ export default function Home() {
                 <Image
                     alt="Bridge Logo"
                     src="/images/general/logo.svg"
-                    width={56}
-                    height={40}
+                    width={48}
+                    height={32}
                     className="cursor-pointer"
                 />
                 <div className="flex gap-8">
-                    <button className="font-semibold" onClick={() => {
+                    <button className="font-semibold transition-all hover:opacity-80" onClick={() => {
                         router.push('/login')
                     }}>Login</button>
-                    <button className="font-medium px-4 py-2 bg-black text-white rounded-lg">
+                    <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80">
                         Try for free
                     </button>
                 </div>
@@ -285,7 +306,7 @@ export default function Home() {
 
                     >
                         <div className="max-w-3xl flex flex-col gap-6 md:mb-16">
-                            <h1 className="font-semibold md:text-5xl max-md:text-3xl md:leading-[1.3em]">
+                            <h1 className="font-semibold md:text-5xl max-md:text-4xl md:leading-[1.3em]">
                                 Streamline your hiring process
                                 with an interactive tool.
                             </h1>
@@ -335,7 +356,7 @@ export default function Home() {
                     </div>
                     <div className="min-h-64 pt-24">
                         <div className="w-full flex justify-center flex-col md:items-center gap-3 mb-16">
-                            <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Features that&apos;ll make you <Icon.FastForward weight="fill" className="text-violet-900" /></h2>
+                            <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Features that&apos;ll make you fast <Icon.FastForward weight="fill" className="text-violet-900" /></h2>
                             <p className="text-gray-500 text-xl font-medium">Built around users and their needs</p>
                         </div>
                         <div className="grid grid-cols-3 gap-4 max-md:grid-cols-1">
@@ -369,25 +390,39 @@ export default function Home() {
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden relative h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl">Shortcuts from the future</h3>
-                                {shortcuts === 0 && <div className="h-full w-full flex justify-center items-center gap-4">
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all" ref={keys[0]}>
+                                {shortcuts === 0 && <div className="h-full w-full flex justify-center items-center gap-4 cursor-pointer group" onClick={() => setShortcuts(1)}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[0]}>
                                         <Icon.Command weight="fill" size={56} />
                                     </div>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all" ref={keys[1]}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[1]}>
                                         K
                                     </div>
+                                    <div className="absolute bottom-8 bg-black text-white font-medium py-2 px-4 rounded-full">
+                                        Command Menu
+                                    </div>
                                 </div>}
-                                {shortcuts === 1 && <div className="h-full w-full flex justify-center items-center gap-4">
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all" ref={keys[0]}>
+                                {shortcuts === 1 && <div className="h-full w-full flex justify-center items-center gap-4 cursor-pointer group" onClick={() => setShortcuts(2)}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[0]}>
                                         <Icon.Command weight="fill" size={56} />
                                     </div>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all" ref={keys[2]}>
-                                        C
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[2]}>
+                                        E
+                                    </div>
+                                    <div className="absolute bottom-8 bg-black text-white font-medium py-2 px-4 rounded-full">
+                                        Create new project
                                     </div>
                                 </div>}
-                                {/* <div className="absolute left-16 top-[60%] translate-y-[-50%] h-48 w-full bg-no-repeat bg-right-center bg-[url('/images/general/privacy_badges.svg')]">
-                                    <div className="absolute z-10 bg-gradient-to-r from-transparent to-neutral-100 top-0 bottom-0 left-0 right-0" />
-                                </div> */}
+                                {shortcuts === 2 && <div className="h-full w-full flex justify-center items-center gap-4 cursor-pointer group" onClick={() => setShortcuts(0)}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[0]}>
+                                        <Icon.Command weight="fill" size={56} />
+                                    </div>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[3]}>
+                                        H
+                                    </div>
+                                    <div className="absolute bottom-8 bg-black text-white font-medium py-2 px-4 rounded-full">
+                                        Ask for help
+                                    </div>
+                                </div>}
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl flex gap-4 items-center">Connect with canditates
@@ -434,14 +469,14 @@ export default function Home() {
                         <div className="flex flex-col gap-3 relative">
                             <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Why Bridge when there are a lot of other tools?</h2>
                         </div>
-                        <div className="h-[150vh] relative flex flex-col items-start pt-16" ref={scrollDiv}>
+                        <div className="h-[175vh] relative flex flex-col items-start pt-16" ref={scrollDiv}>
                             <div className="flex justify-center sticky top-6 w-full z-10 max-md:top-32">
                                 <div className="px-2 ring-1 ring-neutral-200 bg-white rounded-full items-center flex relative shadow-md overflow-hidden">
-                                    <h3 className={"px-4 py-4 font-medium md:text-lg max-md:text-sm relative z-10 text-center " + (scrollPosition < 0.2 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customizable</h3>
-                                    <h3 className={"px-4 py-4 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate " + (scrollPosition > 0.2 && scrollPosition < 0.4 ? "text-black" : "text-gray-400")} ref={navItems[1]}>Organisable</h3>
-                                    <h3 className={"px-4 py-4 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate " + (scrollPosition > 0.4 ? "text-black" : "text-gray-400")} ref={navItems[2]}>Super fast</h3>
+                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center " + (scrollPosition < 0.2 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customizable</h3>
+                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate " + (scrollPosition > 0.2 && scrollPosition < 0.4 ? "text-black" : "text-gray-400")} ref={navItems[1]}>Organisable</h3>
+                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate " + (scrollPosition > 0.4 ? "text-black" : "text-gray-400")} ref={navItems[2]}>Super fast</h3>
 
-                                    <div className="bg-neutral-100 ring-4 ring-neutral-100 absolute top-2 bottom-2 rounded-full transition-all" ref={navRect} />
+                                    <div className="bg-neutral-100 ring-4 ring-neutral-100 absolute top-2 bottom-2 rounded-full transition-all w-36" ref={navRect} />
                                 </div>
                             </div>
                             <div className="sticky top-64 w-full h-auto col-span-2 flex items-center justify-center">
