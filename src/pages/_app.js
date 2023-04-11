@@ -1,4 +1,4 @@
-import { Inter, JetBrains_Mono, Lora } from "next/font/google";
+import { Inter, JetBrains_Mono, Lora, Varela_Round } from "next/font/google";
 import "../styles/globals.css";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";

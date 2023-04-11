@@ -251,7 +251,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Bridge - Effiecient hiring process with joy</title>
+                <title>Bridge - Hiring talent with joy</title>
                 <meta
                     name="description"
                     content="Bridge is a tool that allows you to create interactive elements for your website."
@@ -481,8 +481,36 @@ export default function Home() {
                             </div>
                             <div className="sticky top-64 w-full h-auto col-span-2 flex items-center justify-center">
                                 {scrollPosition < 0.2 && (
-                                    <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[512px] w-full rounded-3xl relative -top-8">
-
+                                    <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[512px] w-full rounded-3xl relative -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden">
+                                        <p className="text-center text-white font-medium text-lg">Colors</p>
+                                        <div className="p-2 bg-white rounded-xl flex gap-2 shadow-lg">
+                                            <div className="h-10 w-10 bg-white rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-zinc-200 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-zinc-400 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-zinc-600 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-zinc-800 rounded-full ring-1 ring-neutral-200" />
+                                        </div>
+                                        <div className="p-2 bg-white rounded-xl flex gap-2 shadow-lg">
+                                            <div className="h-10 w-10 bg-red-200 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-red-400 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-red-500 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-red-600 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-red-800 rounded-full ring-1 ring-neutral-200" />
+                                        </div>
+                                        <div className="p-2 bg-white rounded-xl flex gap-2 shadow-lg">
+                                            <div className="h-10 w-10 bg-green-200 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-green-400 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-green-500 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-green-600 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-green-800 rounded-full ring-1 ring-neutral-200" />
+                                        </div>
+                                        <div className="p-2 bg-white rounded-xl flex gap-2 shadow-lg">
+                                            <div className="h-10 w-10 bg-blue-200 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-blue-400 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-blue-500 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-blue-600 rounded-full ring-1 ring-neutral-200" />
+                                            <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-neutral-200" />
+                                        </div>
                                     </div>)}
                                 {scrollPosition > 0.2 && scrollPosition < 0.4 && (
                                     <div className="bg-gradient-to-br from-blue-300 to-indigo-400 h-[512px] w-full rounded-3xl relative -top-8">
@@ -490,8 +518,12 @@ export default function Home() {
                                     </div>
                                 )}
                                 {scrollPosition > 0.4 && (
-                                    <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[512px] w-full rounded-3xl relative -top-8">
-
+                                    <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[512px] w-full rounded-3xl relative -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden">
+                                        <p className="text-white font-medium text-xl">Time until publish first job</p>
+                                        <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl shadow-lg ">
+                                            <h4 className="text-6xl text-emerald-700 font-bold animate-pulse absolute z-10">5 <span className="text-4xl">mins</span></h4>
+                                            <h4 className="text-6xl font-bold relative">5 <span className="text-4xl">mins</span></h4>
+                                        </div>
                                     </div>
                                 )}
                             </div>
