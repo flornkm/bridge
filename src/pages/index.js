@@ -390,33 +390,33 @@ export default function Home() {
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden relative h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl">Shortcuts from the future</h3>
-                                {shortcuts === 0 && <div className="h-full w-full flex justify-center items-center gap-4 cursor-pointer group" onClick={() => setShortcuts(1)}>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[0]}>
+                                {shortcuts === 0 && <div className="h-full w-full flex justify-center items-center gap-4 group" onClick={() => setShortcuts(1)}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[0]}>
                                         <Icon.Command weight="fill" size={56} />
                                     </div>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[1]}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[1]}>
                                         K
                                     </div>
                                     <div className="absolute bottom-8 bg-black text-white font-medium py-2 px-4 rounded-full">
                                         Command Menu
                                     </div>
                                 </div>}
-                                {shortcuts === 1 && <div className="h-full w-full flex justify-center items-center gap-4 cursor-pointer group" onClick={() => setShortcuts(2)}>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[0]}>
+                                {shortcuts === 1 && <div className="h-full w-full flex justify-center items-center gap-4 group" onClick={() => setShortcuts(2)}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[0]}>
                                         <Icon.Command weight="fill" size={56} />
                                     </div>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[2]}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[2]}>
                                         E
                                     </div>
                                     <div className="absolute bottom-8 bg-black text-white font-medium py-2 px-4 rounded-full">
                                         Create new project
                                     </div>
                                 </div>}
-                                {shortcuts === 2 && <div className="h-full w-full flex justify-center items-center gap-4 cursor-pointer group" onClick={() => setShortcuts(0)}>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[0]}>
+                                {shortcuts === 2 && <div className="h-full w-full flex justify-center items-center gap-4 group" onClick={() => setShortcuts(0)}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[0]}>
                                         <Icon.Command weight="fill" size={56} />
                                     </div>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-hover:scale-90 group-hover:opacity-50" ref={keys[3]}>
+                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[3]}>
                                         H
                                     </div>
                                     <div className="absolute bottom-8 bg-black text-white font-medium py-2 px-4 rounded-full">
@@ -545,7 +545,7 @@ export default function Home() {
                                 <h2 className="font-semibold md:text-3xl max-md:text-2xl text-black flex gap-4 items-center justify-center">AI Choices <span className="rounded-full ring-2 ring-fuchsia-300 text-fuchsia-500 text-base px-2 py-1">Soon</span></h2>
                             </div>
                             <div className="max-md:h-80 w-full flex justify-center">
-                                <div className="h-96" />
+                                <RiveComponent src="/animations/bridge_ai.riv" className="max-md:w-screen md:w-[85%] max-md:absolute max-md:translate-x-[-50%] left-[50%] aspect-video" />
                             </div>
                         </div>
                     </div>
