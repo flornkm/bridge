@@ -284,7 +284,7 @@ const Item = forwardRef(
                       style={{ color: props.colors.label }}
                     />
                   </div>
-                  <div className="flex justify-center gap-3 text-white rounded-lg pl-3 pr-2 py-3 transition-all hover:bg-zinc-800 group w-auto" style={{ backgroundColor: props.colors.primaryButton }}>
+                  <div className="flex justify-center gap-3 text-white rounded-xl pl-3 pr-2 py-4 transition-all hover:bg-zinc-800 group w-auto" style={{ backgroundColor: props.colors.primaryButton }}>
                     <Icon.Paperclip size={24} width="bold" className="w-auto" />
                     <input
                       value={item.content}
@@ -337,7 +337,7 @@ const Item = forwardRef(
             return (
               <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center " + (!item.visibility && "opacity-50")}>
                 <div className={"grow items-start flex flex-col gap-2 " + (props.items.content.indexOf(item) !== props.items.content.length - 1 && "mb-8")}>
-                  <div className="flex relative justify-center gap-3 text-white rounded-lg px-3 py-3 transition-all hover:bg-zinc-800 group w-auto" onClick={() => {
+                  <div className="flex relative justify-center gap-3 text-white rounded-xl px-3 py-4 transition-all hover:bg-zinc-800 group w-auto" onClick={() => {
                     if (item.type === "submit")
                       props.setConfetti(true)
                     setTimeout(() => {

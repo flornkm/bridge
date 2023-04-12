@@ -549,7 +549,15 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
+                    <div className="h-24" />
+                    <div className="min-h-64 pt-24">
+                        <div className="w-full flex justify-center flex-col md:items-center gap-3 mb-16">
+                            <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Designed to be mobile first</h2>
+                            <p className="text-gray-500 text-xl font-medium">Because 90% of Bridge Users are using mobile browsers.</p>
+                        </div>
+                    </div>
                     <div className="h-56" />
+                    <div className="h-24" />
                 </div>
             </main>
             {customCursor && <Image

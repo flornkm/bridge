@@ -1,4 +1,6 @@
 import { useRouter } from 'next/router'
+import Link from 'next/link'
+import Image from 'next/image'
 import Head from 'next/head'
 import { useEffect, useState } from 'react';
 import * as Icon from 'phosphor-react'
@@ -44,6 +46,11 @@ export default function Published() {
         }
     }, [id]);
 
+    const reduceColorOpacity = (color, percent) => {
+        const opacity = 1 - percent / 100;
+        return `${color}${Math.round(opacity * 255).toString(16)}`;
+    }
+
     return (
         <>
             <Head>
@@ -80,7 +87,7 @@ export default function Published() {
             </Head>
 
             <main className="h-full w-full bg-white">
-                <div className="max-md:w-[90%] w-full max-w-7xl pl-[5%] pr-[5%] m-auto pb-40 bg-white pt-24">
+                <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24">
                     <div className="flex flex-col">
                         {data && (
                             data.content.map((items, index) => {
@@ -98,29 +105,38 @@ export default function Published() {
                                             } else if (item.type === "textInput" && item.visibility) {
                                                 return (
                                                     <div key={index} className="flex flex-col gap-1">
-                                                        <div className="flex gap-1 items-center">
+                                                        <div className="flex w-full justify-between items-center">
                                                             <label className="text-base" style={{ color: data.colors.label }}>{item.label}</label>
-                                                            {item.required && <span className="text-red-500">*</span>}
+                                                            {item.required && <span 
+                                                                style={{ color: data.colors.danger, backgroundColor: reduceColorOpacity(data.colors.danger, 90) }}
+                                                            className="text-xs px-1 py-0.5 rounded-md bg-opacity-10">
+                                                                Required
+                                                                </span>}
                                                         </div>
-                                                        <input required={item.required} className="ring-1 ring-gray-200 rounded-md px-4 py-3 w-full focus:outline-black focus:outline-1"
-                                                            style={{ color: data.colors.text, placeholder: { color: data.colors.text } }}
+                                                        <input required={item.required} className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:ring-gray-400 focus:outline-none placeholder:text-gray-400"}
+                                                            style={{ color: data.colors.text }}
                                                             placeholder={item.content} />
                                                     </div>
                                                 )
                                             } else if (item.type === "fileUpload" && item.visibility) {
                                                 return (
                                                     <div key={index} className="flex flex-col gap-1 items-start">
-                                                        <div className="flex gap-1 items-center">
+                                                        <div className="flex w-full justify-between items-center">
                                                             <label className="text-base" style={{ color: data.colors.label }}>{item.label}</label>
-                                                            {item.required && <span className="text-red-500">*</span>}
+                                                            {item.required && <span 
+                                                                style={{ color: data.colors.danger, backgroundColor: reduceColorOpacity(data.colors.danger, 90) }}
+                                                            className="text-xs px-1 py-0.5 rounded-md bg-opacity-10">
+                                                                Required
+                                                                </span>}
                                                         </div>
-                                                        <label style={{ backgroundColor: data.colors.primaryButton }} className="text-white font-medium rounded-md px-4 py-3 focus:outline-black focus:outline-1 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2" for={index}>
-                                                            <Icon.Paperclip size={24} className="inline-block" />
+                                                        <label style={{ backgroundColor: data.colors.primaryButton }} className="text-white mb-1 font-medium rounded-xl max-md:w-full justify-center py-4 px-6 focus:outline-black focus:outline-1 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative" for={index}>
+                                                            <Icon.Paperclip size={22} className="inline-block" />
                                                             {item.content}
                                                         </label>
                                                         <input required={item.required}
-
-                                                            type="file" hidden id={index} />
+                                                            style={{ color: data.colors.text }}
+                                                            className="file:hidden focus:outline-none focus:ring-1 focus:ring-gray-400 rounded-lg py-1.5 px-3"
+                                                            type="file" id={index} />
                                                     </div>
                                                 )
                                             } else if (item.type === "submit" && item.visibility) {
@@ -132,7 +148,7 @@ export default function Published() {
                                                             setTimeout(() => {
                                                                 setConfetti(false)
                                                             }, 3000)
-                                                        }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className="text-white font-medium rounded-md px-4 py-3 focus:outline-black focus:outline-1 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative">
+                                                        }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className="text-white font-medium rounded-xl max-md:w-full justify-center py-4 px-8 focus:ring-gray-400 focus:ring-1 focus:outline-none hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative">
                                                             {item.content}
                                                             {item.type === "submit" && data.effects.confetti && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={confetti} config={config} /></div>}
                                                         </button>
@@ -147,6 +163,10 @@ export default function Published() {
                         )}
                     </div>
                 </div>
+                <Link href="/" className="focus:ring-purple-400 focus:ring-1 focus:outline-none flex gap-3 items-center m-auto w-40 mb-16 justify-center text-xs px-3 py-1.5 font-medium bg-purple-100 ring-1 ring-purple-200 active:scale-95 active:shadow-none hover:shadow-purple-100 hover:bg-purple-50 transition-all rounded-md text-purple-500 shadow-lg shadow-purple-200">
+                    <Image alt="Bridge Logo" src="/images/general/logo.svg" width={20} height={24} className="" />
+                    Made with Bridge
+                </Link>
             </main>
         </>
     )

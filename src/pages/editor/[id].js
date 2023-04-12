@@ -142,13 +142,13 @@ export default function Editor(props) {
     setItems([...items, content]);
     project.content = items;
 
+
     // supabase
     //   .from("projects")
     //   .update({ content: items })
     //   .eq("id", router.query.id.replace(session.user.id, ""))
     //   .eq("owner", session.user.id)
     //   .then((res) => {
-    //     console.log(items);
     //   });
   }
 
