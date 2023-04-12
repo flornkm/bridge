@@ -25,6 +25,7 @@ import SortableItem from "@/layout/SortableItem";
 import Confetti from 'react-dom-confetti';
 import RiveComponent from '@rive-app/react-canvas';
 import { useHotkeys } from 'react-hotkeys-hook';
+import Link from "next/link";
 
 export default function Home() {
     const cursor = useRef(null);
@@ -555,13 +556,51 @@ export default function Home() {
                             <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Designed to be mobile first</h2>
                             <p className="text-gray-500 text-xl font-medium">Because 90% of Bridge Users are using mobile browsers.</p>
                         </div>
-                        <div className="flex gap-16 items-end justify-center">
+                        <div className="flex gap-16 items-end justify-center w-full relative">
                             <Image src="/images/general/bridge_mockup_iphone.jpg" alt="Bridge Mobile" width={300} height={300} />
-                            <Image src="/images/general/bridge_mockup_macbook.jpg" alt="Bridge Mobile" width={1000} height={600} className="max-xl:hidden" />
+                            {/* <Image src="/images/general/bridge_mockup_macbook.jpg" alt="Bridge Mobile" width={1000} height={600} className="max-xl:hidden" /> */}
+                            <div className="absolute md:bottom-16 max-md:-bottom-16 right-0 px-6 gap-8 flex flex-col items-start py-4 bg-white rounded-lg ring-1 ring-neutral-200 shadow-md text-gray-500 max-w-md">
+                                <p>We have designed Bridge in a way that it is easy to use on both mobile and desktop devices.
+                                You do not need to wrap your mind around how to layout everything, Bridge is responsive from the start.</p>
+                                <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80">
+                                    Join now
+                                </button>
+
+                            </div>
                         </div>
                     </div>
                     <div className="h-56" />
-                    <div className="h-24" />
+                    <div className="grid grid-cols-3 gap-24 max-md:gap-16 w-full max-md:grid-cols-1">
+                        <div className="w-full flex flex-col">
+                            <h3 className="text-lg font-semibold mb-1">Bridge</h3>
+                            <p className="text-gray-500">Bring joy to your hiring process.</p>
+                        </div>
+                        <div className="w-full flex flex-col items-end max-md:items-start">
+                            <div className="flex flex-col items-start">
+                                <h3 className="font-semibold mb-3">Navigation</h3>
+                                <Link href="/" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2">Home</Link>
+                                <Link href="/login" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2">Login</Link>
+                            </div>
+                        </div>
+                        <div className="w-full flex flex-col items-end max-md:items-start">
+                            <div className="flex flex-col items-start">
+                                <h3 className="font-semibold mb-3">Social</h3>
+                                <Link href="https://twitter.com/bridgesupply" target="_blank" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2 flex gap-2 items-center"><Icon.TwitterLogo weight="fill" /> Twitter</Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="py-24">
+                        <div className="flex justify-between items-center max-md:flex-col gap-8">
+                            <div className="flex gap-2 items-center text-red-400 text-xs font-medium">
+                                <Icon.Heart weight="fill" size={12} />
+                                Designed in Germany
+                            </div>
+                            <div className="flex gap-4 items-center text-gray-500 text-xs font-medium">
+                                <Link href="/imprint" className="hover:bg-gray-100 transition-all text-gray-500 px-2 py-1 rounded-md -ml-2 mb-2">Imprint</Link>
+                                <Link href="/privacy" className="hover:bg-gray-100 transition-all text-gray-500 px-2 py-1 rounded-md -ml-2 mb-2">Privacy</Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </main>
             {customCursor && <Image
