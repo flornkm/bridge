@@ -87,7 +87,7 @@ export default function Published() {
             </Head>
 
             <main className="h-full w-full bg-white">
-                <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24">
+                <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24 overflow-hidden">
                     <div className="flex flex-col">
                         {data && (
                             data.content.map((items, index) => {

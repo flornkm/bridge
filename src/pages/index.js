@@ -555,6 +555,10 @@ export default function Home() {
                             <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Designed to be mobile first</h2>
                             <p className="text-gray-500 text-xl font-medium">Because 90% of Bridge Users are using mobile browsers.</p>
                         </div>
+                        <div className="flex gap-16 items-end justify-center">
+                            <Image src="/images/general/bridge_mockup_iphone.jpg" alt="Bridge Mobile" width={300} height={300} />
+                            <Image src="/images/general/bridge_mockup_macbook.jpg" alt="Bridge Mobile" width={1000} height={600} className="max-xl:hidden" />
+                        </div>
                     </div>
                     <div className="h-56" />
                     <div className="h-24" />
