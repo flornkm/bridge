@@ -5,7 +5,7 @@ import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Account from "../components/Account";
 import Dashboard from "./dashboard";
 
-const Home = () => {
+const Login = () => {
   const session = useSession();
   const supabase = useSupabaseClient();
 
@@ -83,4 +83,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Login;

@@ -51,6 +51,26 @@ export default function Published() {
         return `${color}${Math.round(opacity * 255).toString(16)}`;
     }
 
+    const shadeColor = (color, percent) => {
+        var R = parseInt(color.substring(1, 3), 16);
+        var G = parseInt(color.substring(3, 5), 16);
+        var B = parseInt(color.substring(5, 7), 16);
+
+        R = parseInt(R * (100 + percent) / 100);
+        G = parseInt(G * (100 + percent) / 100);
+        B = parseInt(B * (100 + percent) / 100);
+
+        R = R < 255 ? R : 255;
+        G = G < 255 ? G : 255;
+        B = B < 255 ? B : 255;
+
+        var RR = ((R.toString(16).length == 1) ? "0" + R.toString(16) : R.toString(16));
+        var GG = ((G.toString(16).length == 1) ? "0" + G.toString(16) : G.toString(16));
+        var BB = ((B.toString(16).length == 1) ? "0" + B.toString(16) : B.toString(16));
+
+        return "#" + RR + GG + BB;
+    }
+
     return (
         <>
             <Head>
@@ -113,7 +133,7 @@ export default function Published() {
                                                                 Required
                                                                 </span>}
                                                         </div>
-                                                        <input required={item.required} className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:ring-gray-400 focus:outline-none placeholder:text-gray-400"}
+                                                        <input required={item.required} className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:outline-gray-300"}
                                                             style={{ color: data.colors.text }}
                                                             placeholder={item.content} />
                                                     </div>
@@ -129,13 +149,13 @@ export default function Published() {
                                                                 Required
                                                                 </span>}
                                                         </div>
-                                                        <label style={{ backgroundColor: data.colors.primaryButton }} className="text-white mb-1 font-medium rounded-xl max-md:w-full justify-center py-4 px-6 focus:outline-black focus:outline-1 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative" for={index}>
+                                                        <label style={{ backgroundColor: data.colors.primaryButton }} className={"text-white mb-1 font-medium rounded-xl max-md:w-full justify-center py-4 px-6 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative focus:outline-gray-500"} for={index}>
                                                             <Icon.Paperclip size={22} className="inline-block" />
                                                             {item.content}
                                                         </label>
                                                         <input required={item.required}
                                                             style={{ color: data.colors.text }}
-                                                            className="file:hidden focus:outline-none focus:ring-1 focus:ring-gray-400 rounded-lg py-1.5 px-3"
+                                                            className={"file:hidden rounded-lg py-1.5 px-3 focus:outline-gray-300"}
                                                             type="file" id={index} />
                                                     </div>
                                                 )
@@ -148,7 +168,7 @@ export default function Published() {
                                                             setTimeout(() => {
                                                                 setConfetti(false)
                                                             }, 3000)
-                                                        }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className="text-white font-medium rounded-xl max-md:w-full justify-center py-4 px-8 focus:ring-gray-400 focus:ring-1 focus:outline-none hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative">
+                                                        }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className={"text-white font-medium rounded-xl max-md:w-full justify-center py-4 px-8 focus:ring-gray-400 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative focus:outline-gray-300"}>
                                                             {item.content}
                                                             {item.type === "submit" && data.effects.confetti && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={confetti} config={config} /></div>}
                                                         </button>

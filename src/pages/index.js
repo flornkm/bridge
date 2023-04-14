@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useInView } from 'react-intersection-observer';
-import { useRef, useEffect, useState, useCallback, useMemo } from "react";
+import { useRef, useEffect, useState, useCallback, Fragment } from "react";
 import * as Icon from "phosphor-react";
 import {
     DndContext,
@@ -16,6 +16,7 @@ import {
     KeyboardSensor,
     sortableKeyboardCoordinates,
 } from "@dnd-kit/core";
+import { Menu, Transition } from "@headlessui/react";
 import {
     arrayMove,
     SortableContext,
@@ -26,6 +27,7 @@ import Confetti from 'react-dom-confetti';
 import RiveComponent from '@rive-app/react-canvas';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Link from "next/link";
+import WaitList from "@/components/Waitlist";
 
 export default function Home() {
     const cursor = useRef(null);
@@ -65,6 +67,16 @@ export default function Home() {
             cursor.current.style.top = e.clientY + "px";
         });
     };
+    let [isOpen, setIsOpen] = useState(false)
+
+    function closeModal() {
+        setIsOpen(false)
+    }
+
+    function openModal() {
+        setIsOpen(true)
+    }
+
 
     const config = {
         angle: 90,
@@ -295,7 +307,9 @@ export default function Home() {
                     <button className="font-semibold transition-all hover:opacity-80" onClick={() => {
                         router.push('/login')
                     }}>Login</button>
-                    <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80">
+                    <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80" onClick={() => {
+                        openModal();
+                    }}>
                         Try for free
                     </button>
                 </div>
@@ -561,7 +575,7 @@ export default function Home() {
                             {/* <Image src="/images/general/bridge_mockup_macbook.jpg" alt="Bridge Mobile" width={1000} height={600} className="max-xl:hidden" /> */}
                             <div className="absolute md:bottom-16 max-md:-bottom-16 right-0 px-6 gap-8 flex flex-col items-start py-4 bg-white rounded-lg ring-1 ring-neutral-200 shadow-md text-gray-500 max-w-md">
                                 <p>We have designed Bridge in a way that it is easy to use on both mobile and desktop devices.
-                                You do not need to wrap your mind around how to layout everything, Bridge is responsive from the start.</p>
+                                    You do not need to wrap your mind around how to layout everything, Bridge is responsive from the start.</p>
                                 <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80">
                                     Join now
                                 </button>
@@ -591,9 +605,8 @@ export default function Home() {
                     </div>
                     <div className="py-24">
                         <div className="flex justify-between items-center max-md:flex-col gap-8">
-                            <div className="flex gap-2 items-center text-red-400 text-xs font-medium">
-                                <Icon.Heart weight="fill" size={12} />
-                                Designed in Germany
+                            <div className="flex gap-1 items-center text-xs font-medium text-violet-400">
+                                Made in Germany with <Icon.Heart size={12} weight="fill" />
                             </div>
                             <div className="flex gap-4 items-center text-gray-500 text-xs font-medium">
                                 <Link href="/imprint" className="hover:bg-gray-100 transition-all text-gray-500 px-2 py-1 rounded-md -ml-2 mb-2">Imprint</Link>
@@ -615,6 +628,7 @@ export default function Home() {
                 }
             />}
             <div></div>
+            <WaitList isOpen={isOpen} closeModal={closeModal} openModal={openModal} />
         </>
     );
 }
