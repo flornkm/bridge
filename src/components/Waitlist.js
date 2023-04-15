@@ -1,8 +1,29 @@
-import { Fragment, useState, useRef } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import RiveComponent from '@rive-app/react-canvas';
+import { useRive, Layout, Fit } from "@rive-app/react-canvas";
 
 function WaitList(props) {
+    const [agreeTerms, setAgreeTerms] = useState(false);
+    const [agreeShowcase, setAgreeShowcase] = useState(false);
+
+    const { rive, RiveComponent } = useRive({
+        src: "/animations/checkmark.riv",
+        artboard: "checkmark",
+        layout: new Layout({ fit: Fit.Cover }),
+      });
+
+      function checkmarkClick() {
+        if (rive) {
+            if (!agreeTerms) {
+                rive.play("on")
+                setAgreeTerms(true);
+            } else {
+                rive.play("off");
+                setAgreeTerms(false);
+            }
+        }
+      }
 
     return (
         <Transition appear show={props.isOpen} as={Fragment}>
@@ -64,9 +85,9 @@ function WaitList(props) {
                                         />
                                     </div>
                                     <div className="h-4" />
-                                    <div className="w-full flex items-center gap-4 cursor-pointer">
-                                        <div className="bg-black w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer">
-                                            <RiveComponent src="/animations/checkmark.riv" />
+                                    <div className="w-full flex items-center gap-4 cursor-pointer" onClick={checkmarkClick}>
+                                        <div className="w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer ring-1 ring-neutral-200 transition-all" style={{backgroundColor: (!agreeTerms ? "#fafafa" : "#000")}}>
+                                            <RiveComponent />
                                         </div>
                                         <label htmlFor="username" className="text-neutral-500 flex-grow cursor-pointer">
                                             I accept that my data will be stored and used for the
@@ -75,7 +96,7 @@ function WaitList(props) {
                                     </div>
                                     <div className="w-full flex items-center gap-4 cursor-pointer">
                                         <div className="bg-black w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer">
-                                            <RiveComponent src="/animations/checkmark.riv" />
+                                            {/* <RiveComponent src="/animations/checkmark.riv" /> */}
                                         </div>
                                         <label htmlFor="username" className="text-neutral-500 flex-grow cursor-pointer">
                                             I am okay with being showcased on the website.
