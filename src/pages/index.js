@@ -582,7 +582,7 @@ export default function Home() {
                             <div className="absolute md:bottom-16 max-md:-bottom-16 right-0 px-6 gap-8 flex flex-col items-start py-4 bg-white rounded-lg ring-1 ring-neutral-200 shadow-md text-gray-500 max-w-md">
                                 <p>We have designed Bridge in a way that it is easy to use on both mobile and desktop devices.
                                     You do not need to wrap your mind around how to layout everything, Bridge is responsive from the start.</p>
-                                <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80">
+                                <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80" onClick={openModal}>
                                     Join now
                                 </button>
 
@@ -600,6 +600,7 @@ export default function Home() {
                                 <h3 className="font-semibold mb-3">Navigation</h3>
                                 <Link href="/" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2">Home</Link>
                                 <Link href="/login" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2">Login</Link>
+                                <Link href="/" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2" onClick={openModal}>Sign up</Link>
                             </div>
                         </div>
                         <div className="w-full flex flex-col items-end max-md:items-start">
