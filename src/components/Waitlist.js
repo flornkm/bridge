@@ -7,23 +7,30 @@ function WaitList(props) {
     const [loading, setLoading] = useState(true);
     const [agreeTerms, setAgreeTerms] = useState(false);
     const [agreeShowcase, setAgreeShowcase] = useState(false);
+    const [data, setData] = useState({
+        name: "",
+        email: "",
+        agreeTerms: false,
+        agreeShowcase: false,
+    });
 
     const { rive: termsAnimation, RiveComponent: RiveComponentTerms } = useRive({
         src: "/animations/checkmark.riv",
         artboard: "checkmark",
         layout: new Layout({ fit: Fit.Cover }),
-        onLoad: () => {setLoading(false)},
+        onLoad: () => { setLoading(false) },
     });
 
     function termsClick() {
-        
         if (termsAnimation) {
             if (!agreeTerms) {
                 termsAnimation.play("on")
                 setAgreeTerms(true);
+                setData({ ...data, agreeTerms: true });
             } else {
                 termsAnimation.play("off");
                 setAgreeTerms(false);
+                setData({ ...data, agreeTerms: false });
             }
         }
     }
@@ -40,11 +47,49 @@ function WaitList(props) {
             if (!agreeShowcase) {
                 showcaseAnimation.play("on")
                 setAgreeShowcase(true);
+                setData({ ...data, agreeShowcase: true });
             } else {
                 showcaseAnimation.play("off");
                 setAgreeShowcase(false);
+                setData({ ...data, agreeShowcase: false });
             }
         }
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        
+        // fetch("/api/airtable", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(data),
+        // })
+        // fetch('/api/airtable', {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //       'Authorization': 'Bearer YOUR_TOKEN'
+        //     },
+        //     body: JSON.stringify(data)
+        //   })
+        //   .then(response => response.json())
+        //   .then(data => {
+        //     console.log('Success:', data);
+        //   })
+        //   .catch(error => {
+        //     // Handle errors here
+        //   });
+
+        // post to airtable
+        fetch("/api/airtable", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
     }
 
     return (
@@ -82,36 +127,36 @@ function WaitList(props) {
                                 </div>
 
                                 <div className="flex flex-col gap-4">
-                                    {/* <div className="w-full grid grid-cols-3 items-center">
-                                        <label htmlFor="username" className="text-neutral-500">
+                                    <div className="w-full grid grid-cols-4 items-center">
+                                        <label htmlFor="username" className="text-gray-500">
                                             Name
                                         </label>
                                         <input
                                             id="name"
                                             type="text"
-                                            value={""}
-                                            className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-2 focus:outline-gray-300"
-                                        // onChange={(e) => setUsername(e.target.value)}
+                                            value={data.name}
+                                            className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
+                                            onChange={(e) => setData({ ...data, name: e.target.value })}
                                         />
                                     </div>
-                                    <div className="w-full grid grid-cols-3 items-center">
-                                        <label htmlFor="username" className="text-neutral-500">
+                                    <div className="w-full grid grid-cols-4 items-center">
+                                        <label htmlFor="username" className="text-gray-500">
                                             E-Mail
                                         </label>
                                         <input
                                             id="name"
                                             type="text"
-                                            value={""}
-                                            className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-2 focus:outline-gray-300"
-                                        // onChange={(e) => setUsername(e.target.value)}
+                                            value={data.email}
+                                            className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
+                                            onChange={(e) => setData({ ...data, email: e.target.value })}
                                         />
-                                    </div> */}
+                                    </div>
                                     <div className="h-4" />
                                     <div className="w-full flex items-center gap-4 cursor-pointer" onClick={termsClick}>
                                         <div className="w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer ring-1 ring-neutral-200 transition-all" style={{ backgroundColor: (!agreeTerms ? "#fafafa" : "#000") }}>
                                             <RiveComponentTerms />
                                         </div>
-                                        <label htmlFor="username" className="text-neutral-500 flex-grow cursor-pointer">
+                                        <label htmlFor="username" className="text-gray-500 flex-grow cursor-pointer">
                                             I accept that my data will be stored and used for the
                                             purpose of the waitlist.
                                         </label>
@@ -120,7 +165,7 @@ function WaitList(props) {
                                         <div className="w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer ring-1 ring-neutral-200 transition-all" style={{ backgroundColor: (!agreeShowcase ? "#fafafa" : "#000") }}>
                                             <RiveComponentShowcase />
                                         </div>
-                                        <label htmlFor="username" className="text-neutral-500 flex-grow cursor-pointer">
+                                        <label htmlFor="username" className="text-gray-500 flex-grow cursor-pointer">
                                             I am okay with being showcased on the website.
                                         </label>
                                     </div>
@@ -138,6 +183,7 @@ function WaitList(props) {
                                     </div>
                                     <div className="w-full">
                                         <button
+                                            onClick={handleSubmit}
                                             className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full focus:outline-gray-300">
                                             Sign up
                                         </button>
