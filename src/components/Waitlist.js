@@ -47,7 +47,6 @@ function WaitList(props) {
         }
     }
 
-
     return (
         <Transition appear show={props.isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={props.closeModal}>

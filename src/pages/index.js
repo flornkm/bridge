@@ -36,6 +36,7 @@ export default function Home() {
     const [confetti, setConfetti] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
     const [shortcuts, setShortcuts] = useState(0);
+    const [waitlist, setWaitlist] = useState(false);
     const scrollDiv = useRef(null);
     const navRect = useRef(null);
     const navItems = [
@@ -71,9 +72,14 @@ export default function Home() {
 
     function closeModal() {
         setIsOpen(false)
+
+        setTimeout(() => {
+            setWaitlist(false);
+        }, 200);
     }
 
     function openModal() {
+        setWaitlist(true);
         setIsOpen(true)
     }
 
@@ -628,7 +634,7 @@ export default function Home() {
                 }
             />}
             <div></div>
-            <WaitList isOpen={isOpen} closeModal={closeModal} openModal={openModal} />
+            {waitlist && <WaitList isOpen={isOpen} closeModal={closeModal} openModal={openModal} />}
         </>
     );
 }
