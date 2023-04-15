@@ -59,30 +59,6 @@ function WaitList(props) {
     async function handleSubmit(e) {
         e.preventDefault();
         
-        // fetch("/api/airtable", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(data),
-        // })
-        // fetch('/api/airtable', {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //       'Authorization': 'Bearer YOUR_TOKEN'
-        //     },
-        //     body: JSON.stringify(data)
-        //   })
-        //   .then(response => response.json())
-        //   .then(data => {
-        //     console.log('Success:', data);
-        //   })
-        //   .catch(error => {
-        //     // Handle errors here
-        //   });
-
-        // post to airtable
         fetch("/api/airtable", {
             method: "POST",
             headers: {
