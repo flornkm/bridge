@@ -14,6 +14,11 @@ function WaitList(props) {
         agreeTerms: false,
         agreeShowcase: false,
     });
+    const [error, setError] = useState({
+        name: false,
+        email: false,
+        agreeTerms: false,
+    });
     const [apiLoad, setApiLoad] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -121,7 +126,7 @@ function WaitList(props) {
                                     </div>
 
                                     <div className="flex flex-col gap-4">
-                                        <div className="w-full grid grid-cols-4 items-center">
+                                        <div className="w-full grid grid-cols-4 items-center relative">
                                             <label htmlFor="username" className="text-gray-500">
                                                 Name
                                             </label>
@@ -132,8 +137,14 @@ function WaitList(props) {
                                                 className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
+                                            {!error.name && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
+                                                <p className="relative z-10">Enter Name</p>
+                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                            </div>}
                                         </div>
-                                        <div className="w-full grid grid-cols-4 items-center">
+                                        <div className="w-full grid grid-cols-4 items-center relative">
                                             <label htmlFor="username" className="text-gray-500">
                                                 E-Mail
                                             </label>
@@ -144,6 +155,12 @@ function WaitList(props) {
                                                 className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
                                                 onChange={(e) => setData({ ...data, email: e.target.value })}
                                             />
+                                            {!error.email && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
+                                                <p className="relative z-10">Enter a valid Email</p>
+                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                            </div>}
                                         </div>
                                         <div className="h-4" />
                                         <div className="w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg" tabIndex={0} onKeyDown={(event) => {
@@ -201,9 +218,13 @@ function WaitList(props) {
                                     leaveTo="opacity-0"
                                 >
                                     <div className="flex flex-col h-full w-full gap-2">
-                                        <Image src="/images/general/bridge_3d.jpg" width={512} height={512} alt="3d bridge" className="max-h-[370px] object-contain animate-pulse" unoptimized />
+                                        <div className="h-[354px] mb-4 rounded-xl overflow-hidden ring-1 ring-violet-100">
+                                        <Image src="/images/general/logo.svg" width={96} height={96} alt="3d bridge" className="absolute z-20 left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%]" />
+                                            <Image src="/images/general/logo.svg" width={128} height={128} alt="3d bridge" className="absolute z-10 left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] blur-3xl" />
+                                            <Image src="/images/general/morph_lines.svg" width={512} height={512} alt="3d bridge" className="h-full w-full object-cover object-top" unoptimized />
+                                        </div>
                                         <div className="flex flex-col gap-2">
-                                            <h2 className="text-xl font-semibold">Success</h2>
+                                            <h2 className="text-xl font-semibold">Success! &#x1F38A;</h2>
                                             <p className="text-base text-gray-500">
                                                 Thanks for signing up! We will notify you as soon as we launch.
                                             </p>

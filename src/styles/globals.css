@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Classes */
+
+.text-shadow {
+  text-shadow: 0 0 10px #FFFFFF, 0px 0px 10px #FFFFFF;
+}
+
+
 /* Fade In Animation Preset */
 
 @keyframes fadeIn {
