@@ -81,9 +81,9 @@ function Dashboard(props) {
   const fetchProjects = async (id) => {
     const res = await fetch("/api/projects?user_id=" + id);
     const data = await res.json();
-    console.log(data);
+    // sort by the most recent
+    data.sort((a, b) => b.id - a.id);
     setProjects(data);
-    // setProjects([...projects, ...data]);
   };
 
   const selectProject = (id) => {
@@ -100,6 +100,15 @@ function Dashboard(props) {
     setSetup(false);
   };
 
+  const deleteProject = async (id) => {
+    const res = await fetch("/api/projects?project_id=" + id, {
+      method: "DELETE",
+    });
+    const data = await res.json();
+    console.log(data);
+    fetchProjects(session.user.id);
+  };
+
   const createProject = async (project) => {
 
     project.owner = session.user.id;
@@ -113,8 +122,8 @@ function Dashboard(props) {
     });
     const data = await res.json();
     console.log(data);
-    setProjects([...projects, data]);
     setSetup(false);
+    fetchProjects(session.user.id);
   };
 
   React.useEffect(() => {
@@ -246,7 +255,7 @@ function Dashboard(props) {
         {projects.map((project) => (
           <div
             key={project.id}
-            className="col-span-1 bg-white rounded-lg ring-1 ring-neutral-200 p-6 cursor-pointer transition-all hover:bg-opacity-80 shadow-lg shadow-neutral-100  active:scale-[0.98]"
+            className="col-span-1 bg-white rounded-lg ring-1 ring-neutral-200 p-6 cursor-pointer transition-all hover:bg-opacity-80 shadow-lg shadow-neutral-100 active:ring-neutral-300"
             onClick={(e) => {
               console.log(e.target.tagName);
               if (e.target.tagName !== "A" && e.target.tagName !== "BUTTON") {
@@ -279,15 +288,58 @@ function Dashboard(props) {
             </div>
             <div className="flex w-full justify-between gap-4 items-center">
               <div className="truncate">
-                <h1 className="text-lg font-medium mb-2">{project.name}</h1>
-                <Link target="_blank" href={"/" + project.owner + "&" + project.name.toLowerCase().replace(/ /g, "-")} className="text-xs text-gray-500 relative z-10 hover:text-black" >
-                  https://bridge.supply/{project.owner}&{project.name.toLowerCase().replace(/ /g, "-")}
+                <h1 className="text-lg font-medium mb-2">{
+                  project.name.replace(/\w\S*/g, function (txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                  })
+                }</h1>
+                <Link target="_blank" href={"/" + project.id + "&" + project.name.toLowerCase().replace(/ /g, "-")} className="text-xs text-gray-500 relative z-10 hover:text-black" >
+                  https://bridge.supply/{project.id}&{project.name.toLowerCase().replace(/ /g, "-")}
                 </Link>
               </div>
               <div>
               </div>
-              <button className="flex flex-col items-center justify-center cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative text-gray-500 hover:text-black ">
-                <Icon.DotsThree weight="bold" className="w-6 h-6 pointer-events-none" />
+              <button className="flex flex-col items-center justify-center ">
+                <Menu as="div" className="relative inline-block text-left">
+                  <div className="h-full flex items-center">
+                    <Menu.Button className="cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative text-gray-500 hover:text-black ">
+                      <Icon.DotsThree weight="bold" className="w-6 h-6 pointer-events-none " />
+                    </Menu.Button>
+                  </div>
+
+                  <Transition
+                    as={React.Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="p-1 font-medium">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              type="submit"
+                              onClick={() => {
+                                deleteProject(project.id);
+                              }}
+                              className={classNames(
+                                active
+                                  ? "bg-red-100 text-red-900"
+                                  : "text-red-700",
+                                "block w-full px-4 py-2 text-left text-sm rounded-md"
+                              )}
+                            >
+                              Delete
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
               </button>
             </div>
           </div>

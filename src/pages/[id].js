@@ -28,9 +28,10 @@ export default function Published() {
     const { id } = router.query;
 
     useEffect(() => {
+        console.log(id)
         if (id) {
             const supabaseId = id.split('&')[0];
-            const name = id.split('&')[1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            const name = id.split('&')[1].replace(/-/g, ' ');
             console.log(supabaseId, name);
 
             fetch(`/api/published?id=${supabaseId}&name=${name}`, {
@@ -127,11 +128,11 @@ export default function Published() {
                                                     <div key={index} className="flex flex-col gap-1">
                                                         <div className="flex w-full justify-between items-center">
                                                             <label className="text-base" style={{ color: data.colors.label }}>{item.label}</label>
-                                                            {item.required && <span 
+                                                            {item.required && <span
                                                                 style={{ color: data.colors.danger, backgroundColor: reduceColorOpacity(data.colors.danger, 90) }}
-                                                            className="text-xs px-1 py-0.5 rounded-md bg-opacity-10">
+                                                                className="text-xs px-1 py-0.5 rounded-md bg-opacity-10">
                                                                 Required
-                                                                </span>}
+                                                            </span>}
                                                         </div>
                                                         <input required={item.required} className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:outline-gray-300"}
                                                             style={{ color: data.colors.text }}
@@ -143,11 +144,11 @@ export default function Published() {
                                                     <div key={index} className="flex flex-col gap-1 items-start">
                                                         <div className="flex w-full justify-between items-center">
                                                             <label className="text-base" style={{ color: data.colors.label }}>{item.label}</label>
-                                                            {item.required && <span 
+                                                            {item.required && <span
                                                                 style={{ color: data.colors.danger, backgroundColor: reduceColorOpacity(data.colors.danger, 90) }}
-                                                            className="text-xs px-1 py-0.5 rounded-md bg-opacity-10">
+                                                                className="text-xs px-1 py-0.5 rounded-md bg-opacity-10">
                                                                 Required
-                                                                </span>}
+                                                            </span>}
                                                         </div>
                                                         <label style={{ backgroundColor: data.colors.primaryButton }} className={"text-white mb-1 font-medium rounded-xl max-md:w-full justify-center py-4 px-6 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative focus:outline-gray-500"} for={index}>
                                                             <Icon.Paperclip size={22} className="inline-block" />

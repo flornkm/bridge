@@ -71,6 +71,7 @@ function ProjectSetup(props) {
                                         <button
                                             onClick={() => {
                                                 props.createProject(project);
+                                                project.name = '';
                                             }}
                                             className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full focus:outline-gray-300">
                                             Create
