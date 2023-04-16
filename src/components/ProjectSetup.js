@@ -1,59 +1,89 @@
-import React from "react";
+import { Fragment, useState } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
 
-function ProjectSetup({ setSetup }) {
-  const [loading, setLoading] = React.useState(false);
+function ProjectSetup(props) {
+    const [project, setProject] = useState({
+        name: '',
+        type: 'job'
+    })
 
-  return (
-    <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 bg-black bg-opacity-40 w-screen h-screen flex justify-center items-center px-[5%]">
-      <div className="form-widget bg-white p-6 rounded-xl w-[550px] flex flex-col gap-4 relative z-20">
-        <h2 className="font-medium text-xl mb-6">Create a new project</h2>
-        <div className="w-full grid grid-cols-3 items-center">
-          <label htmlFor="name" className="text-neutral-500">
-            Project Title
-          </label>
-          <input
-            id="title"
-            type="text"
-            required={true}
-            className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-2"
-          />
-        </div>
-        <div className="w-full grid grid-cols-3 items-center mb-14">
-          <label htmlFor="website" className="text-neutral-500">
-            Website
-          </label>
-          <input
-            id="website"
-            type="website"
-            required={true}
-            className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-2"
-          />
-        </div>
-        <div className="w-full flex justify-left gap-4">
-          <div className="w-full">
-            <button
-              className="font-medium px-3 py-2 rounded-lg ring-1 ring-neutral-200 bg-white text-black transition-all hover:bg-neutral-50 w-full"
-              onClick={() => {
-                setSetup(false);
-              }}
-              disabled={loading}
-            >
-              Cancel
-            </button>
-          </div>
-          <div className="w-full">
-            <button
-              className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full"
-              onClick={() => updateProfile({ username, website, avatar_url })}
-              disabled={loading}
-            >
-              {loading ? "Loading ..." : "Create"}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    return (
+        <Transition appear show={props.isOpen} as={Fragment}>
+            <Dialog as="div" className="relative z-50" onClose={props.closeSetup}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-black bg-opacity-25" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >
+                            <Dialog.Panel className="w-full flex flex-col max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <h2 className="text-xl font-semibold mb-2">Create a new project</h2>
+                                <div className="mt-2 mb-8">
+                                    <p className="text-base text-gray-500">
+                                        Enter project details below.
+                                    </p>
+                                </div>
+
+                                <div className="w-full grid grid-cols-3 items-center mb-8">
+                                    <label htmlFor="name" className="text-neutral-500">
+                                        Project Title
+                                    </label>
+                                    <input
+                                        id="title"
+                                        type="text"
+                                        required={true}
+                                        value={project.name}
+                                        className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-2"
+                                        onChange={(e) => {
+                                            setProject({ ...project, name: e.target.value })
+                                        }}
+                                    />
+                                </div>
+
+                                <div className="w-full flex justify-left gap-4 mt-14">
+                                    <div className="w-full">
+                                        <button
+                                            onClick={() => {
+                                                props.closeSetup();
+                                            }}
+                                            className="font-medium px-3 py-2 rounded-lg ring-1 ring-neutral-200 bg-white text-black transition-all outline-gray-300 hover:bg-neutral-50 w-full focus:outline-gray-300">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                    <div className="w-full">
+                                        <button
+                                            onClick={() => {
+                                                props.createProject(project);
+                                            }}
+                                            className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full focus:outline-gray-300">
+                                            Create
+                                        </button>
+                                    </div>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition>
+    )
 }
 
-export default ProjectSetup;
+export default ProjectSetup

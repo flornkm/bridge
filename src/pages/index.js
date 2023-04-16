@@ -193,8 +193,12 @@ export default function Home() {
         return () => document.removeEventListener("scroll", handleScroll);
     }, [scrollPosition, navItems]);
 
-    useHotkeys('meta', (e) => {
+    useHotkeys('t', (e) => {
         e.preventDefault();
+        openModal();
+    });
+
+    useHotkeys('meta', (e) => {
         keys[0].current.style.transform = "scale(0.9)";
         if (shortcuts === 0)
             keys[1].current.style.transform = "scale(1)";
@@ -309,13 +313,14 @@ export default function Home() {
                     height={32}
                     className="cursor-pointer"
                 />
-                <div className="flex gap-8">
+                <div className="flex gap-8 max-sm:gap-4">
                     <button className="font-semibold transition-all hover:opacity-80" onClick={() => {
                         router.push('/login')
                     }}>Login</button>
-                    <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80" onClick={() => {
+                    <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80 flex gap-3 items-center group" onClick={() => {
                         openModal();
                     }}>
+                        <span className="text-xs px-2 py-0.5 rounded-sm ring-2 ring-white font-bold -rotate-6 transition-all group-hover:rotate-0 max-sm:hidden">t</span>
                         Try for free
                     </button>
                 </div>
@@ -491,11 +496,11 @@ export default function Home() {
                             <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Why Bridge when there are a lot of other tools?</h2>
                         </div>
                         <div className="h-[175vh] relative flex flex-col items-start pt-16" ref={scrollDiv}>
-                            <div className="flex justify-center sticky top-6 w-full z-10 max-md:top-32">
-                                <div className="px-2 ring-1 ring-neutral-200 bg-white rounded-full items-center flex relative shadow-md overflow-hidden">
-                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center " + (scrollPosition < 0.2 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customizable</h3>
-                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate " + (scrollPosition > 0.2 && scrollPosition < 0.4 ? "text-black" : "text-gray-400")} ref={navItems[1]}>Organisable</h3>
-                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate " + (scrollPosition > 0.4 ? "text-black" : "text-gray-400")} ref={navItems[2]}>Super fast</h3>
+                            <div className="flex justify-center sticky top-6 w-full z-10 max-md:top-28">
+                                <div className="px-2 max-md:py-1.5 ring-1 ring-neutral-200 bg-white rounded-full items-center flex relative shadow-md overflow-hidden max-sm:w-full sm:gap-4 md:gap-0">
+                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center max-sm:flex-grow " + (scrollPosition < 0.2 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customizable</h3>
+                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.2 && scrollPosition < 0.4 ? "text-black" : "text-gray-400")} ref={navItems[1]}>Organisable</h3>
+                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.4 ? "text-black" : "text-gray-400")} ref={navItems[2]}>Super fast</h3>
 
                                     <div className="bg-neutral-100 ring-4 ring-neutral-100 absolute top-2 bottom-2 rounded-full transition-all w-36" ref={navRect} />
                                 </div>

@@ -8,6 +8,10 @@
   text-shadow: 0 0 10px #FFFFFF, 0px 0px 10px #FFFFFF;
 }
 
+a, button, input, textarea, select, .btn {
+  outline-color: #d1d5db;
+}
+
 
 /* Fade In Animation Preset */
 

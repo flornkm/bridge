@@ -92,6 +92,31 @@ function Dashboard(props) {
     }
   };
 
+  const openSetup = () => {
+    setSetup(true);
+  };
+
+  const closeSetup = () => {
+    setSetup(false);
+  };
+
+  const createProject = async (project) => {
+
+    project.owner = session.user.id;
+
+    const res = await fetch("/api/projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(project),
+    });
+    const data = await res.json();
+    console.log(data);
+    setProjects([...projects, data]);
+    setSetup(false);
+  };
+
   React.useEffect(() => {
     router.push("/dashboard");
 
@@ -278,7 +303,7 @@ function Dashboard(props) {
           setAvatar={setAvatar}
         />
       )}
-      {setup && <ProjectSetup setSetup={setSetup} />}
+      <ProjectSetup isOpen={setup} setIsOpen={setSetup} openSetup={openSetup} closeSetup={closeSetup} createProject={createProject} />
     </div>
   );
 }
