@@ -66,20 +66,48 @@ function WaitList(props) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        setApiLoad(true);
 
-        fetch("/api/airtable", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        })
-            // if the request is successful, set success to true
-            .then(() => {
-                setSuccess(true)
-                setApiLoad(false);
+        let nameError = false;
+        let emailError = false;
+        let termsAgreeError = false;
+
+        // check if all fields are filled
+        if (data.name === "") {
+            nameError = true;
+        }
+
+        if (data.email === "") {
+            emailError = true;
+        }
+
+        if (!data.agreeTerms) {
+            termsAgreeError = true;
+        }
+
+        setError({
+            name: nameError,
+            email: emailError,
+            agreeTerms: termsAgreeError,
+        });
+
+        console.log(data, error);
+
+        if (data.name !== "" && data.email !== "" && data.agreeTerms) {
+            setApiLoad(true);
+
+            fetch("/api/airtable", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
             })
+                // if the request is successful, set success to true
+                .then(() => {
+                    setSuccess(true)
+                    setApiLoad(false);
+                })
+        }
     }
 
     return (
@@ -137,7 +165,7 @@ function WaitList(props) {
                                                 className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
-                                            {!error.name && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
+                                            {error.name && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
                                                 <p className="relative z-10">Enter Name</p>
                                                 <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
                                                 <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
@@ -155,7 +183,7 @@ function WaitList(props) {
                                                 className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
                                                 onChange={(e) => setData({ ...data, email: e.target.value })}
                                             />
-                                            {!error.email && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
+                                            {error.email && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
                                                 <p className="relative z-10">Enter a valid Email</p>
                                                 <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
                                                 <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
@@ -163,7 +191,7 @@ function WaitList(props) {
                                             </div>}
                                         </div>
                                         <div className="h-4" />
-                                        <div className="w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg" tabIndex={0} onKeyDown={(event) => {
+                                        <div className="w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg relative" tabIndex={0} onKeyDown={(event) => {
                                             if (event.keyCode === 13) {
                                                 termsClick();
                                             }
@@ -175,7 +203,14 @@ function WaitList(props) {
                                                 I accept that my data will be stored and used for the
                                                 purpose of the waitlist.
                                             </label>
+                                            {error.agreeTerms && <div className="text-xs text-red-500 absolute right-2 bottom-0 z-10 pointer-events-none px-2">
+                                                <p className="relative z-10">Please accept</p>
+                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                            </div>}
                                         </div>
+
                                         <div className="w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg" tabIndex={0} onKeyDown={(event) => {
                                             if (event.keyCode === 13) {
                                                 showcaseClick();
@@ -219,7 +254,7 @@ function WaitList(props) {
                                 >
                                     <div className="flex flex-col h-full w-full gap-2">
                                         <div className="h-[354px] mb-4 rounded-xl overflow-hidden ring-1 ring-violet-100">
-                                        <Image src="/images/general/logo.svg" width={96} height={96} alt="3d bridge" className="absolute z-20 left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%]" />
+                                            <Image src="/images/general/logo.svg" width={96} height={96} alt="3d bridge" className="absolute z-20 left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%]" />
                                             <Image src="/images/general/logo.svg" width={128} height={128} alt="3d bridge" className="absolute z-10 left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] blur-3xl" />
                                             <Image src="/images/general/morph_lines.svg" width={512} height={512} alt="3d bridge" className="h-full w-full object-cover object-top" unoptimized />
                                         </div>
