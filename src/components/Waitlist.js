@@ -64,6 +64,14 @@ function WaitList(props) {
         }
     }
 
+    function verifyEmail(mail) {
+        if (mail !== "" && mail.includes("@") && mail.includes(".") && mail.length > 4 && mail.length < 50) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
 
@@ -71,12 +79,11 @@ function WaitList(props) {
         let emailError = false;
         let termsAgreeError = false;
 
-        // check if all fields are filled
         if (data.name === "") {
             nameError = true;
         }
 
-        if (data.email === "") {
+        if (!verifyEmail(data.email)) {
             emailError = true;
         }
 
@@ -92,7 +99,7 @@ function WaitList(props) {
 
         console.log(data, error);
 
-        if (data.name !== "" && data.email !== "" && data.agreeTerms) {
+        if (data.name !== "" && verifyEmail(data.email) && data.agreeTerms) {
             setApiLoad(true);
 
             fetch("/api/airtable", {

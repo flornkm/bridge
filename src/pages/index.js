@@ -69,6 +69,7 @@ export default function Home() {
         });
     };
     let [isOpen, setIsOpen] = useState(false)
+    let [entries, setEntries] = useState([])
 
     function closeModal() {
         setIsOpen(false)
@@ -271,6 +272,31 @@ export default function Home() {
         }
     });
 
+    function getRandomEmoji() {
+        const emojis = ['😀', '😍', '🤔', '😴', '🤯', '👻', '👽', '🤖'];
+        const randomIndex = Math.floor(Math.random() * emojis.length);
+        return emojis[randomIndex];
+    }
+
+    const fetchNewestEntries = async () => {
+        const response = await fetch('/api/airtable');
+        const data = await response.json();
+        console.log(data);
+        const entriesWithEmojis = data.map(entry => {
+            return {
+                ...entry,
+                emoji: getRandomEmoji()
+            }
+        });
+        setEntries(entriesWithEmojis);
+        console.log(entriesWithEmojis);
+    };
+
+    useEffect(() => {
+        if (entries.length === 0)
+            fetchNewestEntries();
+    }, [entries]);
+
     return (
         <>
             <Head>
@@ -373,7 +399,7 @@ export default function Home() {
                                             <label className="text-base text-gray-400">Your name</label>
                                         </div>
                                         <input className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 focus:outline-gray-300 w-full"}
-                                            placeholder="John Doe" />
+                                            placeholder={entries.length === 0 ? "John Doe" : entries[0].fields.Name} />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-1 items-start w-full">
@@ -528,29 +554,29 @@ export default function Home() {
                             <div className="sticky top-64 w-full h-auto col-span-2 flex items-center justify-center">
                                 {scrollPosition < 0.2 && (
                                     <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[512px] w-full rounded-3xl relative -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden">
-                                        <p className="text-center text-white font-medium text-lg">Colors</p>
-                                        <div className="p-2 bg-white rounded-xl flex gap-2 shadow-lg">
+                                        <p className="text-center text-white font-medium text-lg">Elegant Colors</p>
+                                        <div className="p-2 bg-white rounded-xl flex gap-2">
                                             <div className="h-10 w-10 bg-white rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-zinc-200 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-zinc-400 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-zinc-600 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-zinc-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
-                                        <div className="p-2 bg-white rounded-xl flex gap-2 shadow-lg">
+                                        <div className="p-2 bg-white rounded-xl flex gap-2">
                                             <div className="h-10 w-10 bg-red-200 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-red-400 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-red-500 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-red-600 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-red-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
-                                        <div className="p-2 bg-white rounded-xl flex gap-2 shadow-lg">
+                                        <div className="p-2 bg-white rounded-xl flex gap-2">
                                             <div className="h-10 w-10 bg-green-200 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-green-400 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-green-500 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-green-600 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-green-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
-                                        <div className="p-2 bg-white rounded-xl flex gap-2 shadow-lg">
+                                        <div className="p-2 bg-white rounded-xl flex gap-2">
                                             <div className="h-10 w-10 bg-blue-200 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-blue-400 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-blue-500 rounded-full ring-1 ring-neutral-200" />
@@ -558,17 +584,40 @@ export default function Home() {
                                             <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
                                     </div>)}
-                                {scrollPosition > 0.2 && scrollPosition < 0.4 && (
-                                    <div className="bg-gradient-to-br from-blue-300 to-indigo-400 h-[512px] w-full rounded-3xl relative -top-8">
-
+                                {scrollPosition > 0.2 && scrollPosition < 0.4 && entries.length > 0 && (
+                                    <div className="bg-gradient-to-br from-blue-300 to-indigo-400 h-[512px] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
+                                        <p className="text-center text-white font-medium text-lg">Manage your candidates</p>
+                                        <div className="p-4 rounded-xl mx-auto bg-white">
+                                            <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Latest Candidates <span className="text-gray-400 text-sm italic">(latest people on the waitlist here)</span></p>
+                                            <div className="grid text-xs text-gray-400 sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between items-center">
+                                                <p>Candiate</p>
+                                                <p className="max-sm:hidden">Time</p>
+                                                <p className="w-full text-right">Manage</p>
+                                            </div>
+                                            {entries.map((entry, index) => (
+                                                <div key={index} className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-neutral-100 rounded-lg items-center">
+                                                    <div className="flex gap-4 items-center">
+                                                        <p className="p-1 bg-gray-100 ring-1 w-8 ring-gray-200 aspect-square rounded-full flex items-center justify-center">{entry.emoji}</p>
+                                                        <p className="font-medium">{entry.fields.Name}</p>
+                                                    </div>
+                                                    <p className="font-medium max-sm:hidden">{
+                                                        // only return the time from entry.fields.Date
+                                                        entry.fields.Date.split("T")[1].split(":").slice(0, 2).join(":")
+                                                    }</p>
+                                                    <div className="w-full flex justify-end">
+                                                        <Icon.DotsThree size={32} className="hover:bg-neutral-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                 )}
                                 {scrollPosition > 0.4 && (
                                     <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[512px] w-full rounded-3xl relative -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden">
-                                        <p className="text-white font-medium text-xl">Time until publish first job</p>
-                                        <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl shadow-lg ">
-                                            <h4 className="text-6xl text-emerald-700 font-bold animate-pulse absolute z-10">5 <span className="text-4xl">mins</span></h4>
-                                            <h4 className="text-6xl font-bold relative">5 <span className="text-4xl">mins</span></h4>
+                                        <p className="text-white font-medium text-xl">Most jobs publishable in</p>
+                                        <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl ">
+                                            <h4 className="text-6xl text-emerald-700 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
+                                            <h4 className="text-6xl font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
                                         </div>
                                     </div>
                                 )}
@@ -585,7 +634,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="rounded-3xl bg-neutral-50 relative overflow-hidden">
+                    {/* <div className="rounded-3xl bg-neutral-50 relative overflow-hidden">
                         <div className="pt-10 px-8 rounded-[23px] relative z-20 bg-neutral-50">
                             <div className="flex flex-col gap-3">
                                 <h2 className="font-semibold md:text-3xl max-md:text-2xl text-black flex gap-4 items-center justify-center">AI Choices <span className="rounded-full ring-2 ring-fuchsia-300 text-fuchsia-500 text-base px-2 py-1">Soon</span></h2>
@@ -594,7 +643,7 @@ export default function Home() {
                                 <RiveComponent src="/animations/bridge_ai.riv" className="max-md:w-screen md:w-[85%] max-md:absolute max-md:translate-x-[-50%] left-[50%] aspect-video" />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="h-24" />
                     <div className="min-h-64 pt-24">
                         <div className="w-full flex justify-center flex-col md:items-center gap-3 mb-16">
