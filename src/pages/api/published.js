@@ -1,12 +1,12 @@
 import supabase from "../../supabase";
 
 export default async function handler(req, res) {
-    if (req.query.id) {
+    if (req.query.owner) {
         const { data, error } = await supabase
             .from("published")
             .select("*")
+            .eq("owner", req.query.owner)
             .eq("id", req.query.id)
-            .eq("name", req.query.name)
             .single();
 
         if (error) {

@@ -30,11 +30,10 @@ export default function Published() {
     useEffect(() => {
         console.log(id)
         if (id) {
-            const supabaseId = id.split('&')[0];
-            const name = id.split('&')[1].replace(/-/g, ' ');
-            console.log(supabaseId, name);
+            const ownerId = id.substring(0, 36);
+            const projNum = id.substring(36);
 
-            fetch(`/api/published?id=${supabaseId}&name=${name}`, {
+            fetch(`/api/published?owner=${ownerId}&id=${projNum}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -75,7 +74,7 @@ export default function Published() {
     return (
         <>
             <Head>
-                <title>{id && id.split('&')[1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</title>
+                <title>{data && data.name}</title>
                 <meta
                     name="description"
                     content="Bridge is a tool that allows you to create interactive elements for your website."
@@ -110,7 +109,7 @@ export default function Published() {
             <main className="h-full w-full bg-white">
                 <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24 overflow-hidden">
                     <div className="flex flex-col">
-                        {data && (
+                        {data && data.content !== undefined && (
                             data.content.map((items, index) => {
                                 return (
                                     <div key={index} className="flex flex-col gap-4 mb-16">
@@ -182,6 +181,12 @@ export default function Published() {
                                 )
                             })
                         )}
+                        {!data || data.content === undefined && (
+                            <div className="w-full h-full flex items-center justify-center">
+                                <h1 className="text-2xl font-semibold text-black">Project not found</h1>
+                            </div>
+                        )
+                        }
                     </div>
                 </div>
                 <Link href="/" className="focus:ring-purple-400 focus:ring-1 focus:outline-none flex gap-3 items-center m-auto w-40 mb-16 justify-center text-xs px-3 py-1.5 font-medium bg-purple-100 ring-1 ring-purple-200 active:scale-95 active:shadow-none hover:shadow-purple-100 hover:bg-purple-50 transition-all rounded-md text-purple-500 shadow-lg shadow-purple-200">

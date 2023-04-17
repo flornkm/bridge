@@ -293,8 +293,8 @@ function Dashboard(props) {
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
                   })
                 }</h1>
-                <Link target="_blank" href={"/" + project.id + "&" + project.name.toLowerCase().replace(/ /g, "-")} className="text-xs text-gray-500 relative z-10 hover:text-black" >
-                  https://bridge.supply/{project.id}&{project.name.toLowerCase().replace(/ /g, "-")}
+                <Link target="_blank" href={"/" + project.owner + project.id} className="text-xs text-gray-500 relative z-10 hover:text-black" >
+                  https://bridge.supply/{project.owner + project.id}
                 </Link>
               </div>
               <div>

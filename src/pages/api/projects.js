@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "POST") {
     let project = req.body;
-    project.name = project.name.toLowerCase();
+    project.name = project.name;
 
     // Create a new project and also publish it
     const { data, error } = await supabase
