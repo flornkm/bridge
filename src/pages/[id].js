@@ -109,6 +109,11 @@ export default function Published() {
             <main className="h-full w-full bg-white">
                 <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24 overflow-hidden">
                     <div className="flex flex-col">
+                    {!data && (
+                        <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-6 bg-white overflow-hidden rounded-lg">
+                            <div className="h-16 w-16 relative rounded-full ring-8 ring-purple-500 z-0 animate-spin"> <div className="absolute -left-4 -top-4 bg-white z-10 h-12 w-12 transition-all" /> </div>
+                        </div>
+                        )}
                         {data && data.content !== undefined && (
                             data.content.map((items, index) => {
                                 return (

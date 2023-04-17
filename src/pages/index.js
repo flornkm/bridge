@@ -364,7 +364,27 @@ export default function Home() {
                                     </pre>
                                 </code>
                             </div>
-                            <div className="py-4 px-8 bg-white z-20 shadow-2xl rounded-2xl ring-1 ring-neutral-200 top-24 absolute left-[50%] translate-x-[-50%] w-[90%] md:max-w-4xl flex justify-between max-lg:flex-col gap-10 transition-all duration-500 md:hover:scale-[1.01]">
+                            <div onClick={openModal} className="md:py-16 md:px-20 max-md:py-8 max-md:px-10 flex-col bg-white z-20 shadow-2xl rounded-2xl ring-1 ring-neutral-200 top-24 absolute left-[50%] translate-x-[-50%] w-[90%] md:max-w-4xl flex justify-between max-lg:flex-col transition-all duration-500 md:hover:scale-[1.01]">
+                                <p className="text-3xl font-semibold mb-4">Senior UI / UX Designer</p>
+                                <p className="text-lg font-medium text-gray-500 mb-10">We are seeking a highly experienced Senior UI/UX Designer …</p>
+                                <div className="flex flex-col gap-1 items-start w-full mb-8">
+                                    <div className="flex flex-col gap-1 w-full">
+                                        <div className="flex w-full justify-between items-center">
+                                            <label className="text-base text-gray-400">Your name</label>
+                                        </div>
+                                        <input className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 focus:outline-gray-300 w-full"}
+                                            placeholder="John Doe" />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-1 items-start w-full">
+                                    <div className="flex flex-col gap-1 w-full">
+                                        <div className="flex w-full justify-between items-center">
+                                            <label className="text-base text-gray-400">Your adress</label>
+                                        </div>
+                                        <input className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 focus:outline-gray-300 w-full"}
+                                            placeholder="Examplestreet" />
+                                    </div>
+                                </div>
                                 <div className="h-96" />
                             </div>
                             <div className="bg-neutral-50 ring-1 ring-neutral-200 text-slate-100 text-xl px-7 py-4 rounded-2xl rotate-2 relative xl:right-32 max-xl:right-32 -top-16 max-md:hidden">

@@ -63,7 +63,7 @@ function ProjectSetup(props) {
                                             onClick={() => {
                                                 props.closeSetup();
                                             }}
-                                            className="font-medium px-3 py-2 rounded-lg ring-1 ring-neutral-200 bg-white text-black transition-all outline-gray-300 hover:bg-neutral-50 w-full focus:outline-gray-300">
+                                            className="font-medium px-3 py-2 rounded-lg border border-neutral-200 bg-white text-black transition-all outline-gray-300 hover:bg-neutral-50 w-full focus:outline-gray-300">
                                             Cancel
                                         </button>
                                     </div>
