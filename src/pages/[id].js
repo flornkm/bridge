@@ -2,14 +2,17 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
 import Head from 'next/head'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import * as Icon from 'phosphor-react'
 import Confetti from 'react-dom-confetti';
 
 export default function Published() {
     const [data, setData] = useState(null);
     const [confetti, setConfetti] = useState(false);
+    const [formData, setFormData] = useState({});
+
     const router = useRouter();
+
 
     const config = {
         angle: 90,
@@ -45,6 +48,17 @@ export default function Published() {
                 })
         }
     }, [id]);
+
+    function handleInputChange(event) {
+        const { name, value, type } = event.target;
+        const newValue = type === 'file' ? event.target.files[0] : value;
+        setFormData(prevState => ({ ...prevState, [name]: newValue }));
+      }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        console.log(formData);
+    }
 
     const reduceColorOpacity = (color, percent) => {
         const opacity = 1 - percent / 100;
@@ -109,10 +123,10 @@ export default function Published() {
             <main className="h-full w-full bg-white">
                 <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24 overflow-hidden">
                     <div className="flex flex-col">
-                    {!data && (
-                        <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-6 bg-white overflow-hidden rounded-lg">
-                            <div className="h-16 w-16 relative rounded-full ring-8 ring-purple-500 z-0 animate-spin"> <div className="absolute -left-4 -top-4 bg-white z-10 h-12 w-12 transition-all" /> </div>
-                        </div>
+                        {!data && (
+                            <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-6 bg-white overflow-hidden rounded-lg">
+                                <div className="h-16 w-16 relative rounded-full ring-8 ring-purple-500 z-0 animate-spin"> <div className="absolute -left-4 -top-4 bg-white z-10 h-12 w-12 transition-all" /> </div>
+                            </div>
                         )}
                         {data && data.content !== undefined && (
                             data.content.map((items, index) => {
@@ -140,7 +154,10 @@ export default function Published() {
                                                         </div>
                                                         <input required={item.required} className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:outline-gray-300"}
                                                             style={{ color: data.colors.text }}
-                                                            placeholder={item.content} />
+                                                            placeholder={item.content}
+                                                            name={item.label}
+                                                            onChange={handleInputChange}
+                                                        />
                                                     </div>
                                                 )
                                             } else if (item.type === "fileUpload" && item.visibility) {
@@ -161,18 +178,24 @@ export default function Published() {
                                                         <input required={item.required}
                                                             style={{ color: data.colors.text }}
                                                             className={"file:hidden rounded-lg py-1.5 px-3 focus:outline-gray-300"}
-                                                            type="file" id={index} />
+                                                            type="file" id={index} 
+                                                            name={item.label}
+                                                            onChange={handleInputChange}
+                                                            
+                                                            />
                                                     </div>
                                                 )
                                             } else if (item.type === "submit" && item.visibility) {
                                                 return (
                                                     <div key={index} className="flex flex-col gap-1 items-start">
-                                                        <button onClick={() => {
-                                                            if (item.type === "submit")
+                                                        <button onClick={(e) => {
+                                                            if (item.type === "submit") {
                                                                 setConfetti(true)
-                                                            setTimeout(() => {
-                                                                setConfetti(false)
-                                                            }, 3000)
+                                                                setTimeout(() => {
+                                                                    setConfetti(false)
+                                                                }, 3000);
+                                                                handleSubmit(e);
+                                                            }
                                                         }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className={"text-white font-medium rounded-xl max-md:w-full justify-center py-4 px-8 focus:ring-gray-400 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative focus:outline-gray-300"}>
                                                             {item.content}
                                                             {item.type === "submit" && data.effects.confetti && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={confetti} config={config} /></div>}
