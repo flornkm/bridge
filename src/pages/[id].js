@@ -9,7 +9,8 @@ import Confetti from 'react-dom-confetti';
 export default function Published() {
     const [data, setData] = useState(null);
     const [confetti, setConfetti] = useState(false);
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState(null);
+    const [error, setError] = useState(null);
 
     const router = useRouter();
 
@@ -53,11 +54,30 @@ export default function Published() {
         const { name, value, type } = event.target;
         const newValue = type === 'file' ? event.target.files[0] : value;
         setFormData(prevState => ({ ...prevState, [name]: newValue }));
-      }
+    }
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(formData);
+
+        if (!formData) {
+            // setError for every field label
+            data.content.map((items, index) => {
+                items.content.map((item, index) => {
+                    if (item.type === 'textInput') {
+                        setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
+                    }
+                })
+            })
+
+        }
+
+
+
+        console.log(error);
+        setConfetti(true)
+        setTimeout(() => {
+            setConfetti(false)
+        }, 3000);
     }
 
     const reduceColorOpacity = (color, percent) => {
@@ -152,12 +172,21 @@ export default function Published() {
                                                                 Required
                                                             </span>}
                                                         </div>
-                                                        <input required={item.required} className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:outline-gray-300"}
-                                                            style={{ color: data.colors.text }}
-                                                            placeholder={item.content}
-                                                            name={item.label}
-                                                            onChange={handleInputChange}
-                                                        />
+                                                        <div className="relative">
+                                                            <input required={item.required} className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:outline-gray-300"}
+                                                                style={{ color: data.colors.text }}
+                                                                placeholder={item.content}
+                                                                name={item.label}
+                                                                onChange={handleInputChange}
+                                                            />
+                                                            {error && error[item.label] && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
+
+                                                                <p className="relative z-10">{error[item.label]}</p>
+                                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                                                <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
+                                                            </div>}
+                                                        </div>
                                                     </div>
                                                 )
                                             } else if (item.type === "fileUpload" && item.visibility) {
@@ -175,14 +204,15 @@ export default function Published() {
                                                             <Icon.Paperclip size={22} className="inline-block" />
                                                             {item.content}
                                                         </label>
+                                                        {error && error[item.label] && <span>Test</span>}
                                                         <input required={item.required}
                                                             style={{ color: data.colors.text }}
                                                             className={"file:hidden rounded-lg py-1.5 px-3 focus:outline-gray-300"}
-                                                            type="file" id={index} 
+                                                            type="file" id={index}
                                                             name={item.label}
                                                             onChange={handleInputChange}
-                                                            
-                                                            />
+
+                                                        />
                                                     </div>
                                                 )
                                             } else if (item.type === "submit" && item.visibility) {
@@ -190,10 +220,6 @@ export default function Published() {
                                                     <div key={index} className="flex flex-col gap-1 items-start">
                                                         <button onClick={(e) => {
                                                             if (item.type === "submit") {
-                                                                setConfetti(true)
-                                                                setTimeout(() => {
-                                                                    setConfetti(false)
-                                                                }, 3000);
                                                                 handleSubmit(e);
                                                             }
                                                         }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className={"text-white font-medium rounded-xl max-md:w-full justify-center py-4 px-8 focus:ring-gray-400 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative focus:outline-gray-300"}>
