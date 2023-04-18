@@ -60,24 +60,34 @@ export default function Published() {
         event.preventDefault();
 
         if (!formData) {
-            // setError for every field label
             data.content.map((items, index) => {
                 items.content.map((item, index) => {
-                    if (item.type === 'textInput') {
+                    if (item.type === 'textInput' && item.required) {
                         setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
                     }
                 })
             })
-
+        } else {
+            data.content.map((items, index) => {
+                items.content.map((item, index) => {
+                    if (item.type === 'textInput') {
+                        if (!formData[item.label] && item.required) {
+                            setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
+                        } else {
+                            setError(prevState => ({ ...prevState, [item.label]: null }));
+                        }
+                    }
+                })
+            })
         }
 
-
-
-        console.log(error);
-        setConfetti(true)
-        setTimeout(() => {
-            setConfetti(false)
-        }, 3000);
+        if (formData && !Object.values(error).some(item => item !== null)) {
+            console.log(error);
+            setConfetti(true)
+            setTimeout(() => {
+                setConfetti(false)
+            }, 3000);
+        }
     }
 
     const reduceColorOpacity = (color, percent) => {
