@@ -59,11 +59,17 @@ export default function Published() {
     function handleSubmit(event) {
         event.preventDefault();
 
+        let errorCount = 0;
+
         if (!formData) {
             data.content.map((items, index) => {
                 items.content.map((item, index) => {
                     if (item.type === 'textInput' && item.required) {
                         setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
+                        errorCount++;
+                    } else if (item.type === 'fileUpload') {
+                        setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
+                        errorCount++;
                     }
                 })
             })
@@ -73,6 +79,14 @@ export default function Published() {
                     if (item.type === 'textInput') {
                         if (!formData[item.label] && item.required) {
                             setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
+                            errorCount++;
+                        } else {
+                            setError(prevState => ({ ...prevState, [item.label]: null }));
+                        }
+                    } else if (item.type === 'fileUpload') {
+                        if (!formData[item.label]) {
+                            setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
+                            errorCount++;
                         } else {
                             setError(prevState => ({ ...prevState, [item.label]: null }));
                         }
@@ -81,8 +95,7 @@ export default function Published() {
             })
         }
 
-        if (formData && !Object.values(error).some(item => item !== null)) {
-            console.log(error);
+        if (errorCount === 0) {
             setConfetti(true)
             setTimeout(() => {
                 setConfetti(false)
@@ -150,8 +163,8 @@ export default function Published() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="h-full w-full bg-white">
-                <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24 overflow-hidden">
+            <main className="h-full w-full bg-white overflow-hidden">
+                <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24">
                     <div className="flex flex-col">
                         {!data && (
                             <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-6 bg-white overflow-hidden rounded-lg">
@@ -161,7 +174,10 @@ export default function Published() {
                         {data && data.content !== undefined && (
                             data.content.map((items, index) => {
                                 return (
-                                    <div key={index} className="flex flex-col gap-4 mb-16">
+                                    <div key={index} className={`flex flex-col gap-4 mb-16 ${(() => {
+                                        // if every item in items.content has visibility set to false, return true
+                                        return items.content.every((item) => !item.visibility);
+                                    })() ? "hidden" : ""}`}>
                                         {items.content.map((item, index) => {
                                             if (item.type === "heading" && item.visibility) {
                                                 return (
@@ -183,14 +199,13 @@ export default function Published() {
                                                             </span>}
                                                         </div>
                                                         <div className="relative">
-                                                            <input required={item.required} className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:outline-gray-300"}
+                                                            <input required={item.required} className={"border border-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:outline-gray-300"}
                                                                 style={{ color: data.colors.text }}
                                                                 placeholder={item.content}
                                                                 name={item.label}
                                                                 onChange={handleInputChange}
                                                             />
                                                             {error && error[item.label] && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
-
                                                                 <p className="relative z-10">{error[item.label]}</p>
                                                                 <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
                                                                 <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
@@ -214,7 +229,8 @@ export default function Published() {
                                                             <Icon.Paperclip size={22} className="inline-block" />
                                                             {item.content}
                                                         </label>
-                                                        {error && error[item.label] && <span>Test</span>}
+
+                                                        <div className="md:flex w-full justify-between items-center flex-wrap">
                                                         <input required={item.required}
                                                             style={{ color: data.colors.text }}
                                                             className={"file:hidden rounded-lg py-1.5 px-3 focus:outline-gray-300"}
@@ -223,6 +239,10 @@ export default function Published() {
                                                             onChange={handleInputChange}
 
                                                         />
+                                                        {error && error[item.label] && <div className="text-xs text-red-500 relative pointer-events-none px-2">
+                                                                <p className="relative z-10">{error[item.label]}</p>
+                                                            </div>}
+                                                            </div>
                                                     </div>
                                                 )
                                             } else if (item.type === "submit" && item.visibility) {
