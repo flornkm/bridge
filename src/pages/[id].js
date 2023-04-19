@@ -87,7 +87,7 @@ export default function Published() {
                     if (item.type === 'textInput' && item.required) {
                         setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
                         errorCount++;
-                    } else if (item.type === 'fileUpload') {
+                    } else if (item.type === 'fileUpload' && item.required) {
                         setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
                         errorCount++;
                     }
