@@ -68,6 +68,7 @@ export default function Published() {
                         setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
                         errorCount++;
                     } else if (item.type === 'fileUpload') {
+                        // also look at file size
                         setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
                         errorCount++;
                     }
@@ -84,11 +85,19 @@ export default function Published() {
                             setError(prevState => ({ ...prevState, [item.label]: null }));
                         }
                     } else if (item.type === 'fileUpload') {
+                        // also look at file size
                         if (!formData[item.label]) {
                             setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
                             errorCount++;
                         } else {
-                            setError(prevState => ({ ...prevState, [item.label]: null }));
+                            let file = formData[item.label];
+                            let fileSize = file.size / 1024 / 1024; // in MB
+                            if (fileSize > 2.5) {
+                                setError(prevState => ({ ...prevState, [item.label]: 'File size must be less than 2.5MB' }));
+                                errorCount++;
+                            } else {
+                                setError(prevState => ({ ...prevState, [item.label]: null }));
+                            }
                         }
                     }
                 })
