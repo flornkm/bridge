@@ -104,11 +104,34 @@ export default function Published() {
             })
         }
 
+        if (formData) {
+            data.content.map((items, index) => {
+                items.content.map((item, index) => {
+                    if (item.type === 'fileUpload') {
+                        formData[item.label] = formData[item.label].name;
+                    }
+                })
+            })
+        }
+
         if (errorCount === 0) {
-            setConfetti(true)
-            setTimeout(() => {
-                setConfetti(false)
-            }, 3000);
+            fetch(`/api/submit`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ formData, id: id.substring(36) }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    // if success, show confetti
+                    if (data.message === 'Success!') {
+                        setConfetti(true)
+                        setTimeout(() => {
+                            setConfetti(false)
+                        }, 3000);
+                    }
+                })
         }
     }
 
@@ -240,18 +263,18 @@ export default function Published() {
                                                         </label>
 
                                                         <div className="md:flex w-full justify-between items-center flex-wrap">
-                                                        <input required={item.required}
-                                                            style={{ color: data.colors.text }}
-                                                            className={"file:hidden rounded-lg py-1.5 px-3 focus:outline-gray-300"}
-                                                            type="file" id={index}
-                                                            name={item.label}
-                                                            onChange={handleInputChange}
+                                                            <input required={item.required}
+                                                                style={{ color: data.colors.text }}
+                                                                className={"file:hidden rounded-lg py-1.5 px-3 focus:outline-gray-300"}
+                                                                type="file" id={index}
+                                                                name={item.label}
+                                                                onChange={handleInputChange}
 
-                                                        />
-                                                        {error && error[item.label] && <div className="text-xs text-red-500 relative pointer-events-none px-2">
+                                                            />
+                                                            {error && error[item.label] && <div className="text-xs text-red-500 relative pointer-events-none px-2">
                                                                 <p className="relative z-10">{error[item.label]}</p>
                                                             </div>}
-                                                            </div>
+                                                        </div>
                                                     </div>
                                                 )
                                             } else if (item.type === "submit" && item.visibility) {
