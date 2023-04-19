@@ -161,7 +161,7 @@ function WaitList(props) {
                                     </div>
 
                                     <div className="flex flex-col gap-4">
-                                        <div className="w-full grid grid-cols-4 items-center relative">
+                                        <div className="group w-full grid grid-cols-4 items-center relative">
                                             <label htmlFor="username" className="text-gray-500">
                                                 Name
                                             </label>
@@ -169,7 +169,7 @@ function WaitList(props) {
                                                 id="name"
                                                 type="text"
                                                 value={data.name}
-                                                className="w-full border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
+                                                className="group-hover:border-neutral-300 w-full border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
                                             {error.name && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
@@ -179,7 +179,7 @@ function WaitList(props) {
                                                 <div className="w-full h-full bg-white blur-md absolute top-0 left-0" />
                                             </div>}
                                         </div>
-                                        <div className="w-full grid grid-cols-4 items-center relative">
+                                        <div className="group w-full grid grid-cols-4 items-center relative">
                                             <label htmlFor="username" className="text-gray-500">
                                                 E-Mail
                                             </label>
@@ -187,7 +187,7 @@ function WaitList(props) {
                                                 id="name"
                                                 type="text"
                                                 value={data.email}
-                                                className="w-full border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
+                                                className="group-hover:border-neutral-300 w-full border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
                                                 onChange={(e) => setData({ ...data, email: e.target.value })}
                                             />
                                             {error.email && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
@@ -198,12 +198,12 @@ function WaitList(props) {
                                             </div>}
                                         </div>
                                         <div className="h-4" />
-                                        <div className="w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg relative" tabIndex={0} onKeyDown={(event) => {
+                                        <div className="group w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg relative" tabIndex={0} onKeyDown={(event) => {
                                             if (event.keyCode === 13) {
                                                 termsClick();
                                             }
                                         }} onClick={termsClick}>
-                                            <div className="w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer ring-1 ring-neutral-200 transition-all" style={{ backgroundColor: (!agreeTerms ? "#fafafa" : "#000") }}>
+                                            <div className="group-hover:ring-neutral-300 w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer ring-1 ring-neutral-200 transition-all" style={{ backgroundColor: (!agreeTerms ? "#fafafa" : "#000") }}>
                                                 <RiveComponentTerms />
                                             </div>
                                             <label htmlFor="username" className="text-gray-500 flex-grow cursor-pointer">
@@ -218,12 +218,12 @@ function WaitList(props) {
                                             </div>}
                                         </div>
 
-                                        <div className="w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg" tabIndex={0} onKeyDown={(event) => {
+                                        <div className="group w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg" tabIndex={0} onKeyDown={(event) => {
                                             if (event.keyCode === 13) {
                                                 showcaseClick();
                                             }
                                         }} onClick={showcaseClick}>
-                                            <div className="w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer ring-1 ring-neutral-200 transition-all" style={{ backgroundColor: (!agreeShowcase ? "#fafafa" : "#000") }}>
+                                            <div className="group-hover:ring-neutral-300 w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer ring-1 ring-neutral-200 transition-all" style={{ backgroundColor: (!agreeShowcase ? "#fafafa" : "#000") }}>
                                                 <RiveComponentShowcase />
                                             </div>
                                             <label htmlFor="username" className="text-gray-500 flex-grow cursor-pointer">

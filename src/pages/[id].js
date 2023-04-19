@@ -11,6 +11,8 @@ export default function Published() {
     const [confetti, setConfetti] = useState(false);
     const [formData, setFormData] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
 
     const router = useRouter();
 
@@ -54,6 +56,24 @@ export default function Published() {
         const { name, value, type } = event.target;
         const newValue = type === 'file' ? event.target.files[0] : value;
         setFormData(prevState => ({ ...prevState, [name]: newValue }));
+
+        if (type === 'file') {
+            // send to api/upload
+            const fileData = new FormData();
+            fileData.append('file', newValue);
+            fileData.append('upload_preset', 'nextjs');
+
+            fetch('/api/upload', {
+                method: 'POST',
+                body: fileData,
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    setFormData(prevState => ({ ...prevState, [name]: data.fileName }));
+                    setError(prevState => ({ ...prevState, [name]: null }));
+                })
+        }
     }
 
     function handleSubmit(event) {
@@ -68,7 +88,6 @@ export default function Published() {
                         setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
                         errorCount++;
                     } else if (item.type === 'fileUpload') {
-                        // also look at file size
                         setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
                         errorCount++;
                     }
@@ -86,11 +105,12 @@ export default function Published() {
                         }
                     } else if (item.type === 'fileUpload') {
                         // also look at file size
-                        if (!formData[item.label]) {
+                        if (!formData[item.label] && item.required) {
                             setError(prevState => ({ ...prevState, [item.label]: 'This field is required' }));
                             errorCount++;
                         } else {
                             let file = formData[item.label];
+                            if (!file) return;
                             let fileSize = file.size / 1024 / 1024; // in MB
                             if (fileSize > 2.5) {
                                 setError(prevState => ({ ...prevState, [item.label]: 'File size must be less than 2.5MB' }));
@@ -104,17 +124,8 @@ export default function Published() {
             })
         }
 
-        if (formData) {
-            data.content.map((items, index) => {
-                items.content.map((item, index) => {
-                    if (item.type === 'fileUpload') {
-                        formData[item.label] = formData[item.label].name;
-                    }
-                })
-            })
-        }
-
         if (errorCount === 0) {
+            setLoading(true);
             fetch(`/api/submit`, {
                 method: 'POST',
                 headers: {
@@ -124,12 +135,15 @@ export default function Published() {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    // if success, show confetti
                     if (data.message === 'Success!') {
-                        setConfetti(true)
-                        setTimeout(() => {
-                            setConfetti(false)
-                        }, 3000);
+                        setLoading(false);
+                        setSubmitted(true);
+                        if (data.effects.confetti) {
+                            setConfetti(true)
+                            setTimeout(() => {
+                                setConfetti(false)
+                            }, 3000);
+                        }
                     }
                 })
         }
@@ -269,7 +283,7 @@ export default function Published() {
                                                                 type="file" id={index}
                                                                 name={item.label}
                                                                 onChange={handleInputChange}
-
+                                                                accept="application/pdf"
                                                             />
                                                             {error && error[item.label] && <div className="text-xs text-red-500 relative pointer-events-none px-2">
                                                                 <p className="relative z-10">{error[item.label]}</p>
@@ -279,12 +293,13 @@ export default function Published() {
                                                 )
                                             } else if (item.type === "submit" && item.visibility) {
                                                 return (
-                                                    <div key={index} className="flex flex-col gap-1 items-start">
+                                                    <div key={index} className={"flex flex-col gap-1 items-start " + (submitted && "cursor-not-allowed")}>
                                                         <button onClick={(e) => {
                                                             if (item.type === "submit") {
                                                                 handleSubmit(e);
                                                             }
-                                                        }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className={"text-white font-medium rounded-xl max-md:w-full justify-center py-4 px-8 focus:ring-gray-400 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative focus:outline-gray-300"}>
+                                                        }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className={"text-white font-medium rounded-xl max-md:w-full justify-center py-4 px-8 gap-4 focus:ring-gray-400 hover:opacity-90 transition-all cursor-pointer items-center flex relative focus:outline-gray-300 " + (submitted && "pointer-events-none")}>
+                                                            {loading && <div className="h-5 w-5 relative rounded-full ring-2 ring-white z-0 animate-spin"> <div className="absolute -left-1 -top-1 z-10 h-3 w-3 transition-all" style={{ backgroundColor: data.colors.primaryButton }} /> </div>}
                                                             {item.content}
                                                             {item.type === "submit" && data.effects.confetti && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={confetti} config={config} /></div>}
                                                         </button>

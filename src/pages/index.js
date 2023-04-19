@@ -396,18 +396,18 @@ export default function Home() {
                                 <div className="flex flex-col gap-1 items-start w-full mb-8">
                                     <div className="flex flex-col gap-1 w-full">
                                         <div className="flex w-full justify-between items-center">
-                                            <label className="text-base text-gray-400">Your name</label>
+                                            <label className="cursor-none ext-base text-gray-400">Your name</label>
                                         </div>
-                                        <input className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 focus:outline-gray-300 w-full"}
-                                            placeholder={entries.length === 0 ? "John Doe" : entries[0].fields.Name} />
+                                        <input className={"pointer-events-none ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 focus:outline-gray-300 w-full"}
+                                            placeholder="John Doe" />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-1 items-start w-full">
                                     <div className="flex flex-col gap-1 w-full">
                                         <div className="flex w-full justify-between items-center">
-                                            <label className="text-base text-gray-400">Your adress</label>
+                                            <label className="cursor-none text-base text-gray-400">Your adress</label>
                                         </div>
-                                        <input className={"ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 focus:outline-gray-300 w-full"}
+                                        <input className={"pointer-events-none ring-1 ring-gray-200 bg-gray-50 rounded-md px-4 py-3 focus:outline-gray-300 w-full"}
                                             placeholder="Examplestreet" />
                                     </div>
                                 </div>
