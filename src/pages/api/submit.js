@@ -1,7 +1,10 @@
 import supabase from "../../supabase";
 
 export default async function handler(req, res) {
-  const submission = req.body.formData;
+  const submission = {
+    ...req.body.formData,
+    time: new Date().toISOString() // add actual time to the submission
+  };
   const publishedId = req.body.id;
 
   // select the current submissions array
@@ -19,7 +22,7 @@ export default async function handler(req, res) {
   const submissions = publishedData[0]?.submissions || [];
 
   // concatenate the new submission with the existing submissions
-  const newSubmissions = [...submissions, submission ];
+  const newSubmissions = [...submissions, submission];
 
   // update the submissions field with the new concatenated array
   const { error: updateError } = await supabase

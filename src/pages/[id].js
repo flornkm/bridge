@@ -34,7 +34,6 @@ export default function Published() {
     const { id } = router.query;
 
     useEffect(() => {
-        console.log(id)
         if (id) {
             const ownerId = id.substring(0, 36);
             const projNum = id.substring(36);
@@ -125,6 +124,7 @@ export default function Published() {
         }
 
         if (errorCount === 0) {
+            let confetti = data.effects.confetti;
             setLoading(true);
             fetch(`/api/submit`, {
                 method: 'POST',
@@ -138,7 +138,7 @@ export default function Published() {
                     if (data.message === 'Success!') {
                         setLoading(false);
                         setSubmitted(true);
-                        if (data.effects.confetti) {
+                        if (confetti) {
                             setConfetti(true)
                             setTimeout(() => {
                                 setConfetti(false)
