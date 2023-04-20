@@ -207,8 +207,8 @@ function Dashboard(props) {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
+                                ? "bg-neutral-100 text-gray-900"
+                                : "text-neutral-700",
                               "block px-4 py-2 text-sm rounded-md"
                             )}
                             onClick={() => setSettings(true)}
@@ -223,8 +223,8 @@ function Dashboard(props) {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
+                                ? "bg-neutral-100 text-gray-900"
+                                : "text-neutral-700",
                               "block px-4 py-2 text-sm rounded-md"
                             )}
                           >
@@ -238,8 +238,8 @@ function Dashboard(props) {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
+                                ? "bg-neutral-100 text-gray-900"
+                                : "text-neutral-700",
                               "block px-4 py-2 text-sm rounded-md"
                             )}
                           >
@@ -253,8 +253,8 @@ function Dashboard(props) {
                             type="submit"
                             className={classNames(
                               active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
+                                ? "bg-neutral-100 text-gray-900"
+                                : "text-neutral-700",
                               "block w-full px-4 py-2 text-left text-sm rounded-md"
                             )}
                             onClick={() => {
@@ -353,6 +353,25 @@ function Dashboard(props) {
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="p-1 font-medium">
+                        <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                type="submit"
+                                onClick={() => {
+                                  // go to manage/project.owner+project.id
+                                  router.push("/manage/" + project.owner + project.id);
+                                }}
+                                className={classNames(
+                                  active
+                                    ? "bg-neutral-100 text-gray-900"
+                                    : "text-neutral-700",
+                                  "block w-full px-4 py-2 text-left text-sm rounded-md"
+                                )}
+                              >
+                                Manage Submissions
+                              </button>
+                            )}
+                          </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
                               <button
