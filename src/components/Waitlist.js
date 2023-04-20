@@ -203,7 +203,7 @@ function WaitList(props) {
                                                 termsClick();
                                             }
                                         }} onClick={termsClick}>
-                                            <div className="group-hover:ring-neutral-300 w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer ring-1 ring-neutral-200 transition-all" style={{ backgroundColor: (!agreeTerms ? "#fafafa" : "#000") }}>
+                                            <div className="w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer border transition-all" style={{ borderColor: (!agreeTerms ? "#e5e5e5" : "#000"), backgroundColor: (!agreeTerms ? "#fafafa" : "#000") }}>
                                                 <RiveComponentTerms />
                                             </div>
                                             <label htmlFor="username" className="text-gray-500 flex-grow cursor-pointer">
@@ -223,7 +223,7 @@ function WaitList(props) {
                                                 showcaseClick();
                                             }
                                         }} onClick={showcaseClick}>
-                                            <div className="group-hover:ring-neutral-300 w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer ring-1 ring-neutral-200 transition-all" style={{ backgroundColor: (!agreeShowcase ? "#fafafa" : "#000") }}>
+                                            <div className="w-full max-w-[24px] h-6 p-1 rounded-md cursor-pointer border transition-all" style={{ borderColor: (!agreeShowcase ? "#e5e5e5" : "#000"), backgroundColor: (!agreeShowcase ? "#fafafa" : "#000") }}>
                                                 <RiveComponentShowcase />
                                             </div>
                                             <label htmlFor="username" className="text-gray-500 flex-grow cursor-pointer">
