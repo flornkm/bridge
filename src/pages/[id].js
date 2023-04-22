@@ -135,8 +135,30 @@ export default function Published() {
                         if (!formData[item.label]) {
                             submitData[item.label] = '';
                         }
+                    } else if (item.type === 'fileUpload') {
+                        if (!formData[item.label]) {
+                            submitData[item.label] = '';
+                        }
                     }
                 })
+            })
+
+            // put the empty fields to corresponding position so that the data is in the correct order every time
+            let submitDataArr = [];
+            data.content.map((items, index) => {
+                items.content.map((item, index) => {
+                    if (item.type === 'textInput') {
+                        submitDataArr.push({ [item.label]: submitData[item.label] });
+                    } else if (item.type === 'fileUpload') {
+                        submitDataArr.push({ [item.label]: submitData[item.label] });
+                    }
+                })
+            })
+
+            // set the submitData to the correct order
+            submitData = {};
+            submitDataArr.map((item, index) => {
+                submitData = { ...submitData, ...item };
             })
             
             setLoading(true);

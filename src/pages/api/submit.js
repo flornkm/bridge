@@ -3,21 +3,21 @@ import supabase from "../../supabase";
 export default async function handler(req, res) {
   const submission = {
     ...req.body.submitData,
-    time: new Date().toISOString(), // add actual time to the submission
     status: "pending",
+    time: new Date().toISOString(), // add actual time to the submission
   };
-  const keys = Object.keys(submission);
-  const submissionArray = keys.map((key, index) => {
-    let id;
-    if (key === "time") {
-      id = 1;
-    } else if (index === keys.length - 1) {
-      id = keys.length + 1;
+  const keys = Object.keys(submission).sort((a, b) => {
+    if (a === "time" || a === "status") {
+      return 1;
+    } else if (b === "time" || b === "status") {
+      return -1;
     } else {
-      id = index + 1;
+      return 0;
     }
+  });
+  const submissionArray = keys.map((key, index) => {
     return {
-      id,
+      id: index + 1,
       [key]: submission[key],
     };
   });

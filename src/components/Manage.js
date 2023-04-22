@@ -93,7 +93,7 @@ export default function Manage({ id, session, supabase }) {
                     </div>
                     <div className="p-2 flex flex-col gap-2">
                         {submissions.map((submission) => (
-                            <div key={submission.id} style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="hover:bg-neutral-100 cursor-default transition-all p-0.5 rounded-md px-2">
+                            <div key={submission.id} style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="hover:bg-neutral-100 cursor-default transition-all p-0.5 rounded-md px-2 ">
                                 {Object.keys(objectWithMostKeys).map((key) => (
                                     objectWithMostKeys[key] && typeof objectWithMostKeys[key] === 'object' && (
                                         Object.keys(objectWithMostKeys[key]).filter(childKey => childKey !== 'id').map((childKey) => (
