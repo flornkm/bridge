@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { useEffect, useState } from 'react'
+import { Menu } from '@headlessui/react'
 
 export default function Manage({ id, session, supabase }) {
     const [submissions, setSubmissions] = useState([]);
@@ -77,7 +79,7 @@ export default function Manage({ id, session, supabase }) {
                     <div className="h-16 w-16 relative rounded-full ring-8 ring-purple-500 z-0 animate-spin"> <div className="absolute -left-4 -top-4 bg-white z-10 h-12 w-12 transition-all" /> </div>
                 </div>
             ) : (
-                submissions && objectWithMostKeys !== undefined ? (<div className="flex flex-col gap-2 rounded-lg bg-white ring-1 ring-neutral-200 max-h-[756px] overflow-y-scroll overflow-x-visible w-full">
+                submissions && objectWithMostKeys !== undefined ? (<div className="flex flex-col gap-2 rounded-lg bg-white ring-1 ring-neutral-200 max-h-[756px] w-full">
                     <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="text-sm p-2 bg-neutral-100 shadow-lg shadow-neutral-100 z-10 sticky top-0 border-b border-neutral-200 items-center rounded-t-lg px-5">
                         {Object.keys(objectWithMostKeys).map((key) => (
                             objectWithMostKeys[key] && typeof objectWithMostKeys[key] === 'object' && (
@@ -97,11 +99,11 @@ export default function Manage({ id, session, supabase }) {
                                 {Object.keys(objectWithMostKeys).map((key) => (
                                     objectWithMostKeys[key] && typeof objectWithMostKeys[key] === 'object' && (
                                         Object.keys(objectWithMostKeys[key]).filter(childKey => childKey !== 'id').map((childKey) => (
-                                            <div key={childKey} className="max-w-[128px] relative group py-2 ">
+                                            <div key={childKey} className="max-w-[128px] relative group py-2 flex items-center ">
                                                 {submission[key] && typeof submission[key] === 'object' && submission[key][childKey] !== undefined && (
                                                     childKey === "date" || childKey === "time" ? (
                                                         <>
-                                                            <p className="truncate px-1.5 py-1 hover:bg-neutral-100 rounded-lg transition-all text-indigo-400 text-sm">{new Date(submission[key][childKey]).toLocaleString()}</p>
+                                                            <p className="truncate px-1.5 items-center py-1 hover:bg-neutral-100 rounded-lg transition-all text-indigo-400 text-sm">{new Date(submission[key][childKey]).toLocaleString()}</p>
                                                             <div className="text-sm absolute z-20 truncate hidden left-[50%] translate-x-[-50%] bottom-12 group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
                                                                 {new Date(submission[key][childKey]).toLocaleString()}
                                                             </div>
@@ -114,8 +116,35 @@ export default function Manage({ id, session, supabase }) {
                                                                 } else if (submission[key][childKey]?.toString()?.includes(".pdf")) {
                                                                     openFileFromStorage(submission[key][childKey])
                                                                 }
-                                                            }} className={"truncate px-1.5 py-1 transition-all " + ((submission[key][childKey]?.toString()?.includes("@") || submission[key][childKey]?.toString()?.includes(".pdf")) && " hover:underline cursor-pointer ") + (submission[key][childKey] === "pending" ? " text-purple-500 text-center rounded-full ring-1 ring-purple-200 bg-purple-100 text-sm cursor-pointer transition-all hover:text-purple-600 hover:bg-purple-200 hover:ring-purple-300" : " rounded-lg")}>
-                                                                {childKey === "status" ? submission[key][childKey]?.charAt(0).toUpperCase() + submission[key][childKey]?.slice(1) : submission[key][childKey]}
+                                                            }} className={"transition-all truncate " + ((submission[key][childKey]?.toString()?.includes("@") || submission[key][childKey]?.toString()?.includes(".pdf")) && " hover:underline cursor-pointer ")}>
+                                                                {childKey === "status" ?
+                                                                    <Menu>
+                                                                        <Menu.Button className={(submission[key][childKey] === "pending" ? "px-2.5 py-1.5 text-purple-500 text-center rounded-full border border-purple-200 bg-purple-100 text-sm cursor-pointer transition-all hover:text-purple-600 hover:bg-purple-200 hover:border-purple-300" : " rounded-lg")}>{submission[key][childKey]?.charAt(0).toUpperCase() + submission[key][childKey]?.slice(1)}</Menu.Button>
+                                                                        <Menu.Items className="absolute flex flex-col z-40 bg-white rounded-md p-2">
+                                                                            <Menu.Item>
+                                                                                {({ active }) => (
+                                                                                    <p
+                                                                                        className={"block w-full px-4 py-2 text-left text-sm rounded-md cursor-pointer " + active ? "bg-neutral-100" : ""}
+                                                                                        href="/account-settings"
+                                                                                    >
+                                                                                        Account settings
+                                                                                    </p>
+                                                                                )}
+                                                                            </Menu.Item>
+                                                                            <Menu.Item>
+                                                                                {({ active }) => (
+                                                                                    <p
+                                                                                        className={"block w-full px-4 py-2 text-left text-sm rounded-md cursor-pointer " + active ? "bg-neutral-100" : ""}
+                                                                                        href="/account-settings"
+                                                                                    >
+                                                                                        Account settings
+                                                                                    </p>
+                                                                                )}
+                                                                            </Menu.Item>
+                                                                        </Menu.Items>
+                                                                    </Menu>
+                                                                    : <p className="px-1.5 py-1">{submission[key][childKey]}</p>}
+
                                                             </p>
                                                             {submission[key][childKey] && (
                                                                 submission[key][childKey].toString().includes("@") || submission[key][childKey].toString().includes(".pdf")
