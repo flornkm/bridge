@@ -125,13 +125,27 @@ export default function Published() {
 
         if (errorCount === 0) {
             let confetti = data.effects.confetti;
+
+            let submitData = formData;
+
+            // for the empty inputs, set them to empty string
+            data.content.map((items, index) => {
+                items.content.map((item, index) => {
+                    if (item.type === 'textInput') {
+                        if (!formData[item.label]) {
+                            submitData[item.label] = '';
+                        }
+                    }
+                })
+            })
+            
             setLoading(true);
             fetch(`/api/submit`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ formData, id: id.substring(36) }),
+                body: JSON.stringify({ submitData, id: id.substring(36) }),
             })
                 .then((res) => res.json())
                 .then((data) => {
