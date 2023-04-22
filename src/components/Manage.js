@@ -34,7 +34,6 @@ export default function Manage({ id, session, supabase }) {
     }, [id, session, submissions, supabase])
 
     function getIndexWithMostKeys(objects) {
-
         let maxKeys = 0;
         let maxIndex = null;
         for (let i = 0; i < objects.length; i++) {
@@ -50,8 +49,25 @@ export default function Manage({ id, session, supabase }) {
     let objectWithMostKeys = undefined;
 
     if (submissions && submissions.length > 0) {
-        console.log("TEST")
         objectWithMostKeys = submissions[getIndexWithMostKeys(submissions)];
+    }
+
+    async function openFileFromStorage(fileName) {
+        console.log(fileName)
+        const { data, error } = await supabase.storage
+            .from("uploads")
+            .download(fileName)
+
+        if (error) {
+            console.log(error)
+        } else {
+            if (fileName.endsWith('.pdf')) {
+                const blob = new Blob([data], { type: 'application/pdf' })
+
+                const url = URL.createObjectURL(blob)
+                window.open(url, '_blank')
+            }
+        }
     }
 
     return (
@@ -62,7 +78,7 @@ export default function Manage({ id, session, supabase }) {
                 </div>
             ) : (
                 submissions && objectWithMostKeys !== undefined ? (<div className="flex flex-col gap-2 rounded-lg bg-white ring-1 ring-neutral-200 max-h-[756px] overflow-y-scroll overflow-x-visible w-full">
-                    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="text-sm p-2 bg-neutral-100 shadow-lg shadow-neutral-100 z-10 sticky top-0 border-b border-neutral-200 items-center rounded-t-lg">
+                    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="text-sm p-2 bg-neutral-100 shadow-lg shadow-neutral-100 z-10 sticky top-0 border-b border-neutral-200 items-center rounded-t-lg px-5">
                         {Object.keys(objectWithMostKeys).map((key) => (
                             objectWithMostKeys[key] && typeof objectWithMostKeys[key] === 'object' && (
                                 Object.keys(objectWithMostKeys[key]).filter(childKey => childKey !== 'id').map((childKey) => (
@@ -77,7 +93,7 @@ export default function Manage({ id, session, supabase }) {
                     </div>
                     <div className="p-2 flex flex-col gap-2">
                         {submissions.map((submission) => (
-                            <div key={submission.id} style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="hover:bg-neutral-100 cursor-default transition-all p-0.5 rounded-md">
+                            <div key={submission.id} style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="hover:bg-neutral-100 cursor-default transition-all p-0.5 rounded-md px-2">
                                 {Object.keys(objectWithMostKeys).map((key) => (
                                     objectWithMostKeys[key] && typeof objectWithMostKeys[key] === 'object' && (
                                         Object.keys(objectWithMostKeys[key]).filter(childKey => childKey !== 'id').map((childKey) => (
@@ -92,7 +108,13 @@ export default function Manage({ id, session, supabase }) {
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <p className={"truncate px-1.5 py-1 transition-all " + ((submission[key][childKey]?.toString()?.includes("@") || submission[key][childKey]?.toString()?.includes(".pdf")) && " hover:underline ") + (submission[key][childKey] === "pending" ? " text-purple-500 text-center rounded-full ring-1 ring-purple-200 bg-purple-100 text-sm cursor-pointer transition-all hover:text-purple-600 hover:bg-purple-200 hover:ring-purple-300" : " rounded-lg")}>
+                                                            <p onClick={() => {
+                                                                if (submission[key][childKey]?.toString()?.includes("@")) {
+                                                                    window.open(`mailto:${submission[key][childKey]}`)
+                                                                } else if (submission[key][childKey]?.toString()?.includes(".pdf")) {
+                                                                    openFileFromStorage(submission[key][childKey])
+                                                                }
+                                                            }} className={"truncate px-1.5 py-1 transition-all " + ((submission[key][childKey]?.toString()?.includes("@") || submission[key][childKey]?.toString()?.includes(".pdf")) && " hover:underline cursor-pointer ") + (submission[key][childKey] === "pending" ? " text-purple-500 text-center rounded-full ring-1 ring-purple-200 bg-purple-100 text-sm cursor-pointer transition-all hover:text-purple-600 hover:bg-purple-200 hover:ring-purple-300" : " rounded-lg")}>
                                                                 {childKey === "status" ? submission[key][childKey]?.charAt(0).toUpperCase() + submission[key][childKey]?.slice(1) : submission[key][childKey]}
                                                             </p>
                                                             {submission[key][childKey] && (

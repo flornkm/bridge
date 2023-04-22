@@ -16,7 +16,10 @@ export default async function handler(req, res) {
             const name = `${uuidv4()}.${fileType}`;
             const { data, error } = await supabase.storage
                 .from("uploads")
-                .upload(name, file);
+                .upload(name, file, {
+                    contentType:
+                        fileType === "pdf" ? "application/pdf" : "image/jpeg"
+                });
             if (error) {
                 console.log(error);
                 res.status(500).json({ error: error.message });
