@@ -3,13 +3,17 @@ import supabase from "../../supabase";
 export default async function handler(req, res) {
   const submission = {
     ...req.body.submitData,
-    status: "pending",
     time: new Date().toISOString(), // add actual time to the submission
+    status: "pending",
   };
   const keys = Object.keys(submission).sort((a, b) => {
-    if (a === "time" || a === "status") {
+    if (a === "time") {
+      return -1;
+    } else if (b === "time") {
       return 1;
-    } else if (b === "time" || b === "status") {
+    } else if (a === "status") {
+      return 1;
+    } else if (b === "status") {
       return -1;
     } else {
       return 0;
