@@ -10,7 +10,7 @@ import {
 } from "@supabase/auth-helpers-react";
 import * as Icon from "phosphor-react";
 import CookieBanner from "@/components/CookieBanner";
-import { Popover, Transition } from '@headlessui/react'
+import { Popover, Transition, Dialog } from '@headlessui/react'
 import { TwitterPicker } from "react-color";
 import JobBoard from "@/components/JobBoard";
 
@@ -36,6 +36,7 @@ export default function Editor(props) {
     animOut: "fadeOut 1s ease-in-out",
   });
   const [publishing, setPublishing] = useState(false);
+  let [isOpen, setIsOpen] = useState(false)
 
   const [colors, setColors] = useState({
     heading: "#000000",
@@ -153,8 +154,12 @@ export default function Editor(props) {
     //   });
   }
 
-  async function publish() {
+  function publishCheck() {
     setPublishing(true);
+    setIsOpen(true);
+  }
+
+  async function publish() {
     const { data, error } = await supabase
       .from("published")
       .select("*")
@@ -178,6 +183,7 @@ export default function Editor(props) {
         .eq("owner", session.user.id)
         .then(() => {
           setPublishing(false);
+          setIsOpen(false);
         });
     } else {
       supabase
@@ -193,6 +199,7 @@ export default function Editor(props) {
         })
         .then(() => {
           setPublishing(false);
+          setIsOpen(false);
         });
     }
   }
@@ -223,6 +230,11 @@ export default function Editor(props) {
       router.push("/dashboard");
     }
   }, [router.query.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  function closeModal() {
+    setIsOpen(false);
+    setPublishing(false);
+  }
 
   return (
     !loading &&
@@ -304,7 +316,7 @@ export default function Editor(props) {
                 </div>
                 <div className="w-[1px] bg-neutral-200" />
                 <button onClick={() => {
-                  publish();
+                  publishCheck();
                 }} className={"font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center group " + (publishing && "pointer-events-none")}>
                   {publishing && <div className="h-5 w-5 relative rounded-full ring-2 ring-white z-0 animate-spin"> <div className="absolute -left-1 -top-1 bg-black z-10 h-3 w-3 transition-all group-hover:bg-zinc-800" /> </div>}
                   {!publishing && <Icon.UploadSimple size={20} weight="bold" />}
@@ -776,6 +788,70 @@ export default function Editor(props) {
             </div>
           </Transition>
         </div>
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-xl font-medium leading-6 text-gray-900 flex items-center gap-3 mb-4"
+                    >
+                      {publishing && <div className="h-5 w-5 relative rounded-full ring-2 ring-black z-0 animate-spin"> <div className="absolute -left-1 -top-1 bg-white z-10 h-3 w-3 transition-all group-hover:bg-zinc-800" /> </div>}
+                      Publish changes?
+                    </Dialog.Title>
+                    <div>
+                      <p className="text-gray-500 mb-4">
+                        Your changes are going to get shown to the world.
+                      </p>
+                      <p className="text-yellow-700 mt-2 flex gap-4 items-center p-2 rounded-md bg-yellow-50">
+                        <Icon.Warning size={40} weight="fill" className="text-yellow-500" /> Please note that Label- and Orderchanges result in not
+                        showing your old submissions anymore.
+                      </p>
+                    </div>
+                    <div className="w-full flex justify-left gap-4 mt-14">
+                      <div className="w-full">
+                        <button
+                          onClick={closeModal}
+                          className="font-medium px-3 py-2 rounded-lg ring-1 ring-neutral-200 bg-white text-black transition-all outline-gray-300 hover:bg-neutral-50 w-full focus:outline-gray-300">
+                          Cancel
+                        </button>
+                      </div>
+                      <div className="w-full">
+                        <button
+                          onClick={publish}
+                          className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full focus:outline-gray-300">
+                          Publish
+                        </button>
+                      </div>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
       </>
     )
   );

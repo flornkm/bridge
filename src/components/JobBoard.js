@@ -133,7 +133,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
         onDragOver={handleDragOver}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          <div className="flex flex-col gap-16 justify-between w-full max-md:flex-col max-md:gap-8">
+          <div className="flex flex-col gap-8 justify-between w-full max-md:flex-col max-md:gap-4">
             {data &&
               items.map((item, index) => {
                 return (

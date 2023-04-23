@@ -38,7 +38,12 @@ const Item = forwardRef(
     };
 
     return (
-      <div ref={ref} style={inlineStyles} {...props} className={"flex flex-col outline-gray-300 " + (!props.landingpage && "border-l border-neutral-200 border-solid pl-6") }>
+      <div ref={ref} style={inlineStyles} {...props} className={"flex flex-col outline-gray-300 " + (!props.landingpage && "hover:bg-neutral-50 group/info p-8 rounded-2xl transition-colors relative cursor-grab") }>
+        {!props.landingpage && (
+        <div className="absolute top-4 right-8 opacity-0 group-hover/info:opacity-100 transition-all text-neutral-300 italic">
+          Hold and drag to reorder
+        </div>  
+        )}
         {!props.items.content && props.landingpage === "true" && (
           id === "1" ? (
             <div className="flex flex-col items-start justify-center h-full cursor-grab">
