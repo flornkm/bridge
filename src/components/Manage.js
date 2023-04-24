@@ -1,6 +1,10 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react'
-import { Menu } from '@headlessui/react'
+import { useEffect, useState, Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+}
 
 export default function Manage({ id, session, supabase }) {
     const [submissions, setSubmissions] = useState([]);
@@ -118,30 +122,38 @@ export default function Manage({ id, session, supabase }) {
                                                                 }
                                                             }} className={"transition-all truncate " + ((submission[key][childKey]?.toString()?.includes("@") || submission[key][childKey]?.toString()?.includes(".pdf")) && " hover:underline cursor-pointer ")}>
                                                                 {childKey === "status" ?
-                                                                    <Menu>
+                                                                    <Menu as="div" className="relative inline-block text-left">
                                                                         <Menu.Button className={(submission[key][childKey] === "pending" ? "px-2.5 py-1.5 text-purple-500 text-center rounded-full border border-purple-200 bg-purple-100 text-sm cursor-pointer transition-all hover:text-purple-600 hover:bg-purple-200 hover:border-purple-300" : " rounded-lg")}>{submission[key][childKey]?.charAt(0).toUpperCase() + submission[key][childKey]?.slice(1)}</Menu.Button>
-                                                                        <Menu.Items className="absolute flex flex-col z-40 bg-white rounded-md p-2">
-                                                                            <Menu.Item>
-                                                                                {({ active }) => (
-                                                                                    <p
-                                                                                        className={"block w-full px-4 py-2 text-left text-sm rounded-md cursor-pointer " + active ? "bg-neutral-100" : ""}
-                                                                                        href="/account-settings"
-                                                                                    >
-                                                                                        Account settings
-                                                                                    </p>
-                                                                                )}
-                                                                            </Menu.Item>
-                                                                            <Menu.Item>
-                                                                                {({ active }) => (
-                                                                                    <p
-                                                                                        className={"block w-full px-4 py-2 text-left text-sm rounded-md cursor-pointer " + active ? "bg-neutral-100" : ""}
-                                                                                        href="/account-settings"
-                                                                                    >
-                                                                                        Account settings
-                                                                                    </p>
-                                                                                )}
-                                                                            </Menu.Item>
-                                                                        </Menu.Items>
+                                                                        <Transition
+                                                                            as={Fragment}
+                                                                            enter="transition ease-out duration-100"
+                                                                            enterFrom="transform opacity-0 scale-95"
+                                                                            enterTo="transform opacity-100 scale-100"
+                                                                            leave="transition ease-in duration-75"
+                                                                            leaveFrom="transform opacity-100 scale-100"
+                                                                            leaveTo="transform opacity-0 scale-95"
+                                                                        >
+                                                                            <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                                                <div className="p-1 font-medium">
+                                                                                    <Menu.Item>
+                                                                                        {({ active }) => (
+                                                                                            <button
+                                                                                                type="submit"
+
+                                                                                                className={classNames(
+                                                                                                    active
+                                                                                                        ? "bg-neutral-100 text-gray-900"
+                                                                                                        : "text-neutral-700",
+                                                                                                    "block w-full px-4 py-2 text-left text-sm rounded-md"
+                                                                                                )}
+                                                                                            >
+                                                                                                Manage Submissions
+                                                                                            </button>
+                                                                                        )}
+                                                                                    </Menu.Item>
+                                                                                </div>
+                                                                            </Menu.Items>
+                                                                        </Transition>
                                                                     </Menu>
                                                                     : <p className="px-1.5 py-1">{submission[key][childKey]}</p>}
 
