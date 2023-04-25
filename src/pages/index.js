@@ -624,13 +624,28 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="rounded-3xl bg-neutral-50 relative overflow-hidden mb-24">
-                        <div className="pt-10 px-8 rounded-[23px] relative z-20">
+                    <div className="rounded-3xl bg-neutral-50 relative overflow-hidden mb-12">
+                        <div className="pt-10 px-8 rounded-[23px] relative z-20 max-md:pb-8">
                             <div className="flex flex-col gap-3">
                                 <h2 className="font-semibold md:text-3xl max-md:text-2xl text-black flex gap-4 items-center justify-center">Integrate in your Pipeline</h2>
                             </div>
-                            <div className="max-md:h-80 w-full flex justify-center">
+                            <div className="max-md:h-80 w-full flex justify-center max-md:pb-24">
                                 <RiveComponent src="/animations/bridge_explanation.riv" className="max-md:w-screen md:w-[85%] max-md:absolute max-md:translate-x-[-50%] left-[50%] aspect-video" />
+                            </div>
+                            <div className="flex flex-col gap-4 md:hidden mb-12">
+                                <h3 className="font-medium text-black">Get Applicants from</h3>
+                                <div className="flex gap-4">
+                                    <Icon.LinkedinLogo size={48} weight="fill" className="text-blue-600" />
+                                    <Icon.TwitterLogo size={48} weight="fill" className="text-blue-500" />
+                                    <Icon.Note size={48} weight="fill" className="text-black rotate-12" />
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-4 md:hidden">
+                                <h3 className="font-medium text-black">Send Applicants to</h3>
+                                <div className="flex gap-4 items-end">
+                                    <Icon.Envelope size={48} weight="fill" className="text-blue-500" />
+                                    <p className="text-xl font-medium">…</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -646,6 +661,64 @@ export default function Home() {
                     </div> */}
                     <div className="h-24" />
                     <div className="min-h-64 pt-24">
+                        <div className="w-full flex justify-center flex-col gap-3 mb-16">
+                            <h2 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Fixed pricing, adjusted to your business</h2>
+                            {/* <p className="text-gray-500 text-lg font-medium">Because 90% of Bridge Users are using mobile browsers.</p> */}
+                        </div>
+                        <div className="w-full grid grid-cols-5 gap-8 items-start">
+                            <div className="p-10 bg-white ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20">
+                                <h3 className="text-2xl font-medium text-black mb-8">Starter</h3>
+                                <div className="flex flex-col gap-4 mb-16">
+                                    <div className="flex items-center gap-2 font-medium">
+                                        <Icon.Check size={20} weight="bold" />
+                                        Try with one project for free
+                                    </div>
+                                    <div className="flex items-center gap-2 font-medium">
+                                        <Icon.Check size={20} weight="bold" />
+                                        Basic Support within a few days
+                                    </div>
+                                    <div className="flex items-center gap-2 font-medium">
+                                        <Icon.Check size={20} weight="bold" />
+                                        Share with individual URL
+                                    </div>
+                                </div>
+                                <p className="text-3xl font-medium mb-6">Free</p>
+                                <button className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Start for free</button>
+                            </div>
+                            <div className="p-10 bg-white bg-opacity-50 ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20">
+                                <div className="bg-purple-500 rounded-full absolute -top-3 -right-3 px-2 py-1 text-sm flex items-center gap-2 text-white font-medium">
+                                    <Icon.StarFour size={12} weight="fill" />
+                                    Popular
+                                </div>
+                                <h3 className="text-2xl font-medium text-black mb-8">Pro</h3>
+                                <div className="flex flex-col gap-4 mb-16">
+                                    <div className="flex items-center gap-2 font-medium">
+                                        <Icon.Check size={20} weight="bold" />
+                                        Try with one project for free
+                                    </div>
+                                    <div className="flex items-center gap-2 font-medium">
+                                        <Icon.Check size={20} weight="bold" />
+                                        Basic Support within a few days
+                                    </div>
+                                    <div className="flex items-center gap-2 font-medium">
+                                        <Icon.Check size={20} weight="bold" />
+                                        Share with individual URL
+                                    </div>
+                                    <div className="flex items-center gap-2 font-medium">
+                                        <Icon.Check size={20} weight="bold" />
+                                        Share with individual URL
+                                    </div>
+                                </div>
+                                <p className="text-3xl font-medium mb-6">49 € <span className="text-lg">/m</span></p>
+                                <button className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Subscribe to Pro</button>
+                            </div>
+                            <div>
+                                {/* BG Image here */}
+                            </div>
+                        </div>
+
+                    </div>
+                    {/* <div className="min-h-64 pt-24">
                         <div className="w-full flex justify-center flex-col md:items-center gap-3 mb-16">
                             <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Designed to be mobile first</h2>
                             <p className="text-gray-500 text-xl font-medium">Because 90% of Bridge Users are using mobile browsers.</p>
@@ -653,7 +726,7 @@ export default function Home() {
                         <div className="flex gap-16 items-end justify-center w-full relative">
                             <Image src="/images/general/bridge_mockup_iphone.jpg" alt="Bridge Mobile" width={300} height={300} />
                             {/* <Image src="/images/general/bridge_mockup_macbook.jpg" alt="Bridge Mobile" width={1000} height={600} className="max-xl:hidden" /> */}
-                            <div className="absolute md:bottom-16 max-md:-bottom-16 right-0 px-6 gap-8 flex flex-col items-start py-4 bg-white rounded-lg ring-1 ring-neutral-200 shadow-md text-gray-500 max-w-md">
+                    {/* <div className="absolute md:bottom-16 max-md:-bottom-16 right-0 px-6 gap-8 flex flex-col items-start py-4 bg-white rounded-lg ring-1 ring-neutral-200 shadow-md text-gray-500 max-w-md">
                                 <p>We have designed Bridge in a way that it is easy to use on both mobile and desktop devices.
                                     You do not need to wrap your mind around how to layout everything, Bridge is responsive from the start.</p>
                                 <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80" onClick={openModal}>
@@ -662,7 +735,7 @@ export default function Home() {
 
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="h-56" />
                     <div className="grid grid-cols-3 gap-24 max-md:gap-16 w-full max-md:grid-cols-1">
                         <div className="w-full flex flex-col">
