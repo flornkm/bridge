@@ -303,16 +303,16 @@ export default function Home() {
                 <title>Bridge - Hiring talent with joy</title>
                 <meta
                     name="description"
-                    content="Bridge is a tool that allows you to create interactive elements for your website."
+                    content="Hiring talent with joy"
                 />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta
                     property="og:title"
-                    content="Bridge is a tool that allows you to create interactive elements for your website."
+                    content="Hiring talent with joy"
                 />
                 <meta
                     property="og:description"
-                    content="Bridge is a tool that allows you to create interactive elements for your website."
+                    content="Hiring talent with joy"
                 />
                 <meta
                     property="og:image"
@@ -320,14 +320,14 @@ export default function Home() {
                 />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:site" content="@floriandwt" />
-                <meta name="twitter:title" content="Florian Portfolio" />
+                <meta name="twitter:title" content="Bridge" />
                 <meta
                     name="twitter:image"
                     content="/images/bridge_twitter.jpg"
                 />
                 <meta
                     name="twitter:description"
-                    content="Bridge is a tool that allows you to create interactive elements for your website."
+                    content="Hiring talent with joy"
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -359,15 +359,14 @@ export default function Home() {
                     >
                         <div className="max-w-3xl flex flex-col gap-6 md:mb-16">
                             <h1 className="font-semibold md:text-5xl max-md:text-4xl md:leading-[1.3em]">
-                                Streamline your hiring process
-                                with an interactive tool.
+                                The hiring tool that integrates
+                                with your workflow.
                             </h1>
                             <p className="text-gray-500 font-medium md:text-3xl max-md:text-xl leading-tight md:leading-[1.3em]">
-                                Create a high-quality candidate experience and find
-                                the best talent for your business with Bridge.
+                                Bridge simplifies your hiring process, providing a great experience for candidates.
                             </p>
                         </div>
-                        <div className="flex justify-between relative left-[50%] translate-x-[-50%] w-screen overflow-hidden max-md:py-48 md:py-10 pl-[5%] pr-[5%] items-center md:cursor-none" onMouseEnter={() => setCustomCursor(true)}
+                        <div className="flex justify-between relative left-[50%] translate-x-[-50%] w-[90vw] overflow-hidden max-md:py-48 md:py-10 pl-[5%] pr-[5%] items-center md:cursor-none" onMouseEnter={() => setCustomCursor(true)}
                             onMouseLeave={() => setCustomCursor(false)}>
                             <div className="bg-slate-900 text-slate-100 text-xl px-7 py-5 rounded-2xl -rotate-2 relative xl:left-32 max-xl:left-10 -top-6 max-md:hidden">
                                 <code className="font-mono">
@@ -554,71 +553,78 @@ export default function Home() {
                             <div className="sticky top-64 w-full h-auto col-span-2 flex items-center justify-center">
                                 {scrollPosition < 0.2 && (
                                     <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[512px] w-full rounded-3xl relative -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden">
-                                        <p className="text-center text-white font-medium text-lg">Elegant Colors</p>
-                                        <div className="p-2 bg-white rounded-xl flex gap-2">
+                                        <p className="text-center text-white font-medium text-lg relative z-10">Elegant Colors</p>
+                                        <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10">
                                             <div className="h-10 w-10 bg-white rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-zinc-200 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-zinc-400 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-zinc-600 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-zinc-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
-                                        <div className="p-2 bg-white rounded-xl flex gap-2">
+                                        <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10">
                                             <div className="h-10 w-10 bg-red-200 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-red-400 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-red-500 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-red-600 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-red-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
-                                        <div className="p-2 bg-white rounded-xl flex gap-2">
+                                        <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10">
                                             <div className="h-10 w-10 bg-green-200 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-green-400 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-green-500 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-green-600 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-green-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
-                                        <div className="p-2 bg-white rounded-xl flex gap-2">
+                                        <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10">
                                             <div className="h-10 w-10 bg-blue-200 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-blue-400 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-blue-500 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-blue-600 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
+                                        <Icon.Swatches size={512} weight="light" className="absolute z-0 text-purple-100 -left-32 -bottom-16 rotate-12 mix-blend-multiply" />
                                     </div>)}
                                 {scrollPosition > 0.2 && scrollPosition < 0.4 && entries.length > 0 && (
-                                    <div className="bg-gradient-to-br from-blue-300 to-indigo-400 h-[512px] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
-                                        <p className="text-center text-white font-medium text-lg">Manage your candidates</p>
-                                        <div className="p-4 rounded-xl mx-auto bg-white">
-                                            <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Latest Candidates <span className="text-gray-400 text-sm italic">(latest people on the waitlist here)</span></p>
-                                            <div className="grid text-xs text-gray-400 sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between items-center">
-                                                <p>Candiate</p>
-                                                <p className="max-sm:hidden">Time</p>
-                                                <p className="w-full text-right">Manage</p>
-                                            </div>
-                                            {entries.map((entry, index) => (
-                                                <div key={index} className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-neutral-100 rounded-lg items-center">
-                                                    <div className="flex gap-4 items-center">
-                                                        <p className="p-1 bg-gray-100 ring-1 w-8 ring-gray-200 aspect-square rounded-full flex items-center justify-center">{entry.emoji}</p>
-                                                        <p className="font-medium">{entry.fields.Name}</p>
-                                                    </div>
-                                                    <p className="font-medium max-sm:hidden">{
-                                                        // only return the time from entry.fields.Date
-                                                        entry.fields.Date.split("T")[1].split(":").slice(0, 2).join(":")
-                                                    }</p>
-                                                    <div className="w-full flex justify-end">
-                                                        <Icon.DotsThree size={32} className="hover:bg-neutral-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
-                                                    </div>
+                                    <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[512px] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
+                                        <p className="text-center text-white font-medium text-lg relative z-10">Manage your candidates</p>
+                                        <div className="p-4 rounded-xl mx-auto bg-white w-[512px] max-w-full relative z-10">
+                                            <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Latest Waitlist Entries</p>
+                                            <div className="ring-1 ring-neutral-200 rounded-lg">
+                                                <div className="grid text-xs text-black sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 px-3 justify-between items-center bg-neutral-100 rounded-t-lg border-b border-neutral-200">
+                                                    <p className="max-sm:hidden">Time</p>
+                                                    <p>Name</p>
+                                                    <p className="w-full text-right">Status</p>
                                                 </div>
-                                            ))}
+                                                <div className="p-1">
+                                                    {entries.map((entry, index) => (
+                                                        <div key={index} className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-neutral-100 rounded-lg items-center">
+                                                            <p className="text-sm max-sm:hidden text-indigo-400">{
+                                                                // only return the time from entry.fields.Date
+                                                                entry.fields.Date.split("T")[1].split(":").slice(0, 2).join(":")
+                                                            }</p>
+                                                            <div className="flex gap-4 items-center">
+                                                                <p className="font-medium">{entry.fields.Name}</p>
+                                                            </div>
+
+                                                            <div className="w-full flex justify-end">
+                                                                <Icon.DotsThree size={32} className="hover:bg-neutral-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
                                         </div>
+                                        <Icon.HandPointing size={512} weight="light" className="absolute z-0 text-indigo-100 -right-32 -bottom-16 -rotate-12 mix-blend-multiply" />
                                     </div>
                                 )}
                                 {scrollPosition > 0.4 && (
-                                    <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[512px] w-full rounded-3xl relative -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden">
-                                        <p className="text-white font-medium text-xl">Most jobs publishable in</p>
-                                        <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl ">
+                                    <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[512px] w-full rounded-3xl -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden relative">
+                                        <p className="text-white font-medium text-xl relative z-10">Most jobs publishable in</p>
+                                        <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl relative z-10">
                                             <h4 className="text-6xl text-emerald-700 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
                                             <h4 className="text-6xl font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
                                         </div>
+                                        <Icon.UploadSimple size={512} weight="light" className="absolute z-0 text-emerald-200 -left-32 -bottom-16 rotate-12 mix-blend-multiply" />
                                     </div>
                                 )}
                             </div>
@@ -665,8 +671,8 @@ export default function Home() {
                             <h2 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Fixed pricing, adjusted to your business</h2>
                             {/* <p className="text-gray-500 text-lg font-medium">Because 90% of Bridge Users are using mobile browsers.</p> */}
                         </div>
-                        <div className="w-full grid grid-cols-5 gap-8 items-start">
-                            <div className="p-10 bg-white ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20">
+                        <div className="w-full grid grid-cols-5 gap-8 items-start max-lg:grid-cols-1 mb-8">
+                            <div className="p-10 bg-white ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-neutral-100 hover:bg-opacity-50">
                                 <h3 className="text-2xl font-medium text-black mb-8">Starter</h3>
                                 <div className="flex flex-col gap-4 mb-16">
                                     <div className="flex items-center gap-2 font-medium">
@@ -683,10 +689,14 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <p className="text-3xl font-medium mb-6">Free</p>
-                                <button className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Start for free</button>
+                                <button
+                                    onClick={() => {
+                                        router.push('/login')
+                                    }}
+                                    className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Start for free</button>
                             </div>
-                            <div className="p-10 bg-white bg-opacity-50 ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20">
-                                <div className="bg-purple-500 rounded-full absolute -top-3 -right-3 px-2 py-1 text-sm flex items-center gap-2 text-white font-medium">
+                            <div className="p-10 bg-white bg-opacity-50 ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-neutral-100 hover:bg-opacity-50 group">
+                                <div className="bg-purple-500 rounded-full absolute -top-3 -right-3 px-2 py-1 text-sm flex items-center gap-2 text-white font-medium group-hover:scale-105 transition-all group-hover:rotate-1">
                                     <Icon.StarFour size={12} weight="fill" />
                                     Popular
                                 </div>
@@ -694,29 +704,36 @@ export default function Home() {
                                 <div className="flex flex-col gap-4 mb-16">
                                     <div className="flex items-center gap-2 font-medium">
                                         <Icon.Check size={20} weight="bold" />
-                                        Try with one project for free
+                                        Create up to 10 projects
                                     </div>
                                     <div className="flex items-center gap-2 font-medium">
                                         <Icon.Check size={20} weight="bold" />
-                                        Basic Support within a few days
+                                        Support within 24 hours
                                     </div>
                                     <div className="flex items-center gap-2 font-medium">
                                         <Icon.Check size={20} weight="bold" />
-                                        Share with individual URL
+                                        Connect a custom domain
                                     </div>
                                     <div className="flex items-center gap-2 font-medium">
                                         <Icon.Check size={20} weight="bold" />
-                                        Share with individual URL
+                                        Full feature support
                                     </div>
                                 </div>
                                 <p className="text-3xl font-medium mb-6">49 € <span className="text-lg">/m</span></p>
-                                <button className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Subscribe to Pro</button>
+                                <button
+                                    onClick={() => {
+                                        router.push('/login')
+                                    }}
+                                    className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Subscribe to Pro</button>
                             </div>
-                            <div>
-                                {/* BG Image here */}
+                            <div className="relative">
+                                <div className="w-96 h-96 absolute z-10 pointer-events-none -left-40  bg-[url('/images/general/background_artwork_pricing.svg')] bg-cover bg-no-repeat bg-center max-lg:hidden" />
                             </div>
                         </div>
-
+                        <p className="text-gray-500">Options not fitting? We offer more options for enterprises:
+                            <Link href="mailto:hello@bridge.supply" className="text-black font-medium hover:underline ml-1">
+                                hello@bridge.supply
+                            </Link></p>
                     </div>
                     {/* <div className="min-h-64 pt-24">
                         <div className="w-full flex justify-center flex-col md:items-center gap-3 mb-16">
@@ -747,19 +764,19 @@ export default function Home() {
                                 <h3 className="font-semibold mb-3">Navigation</h3>
                                 <Link href="/" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2">Home</Link>
                                 <Link href="/login" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2">Login</Link>
-                                <Link href="/" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2" onClick={openModal}>Sign up</Link>
+                                <Link href="/login" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2" onClick={openModal}>Sign up</Link>
                             </div>
                         </div>
                         <div className="w-full flex flex-col items-end max-md:items-start">
                             <div className="flex flex-col items-start">
                                 <h3 className="font-semibold mb-3">Social</h3>
-                                <Link href="https://twitter.com/bridgesupply" target="_blank" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2 flex gap-2 items-center"><Icon.TwitterLogo weight="fill" /> Twitter</Link>
+                                <Link href="https://twitter.com/floriandwt" target="_blank" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2 flex gap-1 items-center flex-wrap"><Icon.TwitterLogo weight="fill" /> @florandwt <span className="text-xs w-full">(Creator)</span></Link>
                             </div>
                         </div>
                     </div>
                     <div className="py-24">
                         <div className="flex justify-between items-center max-md:flex-col gap-8">
-                            <div className="flex gap-1 items-center text-xs font-medium text-violet-400">
+                            <div className="flex gap-1 items-center text-xs font-medium text-violet-500">
                                 Made in Germany with <Icon.Heart size={12} weight="fill" />
                             </div>
                             <div className="flex gap-4 items-center text-gray-500 text-xs font-medium">
