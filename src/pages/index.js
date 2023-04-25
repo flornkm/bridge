@@ -582,7 +582,7 @@ export default function Home() {
                                             <div className="h-10 w-10 bg-blue-600 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
-                                        <Icon.Swatches size={512} weight="light" className="absolute z-0 text-purple-100 -left-32 -bottom-16 rotate-12 mix-blend-multiply" />
+                                        <Icon.Swatches size={512} weight="light" className="absolute z-0 text-purple-100 -left-32 -bottom-16 rotate-12 mix-blend-multiply max-md:hidden" />
                                     </div>)}
                                 {scrollPosition > 0.2 && scrollPosition < 0.4 && entries.length > 0 && (
                                     <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[512px] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
@@ -614,7 +614,7 @@ export default function Home() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <Icon.HandPointing size={512} weight="light" className="absolute z-0 text-indigo-100 -right-32 -bottom-16 -rotate-12 mix-blend-multiply" />
+                                        <Icon.HandPointing size={512} weight="light" className="absolute z-0 text-indigo-100 -right-32 -bottom-16 -rotate-12 mix-blend-multiply max-md:hidden" />
                                     </div>
                                 )}
                                 {scrollPosition > 0.4 && (
@@ -624,7 +624,7 @@ export default function Home() {
                                             <h4 className="text-6xl text-emerald-700 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
                                             <h4 className="text-6xl font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
                                         </div>
-                                        <Icon.UploadSimple size={512} weight="light" className="absolute z-0 text-emerald-200 -left-32 -bottom-16 rotate-12 mix-blend-multiply" />
+                                        <Icon.UploadSimple size={512} weight="light" className="absolute z-0 text-emerald-200 -left-32 -bottom-16 rotate-12 mix-blend-multiply max-md:hidden" />
                                     </div>
                                 )}
                             </div>
@@ -667,11 +667,11 @@ export default function Home() {
                     </div> */}
                     <div className="h-24" />
                     <div className="min-h-64 pt-24">
-                        <div className="w-full flex justify-center flex-col gap-3 mb-16">
-                            <h2 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center">Fixed pricing, adjusted to your business</h2>
+                        <div className="w-full flex justify-center flex-col gap-3 mb-16 max-md:mb-10">
+                            <h2 className="font-semibold md:text-3xl max-md:text-xl text-black flex gap-4 items-center justify-center">Fixed pricing, adjusted to your business</h2>
                             {/* <p className="text-gray-500 text-lg font-medium">Because 90% of Bridge Users are using mobile browsers.</p> */}
                         </div>
-                        <div className="w-full grid grid-cols-5 gap-8 items-start max-lg:grid-cols-1 mb-8">
+                        <div className="w-full grid grid-cols-4 gap-8 items-start max-lg:grid-cols-1 mb-4 max-w-3xl mx-auto">
                             <div className="p-10 bg-white ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-neutral-100 hover:bg-opacity-50">
                                 <h3 className="text-2xl font-medium text-black mb-8">Starter</h3>
                                 <div className="flex flex-col gap-4 mb-16">
@@ -688,13 +688,14 @@ export default function Home() {
                                         Share with individual URL
                                     </div>
                                 </div>
-                                <p className="text-3xl font-medium mb-6">Free</p>
+                                <p className="text-3xl font-semibold mb-6">Free</p>
                                 <button
                                     onClick={() => {
                                         router.push('/login')
                                     }}
                                     className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Start for free</button>
                             </div>
+                            <div className="col-span-2 relative">
                             <div className="p-10 bg-white bg-opacity-50 ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-neutral-100 hover:bg-opacity-50 group">
                                 <div className="bg-purple-500 rounded-full absolute -top-3 -right-3 px-2 py-1 text-sm flex items-center gap-2 text-white font-medium group-hover:scale-105 transition-all group-hover:rotate-1">
                                     <Icon.StarFour size={12} weight="fill" />
@@ -719,18 +720,19 @@ export default function Home() {
                                         Full feature support
                                     </div>
                                 </div>
-                                <p className="text-3xl font-medium mb-6">49 € <span className="text-lg">/m</span></p>
+                                <p className="text-3xl font-semibold mb-6">49 € <span className="text-lg">/m</span></p>
                                 <button
                                     onClick={() => {
                                         router.push('/login')
                                     }}
                                     className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Subscribe to Pro</button>
                             </div>
+                            <div className="w-96 h-96 absolute z-10 pointer-events-none -right-40 top-16 bg-[url('/images/general/background_artwork_pricing.svg')] bg-cover bg-no-repeat bg-center max-lg:hidden" />
+                            </div>
                             <div className="relative">
-                                <div className="w-96 h-96 absolute z-10 pointer-events-none -left-40  bg-[url('/images/general/background_artwork_pricing.svg')] bg-cover bg-no-repeat bg-center max-lg:hidden" />
                             </div>
                         </div>
-                        <p className="text-gray-500">Options not fitting? We offer more options for enterprises:
+                        <p className="text-gray-500 max-w-3xl mx-auto">Options not fitting? We offer more options for enterprises:
                             <Link href="mailto:hello@bridge.supply" className="text-black font-medium hover:underline ml-1">
                                 hello@bridge.supply
                             </Link></p>

@@ -12,12 +12,15 @@ import { Menu, Transition } from "@headlessui/react";
 import Account from "@/components/Account";
 import ProjectSetup from "@/components/ProjectSetup";
 import * as Icon from "phosphor-react";
+import CommandMenu from "@/components/CommandMenu";
+import { Command } from 'cmdk'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Dashboard(props) {
+  const [open, setOpen] = React.useState(false);
   const supabase = useSupabaseClient();
   const session = useSession();
   const user = useUser();
@@ -133,6 +136,8 @@ function Dashboard(props) {
     if (session)
       fetchProjects(session.user.id);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+
 
   return (
     <>
@@ -353,7 +358,7 @@ function Dashboard(props) {
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="p-1 font-medium">
-                        <Menu.Item>
+                          <Menu.Item>
                             {({ active }) => (
                               <button
                                 type="submit"
@@ -411,6 +416,79 @@ function Dashboard(props) {
         )}
         <ProjectSetup isOpen={setup} setIsOpen={setSetup} openSetup={openSetup} closeSetup={closeSetup} createProject={createProject} />
       </div>
+      <CommandMenu
+        open={open}
+        setOpen={setOpen}
+        commands={
+          <>
+            <Command.Item
+              key={1}
+              value="Create new project"
+              tabIndex={0}
+              onSelect={() => {
+                setOpen(false);
+                openSetup();
+              }}
+
+              className="mb-1 focus:outline-none flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md ">
+              <Icon.FolderSimplePlus size={18} weight="bold" />
+              Create new project
+            </Command.Item>
+            {projects.length > 0 && <Command.Group heading="Projects" className="text-sm px-2 text-gray-500 py-4">
+              {projects.map((project) => {
+                return (
+                  <Command.Item
+                    key={project.id}
+                    tabIndex={0}
+                    value={project.name + "edit"}
+                    onSelect={() => {
+                      selectProject(project.id);
+                      router.push("/editor/" + project.owner + project.id);
+                    }}
+                    className="mb-1 text-base text-black focus:outline-none selection:bg-opacity-5 flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md">
+                    <Icon.FolderSimple size={18} weight="bold" />
+                    Open {project.name}
+                  </Command.Item>
+                );
+              })
+              }
+            </Command.Group>}
+            {
+              // Manage projects
+              projects.length > 0 && <Command.Group heading="Manage projects" className="text-sm px-2 text-gray-500 py-4">
+                {projects.map((project) => {
+                  return (
+                    <Command.Item
+                      key={project.id}
+                      tabIndex={0}
+                      value={project.name + "manage"}
+                      onSelect={() => {
+                        selectProject(project.id);
+                        router.push("/manage/" + project.owner + project.id);
+                      }}
+                      className="mb-1 text-base text-black focus:outline-none selection:bg-opacity-5 flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md">
+                      <Icon.Users size={18} weight="bold" />
+                      Manage {project.name}
+                    </Command.Item>
+                  );
+                })
+                }
+              </Command.Group>
+            }
+            <Command.Item
+              key={1}
+              value="Sign out"
+              tabIndex={0}
+              onSelect={() => {
+                supabase.auth.signOut();
+              }}
+              className="mb-1 focus:outline-none flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md ">
+              <Icon.SignOut size={18} weight="bold" />
+              Sign out
+            </Command.Item>
+          </>
+        }
+      />
     </>
   );
 }
