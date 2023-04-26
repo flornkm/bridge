@@ -13,12 +13,15 @@ import CookieBanner from "@/components/CookieBanner";
 import { Popover, Transition, Dialog } from '@headlessui/react'
 import { TwitterPicker } from "react-color";
 import JobBoard from "@/components/JobBoard";
+import CommandMenu from "@/components/CommandMenu";
+import { Command } from 'cmdk';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Editor(props) {
+  const [open, setOpen] = useState(false);
   const supabase = useSupabaseClient();
   const session = useSession();
   const user = useUser();
@@ -852,6 +855,26 @@ export default function Editor(props) {
             </div>
           </Dialog>
         </Transition>
+        <CommandMenu
+        open={open}
+        setOpen={setOpen}
+        commands={
+          <>
+            <Command.Item
+              key={1}
+              value="Create new project"
+              tabIndex={0}
+              onSelect={() => {
+                router.push("/dashboard");
+              }}
+
+              className="mb-1 focus:outline-none flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md ">
+              <Icon.ArrowBendUpLeft size={18} weight="bold" />
+              Back to Dashboard
+            </Command.Item>
+          </>
+        }
+      />
       </>
     )
   );

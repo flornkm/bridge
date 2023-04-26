@@ -475,6 +475,29 @@ function Dashboard(props) {
                 }
               </Command.Group>
             }
+            {
+              // Preview projects
+              projects.length > 0 && <Command.Group heading="Preview projects" className="text-sm px-2 text-gray-500 py-4">
+                {projects.map((project) => {
+                  return (
+                    <Command.Item
+                      key={project.id}
+                      tabIndex={0}
+                      value={project.name + "preview"}
+                      onSelect={() => {
+                        selectProject(project.id);
+                        // new tab
+                        window.open("/" + project.owner + project.id, "_blank");
+                      }}
+                      className="mb-1 text-base text-black focus:outline-none selection:bg-opacity-5 flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md">
+                      <Icon.Globe size={18} weight="bold" />
+                      Preview {project.name}
+                    </Command.Item>
+                  );
+                })
+            }
+            </Command.Group>
+            }
             <Command.Item
               key={1}
               value="Sign out"
