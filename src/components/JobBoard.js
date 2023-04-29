@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import {
   DndContext,
@@ -27,6 +27,49 @@ import Item from "@/layout/Item";
 function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, items, setItems }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
+
+  const rotationRect = useRef(null);
+  const [rotationAngle, setRotationAngle] = useState(0);
+  const [prevMouseX, setPrevMouseX] = useState(null);
+  const [prevTimestamp, setPrevTimestamp] = useState(null);
+
+  useEffect(() => {
+    let requestId = null;
+
+    function handleMouseMove(event) {
+      const { clientX } = event;
+      const currentTimestamp = Date.now();
+      if (prevMouseX !== null && prevTimestamp !== null) {
+        const dx = clientX - prevMouseX;
+        const dt = currentTimestamp - prevTimestamp;
+        const speed = dx / dt;
+        const maxRotationSpeed = 100; // adjust this value to control the maximum rotation speed
+        const rotationSpeed = Math.min(Math.abs(speed), maxRotationSpeed) * Math.sign(speed);
+        const rotationAngleDelta = rotationSpeed * dt / 10;
+        requestId = requestAnimationFrame(() => {
+          setRotationAngle(prevAngle => prevAngle + rotationAngleDelta);
+        });
+      }
+      setPrevMouseX(clientX);
+      setPrevTimestamp(currentTimestamp);
+    }
+
+    if (activeId !== null) {
+      document.body.addEventListener('mousemove', handleMouseMove);
+      return () => {
+        document.body.removeEventListener('mousemove', handleMouseMove);
+        cancelAnimationFrame(requestId);
+      };
+    }
+  }, [activeId, prevMouseX, prevTimestamp]);
+
+  useEffect(() => {
+    if (rotationRect.current) {
+      rotationRect.current.style.setProperty('--rotation-angle', `${Math.trunc(rotationAngle)}deg`);
+    }
+  }, [rotationAngle]);
+
+
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -170,8 +213,13 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
             }}
           >
             {activeId ? (
-              <div style={{ background: "white", borderRadius: "16px" }}
-                className="ring-1 ring-neutral-200 shadow-lg scale-[1.01]">
+              <div
+                className={"ring-1 ring-neutral-200 shadow-lg scale-[1.01] transition-all rotate-[" + rotationAngle + "deg]"}
+                ref={rotationRect}
+                style={{
+                  background: "white", borderRadius: "16px",
+                  // transform: `rotate(${rotationAngle}deg)`
+                }}>
                 <Item
                   id={activeId}
                   index={items.findIndex((item) => item.id === activeId)}

@@ -283,20 +283,8 @@ export default function Editor(props) {
                   className="flex gap-2 items-center cursor-pointer transition-all hover:opacity-80"
                   onClick={() => router.push("/dashboard")}
                 >
-                  <Icon.ArrowLeft size={20} weight="bold" />{" "}
+                  <Icon.ArrowLeft size={24} weight="bold" />{" "}
                   <h1 className="text-lg font-medium">Dashboard</h1>
-                </div>
-                <div className="flex gap-6">
-                  <Icon.ArrowArcLeft
-                    size={20}
-                    weight="bold"
-                    className="cursor-pointer transition-all hover:opacity-80"
-                  />
-                  <Icon.ArrowArcRight
-                    size={20}
-                    weight="bold"
-                    className="cursor-pointer transition-all hover:opacity-80"
-                  />
                 </div>
               </div>
               <Link target="_blank" href={"/" + project.owner + project.id} className="px-4 truncate py-2 text-gray-600 hover:text-black bg-white ring-1 ring-neutral-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-w-screen">
@@ -361,14 +349,14 @@ export default function Editor(props) {
             leave="transition-opacity duration-150"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-          ><div className="z-50 p-6 bg-white ring-1 ring-neutral-200 rounded-full fixed bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+          ><div className="shadow-lg z-50 px-5 py-4 bg-white ring-1 ring-neutral-200 rounded-full fixed bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
               <Popover className="relative">
-                <Popover.Button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
-                  <Icon.Plus size={20} weight="bold" />
-                  Add</Popover.Button>
+                <Popover.Button className="font-medium text-base h-10 w-10 justify-center rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
+                  <Icon.Plus size={24} weight="bold" />
+                  </Popover.Button>
 
-                <Popover.Panel className="absolute bottom-0 translate-y-[-72px] rounded-md bg-white ring-1 ring-neutral-200 p-1 w-48" >
-                  <div className="flex gap-4 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
+                <Popover.Panel className="absolute bottom-0 translate-y-[-72px] rounded-md bg-white ring-1 ring-neutral-200 p-1 w-40" >
+                  <div className="flex gap-2 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
                     add({
                       id: project.content.length + 1,
                       content: [
@@ -385,7 +373,7 @@ export default function Editor(props) {
                     <Icon.Textbox size={32} weight="bold" className="p-2" />
                     Text Input
                   </div>
-                  <div className="flex gap-4 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
+                  <div className="flex gap-2 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
                     add({
                       id: project.content.length + 1,
                       content: [
@@ -400,7 +388,7 @@ export default function Editor(props) {
                     <Icon.TextAa size={32} weight="bold" className="p-2" />
                     Text
                   </div>
-                  <div className="flex gap-4 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
+                  <div className="flex gap-2 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
                     add({
                       id: project.content.length + 1,
                       content: [
@@ -415,7 +403,7 @@ export default function Editor(props) {
                     <Icon.TextAlignLeft size={32} weight="bold" className="p-2" />
                     Textarea
                   </div>
-                  <div className="flex gap-4 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
+                  <div className="flex gap-2 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
                     add({
                       id: project.content.length + 1,
                       content: [
@@ -435,14 +423,12 @@ export default function Editor(props) {
                 </Popover.Panel>
               </Popover>
               <div className="w-[1px] bg-neutral-200" />
-              <div className="flex">
-                <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setColorSetting(true) }}>
-                  <Icon.Drop size={20} weight="bold" />
-                  Colors
+              <div className="flex gap-4">
+                <button className="font-medium bg-[url('/images/editor/color_icon.jpg')] bg-cover border border-neutral-300 hover:opacity-80 text-base h-10 w-10 justify-center rounded-lg overflow-hidden text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setColorSetting(true) }}>
+                  {/* <Icon.Drop size={24} weight="bold" className="relative z-10 text-indigo-400" /> */}
                 </button>
-                <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center transition-all hover:opacity-80" onClick={() => { setEffectSetting(true) }}>
-                  <Icon.Confetti size={20} weight="bold" />
-                  Effects
+                <button className="font-medium bg-black bg-[url('/images/editor/effect_icon.jpg')] bg-cover border border-neutral-300 hover:opacity-80 text-base h-10 w-10 justify-center rounded-lg overflow-hidden text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setEffectSetting(true) }}>
+                  {/* <Icon.Confetti size={24} weight="bold" /> */}
                 </button>
               </div>
             </div>
@@ -455,16 +441,15 @@ export default function Editor(props) {
             leave="transition-opacity duration-150"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-          ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full fixed bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
-              <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setColorSetting(false) }}>
-                <Icon.ArrowLeft size={20} weight="bold" />
-                Back
+          ><div className="shadow-lg z-50 px-5 py-4 bg-white ring-1 ring-neutral-200 rounded-full fixed bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+              <button className="font-medium text-base h-10 w-10 justify-center rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setColorSetting(false) }}>
+                <Icon.ArrowLeft size={24} weight="bold" />
               </button>
               <div className="w-[1px] bg-neutral-200" />
               <div className="flex">
-                <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <button className="font-medium text-base rounded-lg flex gap-2 items-center">
                   <Popover className="relative">
-                    <Popover.Button className="flex gap-2 transition-all hover:opacity-80"><div
+                    <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100"><div
                       className={
                         "rounded-full h-6 w-6 ring-1 ring-neutral-300"
                       }
@@ -474,7 +459,7 @@ export default function Editor(props) {
 
                     <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                       <TwitterPicker
-                        className="bg-white p-2"
+                        className="bg-white p-1"
                         styles={colorStyles}
                         color={colors.heading}
                         onChangeComplete={(color) => {
@@ -500,9 +485,9 @@ export default function Editor(props) {
                     </Popover.Panel>
                   </Popover>
                 </button>
-                <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <button className="font-medium text-base rounded-lg flex gap-2 items-center">
                   <Popover className="relative">
-                    <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                    <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
                       <div
                         className={
                           "rounded-full h-6 w-6 ring-1 ring-neutral-300"
@@ -513,7 +498,7 @@ export default function Editor(props) {
 
                     <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                       <TwitterPicker
-                        className="bg-white p-2"
+                        className="bg-white p-1"
                         styles={colorStyles}
                         color={colors.heading}
                         onChangeComplete={(color) => {
@@ -539,9 +524,9 @@ export default function Editor(props) {
                     </Popover.Panel>
                   </Popover>
                 </button>
-                <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <button className="font-medium text-base rounded-lg flex gap-2 items-center">
                   <Popover className="relative">
-                    <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                    <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
                       <div
                         className={
                           "rounded-full h-6 w-6 ring-1 ring-neutral-300"
@@ -552,7 +537,7 @@ export default function Editor(props) {
 
                     <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                       <TwitterPicker
-                        className="bg-white p-2"
+                        className="bg-white p-1"
                         styles={colorStyles}
                         color={colors.label}
                         onBlur={() => {
@@ -581,9 +566,9 @@ export default function Editor(props) {
                     </Popover.Panel>
                   </Popover>
                 </button>
-                <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <button className="font-medium text-base rounded-lg flex gap-2 items-center">
                   <Popover className="relative">
-                    <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                    <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
                       <div
                         className={
                           "rounded-full h-6 w-6 ring-1 ring-neutral-300"
@@ -594,7 +579,7 @@ export default function Editor(props) {
 
                     <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                       <TwitterPicker
-                        className="bg-white p-2"
+                        className="bg-white p-1"
                         styles={colorStyles}
                         color={colors.primaryButton}
                         onChangeComplete={(color) => {
@@ -613,9 +598,9 @@ export default function Editor(props) {
                     </Popover.Panel>
                   </Popover>
                 </button>
-                <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center">
+                <button className="font-medium text-base rounded-lg flex gap-2 items-center">
                   <Popover className="relative">
-                    <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                    <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
                       <div
                         className={
                           "rounded-full h-6 w-6 ring-1 ring-neutral-300"
@@ -626,7 +611,7 @@ export default function Editor(props) {
 
                     <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-md" >
                       <TwitterPicker
-                        className="bg-white p-2"
+                        className="bg-white p-1"
                         styles={colorStyles}
                         color={colors.danger}
                         onBlur={() => {
@@ -659,10 +644,9 @@ export default function Editor(props) {
             leave="transition-opacity duration-150"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-          ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
-              <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setAnimationSetting(false) }}>
-                <Icon.ArrowLeft size={20} weight="bold" />
-                Back
+          ><div className="shadow-lg px-5 py-4 bg-white ring-1 ring-neutral-200 rounded-full absolute bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+              <button className="font-medium text-base h-10 w-10 justify-center rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setAnimationSetting(false) }}>
+                <Icon.ArrowLeft size={24} weight="bold" />
               </button>
               <div className="w-[1px] bg-neutral-200" />
               <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center" onClick={() => { setAnimationSetting(true) }}>
@@ -759,32 +743,35 @@ export default function Editor(props) {
             leave="transition-opacity duration-150"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-          ><div className="p-6 bg-white ring-1 ring-neutral-200 rounded-full fixed  bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
-              <button className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setEffectSetting(false) }}>
-                <Icon.ArrowLeft size={20} weight="bold" />
-                Back
+          ><div className="shadow-lg z-50 px-5 py-4 bg-white ring-1 ring-neutral-200 rounded-full fixed  bottom-24 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
+              <button className="font-medium text-base h-10 w-10 justify-center rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setEffectSetting(false) }}>
+                <Icon.ArrowLeft size={24} weight="bold" />
               </button>
               <div className="w-[1px] bg-neutral-200" />
-              <button className="font-medium text-base px-3 py-2 rounded-lg flex gap-2 items-center" onClick={() => { setEffectSetting(true) }}>
+              <button className="font-medium text-base rounded-lg flex gap-2 items-center" onClick={() => { setEffectSetting(true) }}>
                 <Popover className="relative">
-                  <Popover.Button className="flex gap-2 transition-all hover:opacity-80">
+                  <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
                     <Icon.Cursor size={20} weight="bold" />
-                    Confirm Click</Popover.Button>
-                  <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-xl flex gap-4 p-1 w-56 justify-between bg-white ring-1 ring-neutral-200" >
-                    <p
+                    Confirm</Popover.Button>
+                  <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-xl flex gap-4 p-1 w-auto justify-between bg-white ring-1 ring-neutral-200" >
+                    <div
                       onClick={() => {
                         setEffects({ ...effects, confetti: false });
                         updateEffects("confetti", false);
                       }}
-                      className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (!effects.confetti ? "bg-black text-white" : "bg-white text-black")}
-                    >None</p>
-                    <p
+                      className={"cursor-pointer h-10 w-10 flex items-center justify-center rounded-lg transition-all " + (!effects.confetti ? "bg-black text-white" : "bg-white text-black hover:bg-neutral-100")}
+                    >
+                      <Icon.Placeholder size={20} weight="bold" />
+                    </div>
+                    <div
                       onClick={() => {
                         setEffects({ ...effects, confetti: true });
                         updateEffects("confetti", true);
                       }}
-                      className={"cursor-pointer px-4 py-2 w-full rounded-lg transition-all hover:opacity-80 " + (effects.confetti ? "bg-black text-white" : "bg-white text-black")}
-                    >Confetti</p>
+                      className={"cursor-pointer h-10 w-10 flex items-center justify-center rounded-lg transition-all " + (effects.confetti ? "bg-black text-white" : "bg-white text-black hover:bg-neutral-100")}
+                    >
+                      <Icon.Confetti size={20} weight="bold" />
+                    </div>
                   </Popover.Panel>
                 </Popover>
               </button>
@@ -792,7 +779,7 @@ export default function Editor(props) {
           </Transition>
         </div>
         <Transition appear show={isOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Dialog as="div" className="relative z-50" onClose={closeModal}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -856,25 +843,25 @@ export default function Editor(props) {
           </Dialog>
         </Transition>
         <CommandMenu
-        open={open}
-        setOpen={setOpen}
-        commands={
-          <>
-            <Command.Item
-              key={1}
-              value="Create new project"
-              tabIndex={0}
-              onSelect={() => {
-                router.push("/dashboard");
-              }}
+          open={open}
+          setOpen={setOpen}
+          commands={
+            <>
+              <Command.Item
+                key={1}
+                value="Create new project"
+                tabIndex={0}
+                onSelect={() => {
+                  router.push("/dashboard");
+                }}
 
-              className="mb-1 focus:outline-none flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md ">
-              <Icon.ArrowBendUpLeft size={18} weight="bold" />
-              Back to Dashboard
-            </Command.Item>
-          </>
-        }
-      />
+                className="mb-1 focus:outline-none flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md ">
+                <Icon.ArrowBendUpLeft size={18} weight="bold" />
+                Back to Dashboard
+              </Command.Item>
+            </>
+          }
+        />
       </>
     )
   );

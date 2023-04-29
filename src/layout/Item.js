@@ -43,8 +43,8 @@ const Item = forwardRef(
         {withOpacity && (
           <div className="absolute top-0 left-0 w-full h-full bg-neutral-100 rounded-2xl z-50" />
         )}
-        {!props.landingpage && (
-          <div className="absolute top-4 right-8 opacity-0 group-hover/info:opacity-100 transition-all text-neutral-300 italic">
+        {!props.landingpage && !isDragging && (
+          <div className="absolute top-0 right-8 opacity-0 group-hover/info:opacity-100 transition-all text-neutral-300 italic">
             Hold and drag to reorder
           </div>
         )}
