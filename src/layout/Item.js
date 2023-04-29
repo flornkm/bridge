@@ -13,13 +13,14 @@ import Confetti from 'react-dom-confetti';
 const Item = forwardRef(
   ({ id, index, withOpacity, isDragging, style, ...props }, ref) => {
     const inlineStyles = {
-      opacity: isDragging ? "0.7" : "1",
-      cursor: isDragging ? "grabbing" : "grab",
-      boxShadow: isDragging ? "rgb(0 0 0 / 0.1) 0 2px 4px -2px" : "none",
+      opacity: withOpacity ? '0.5' : '1',
+      cursor: withOpacity ? "grabbing" : "grab",
+      transformOrigin: "0 0",
       transform: isDragging ? "scale(1.05)" : "scale(1)",
+      height: "auto",
       transition: "all 0.2s ease",
       objectFit: "cover",
-      position: "relative",
+      position: isDragging ? "relative" : "static",
       ...style,
     };
 

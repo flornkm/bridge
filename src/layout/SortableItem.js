@@ -10,8 +10,8 @@ const SortableItem = (props) => {
     listeners,
     setNodeRef,
     transform,
-    transition,
-  } = useSortable({ id: props.id });
+    transition
+} = useSortable({ id: props.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -20,12 +20,12 @@ const SortableItem = (props) => {
 
   return (
     <Item
-      ref={setNodeRef}
-      style={style}
-      withOpacity={isDragging}
-      {...props}
-      {...attributes}
-      {...listeners}
+    ref={setNodeRef}
+    style={style}
+    withOpacity={isDragging}
+    {...props}
+    {...attributes}
+    {...listeners}
     />
   );
 };

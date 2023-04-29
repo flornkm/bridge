@@ -18,12 +18,11 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import SortableItem from "@/layout/SortableItem";
+import Item from "@/layout/Item";
 
 function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, items, setItems }) {
   const supabase = useSupabaseClient();
   const [activeId, setActiveId] = useState(null);
-
-  // const [items, setItems] = useState(data.content);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -86,9 +85,11 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
 
   const handleDragStart = useCallback((event) => {
     setActiveId(event.active.id);
+    console.log(event.active.id);
   }, []);
 
   const handleDragEnd = useCallback((event) => {
+    setActiveId(null);
     const { active, over } = event;
 
     if (active.id !== over?.id) {
@@ -99,8 +100,6 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
         return arrayMove(items, oldIndex, newIndex);
       });
     }
-
-    setActiveId(null);
   }, []);
 
   const handleDragCancel = useCallback(() => {
@@ -108,7 +107,9 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
   }, []);
 
   const handleDragOver = useCallback((event) => {
-    const { active, over } = event;
+    const { active } = event;
+    setActiveId(active.id);
+    const { over } = event;
 
     if (active.id !== over?.id) {
       setItems((items) => {
@@ -118,7 +119,6 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
         update(arrayMove(items, oldIndex, newIndex));
         return arrayMove(items, oldIndex, newIndex);
       });
-
     }
   }, []);
 
@@ -133,7 +133,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
         onDragOver={handleDragOver}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          <div className="flex flex-col gap-8 justify-between w-full max-md:flex-col max-md:gap-4">
+          <div className="grid grid-cols-1 gap-8 w-full max-md:flex-col max-md:gap-4">
             {data &&
               items.map((item, index) => {
                 return (
@@ -156,6 +156,26 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
               })}
           </div>
         </SortableContext>
+        <DragOverlay style={{ transformOrigin: '50% 50%', zIndex: 9999 }}>
+          {activeId ? (
+            <Item
+              id={activeId}
+              index={items.findIndex((item) => item.id === activeId)}
+              items={items.find((item) => item.id === activeId)}
+              setItems={setItems}
+              onBlur={handleBlur}
+              changeInput={changeInput}
+              className={"bg-transparent text-base flex gap-4 items-center"}
+              colors={colors}
+              effects={effects}
+              confetti={confetti}
+              setConfetti={setConfetti}
+              deleteItem={deleteItem}
+              isDragging={true}
+            />
+
+          ) : null}
+        </DragOverlay>
       </DndContext>
     </div>
   )

@@ -10,6 +10,7 @@
 
 a, button, input, textarea, select, .btn {
   outline-color: #60A5FA;
+  outline-offset: 1px;
 }
 
 
