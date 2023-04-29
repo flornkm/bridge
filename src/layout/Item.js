@@ -14,13 +14,13 @@ const Item = forwardRef(
   ({ id, index, withOpacity, isDragging, style, ...props }, ref) => {
     const inlineStyles = {
       opacity: withOpacity ? '0.5' : '1',
-      cursor: withOpacity ? "grabbing" : "grab",
-      transformOrigin: "0 0",
-      transform: isDragging ? "scale(1.05)" : "scale(1)",
+      cursor: isDragging ? "grabbing" : "grab",
+      transformOrigin: '50% 50%',
+      transform: isDragging ? "scale(1.02), rotate(45deg)" : "scale(1), rotate(0deg)",
       height: "auto",
       transition: "all 0.2s ease",
       objectFit: "cover",
-      position: isDragging ? "relative" : "static",
+      position: "relative",
       ...style,
     };
 
@@ -39,11 +39,11 @@ const Item = forwardRef(
     };
 
     return (
-      <div ref={ref} style={inlineStyles} {...props} className={"flex flex-col outline-gray-300 " + (!props.landingpage && "hover:bg-neutral-50 group/info p-8 rounded-2xl transition-colors relative cursor-grab") }>
+      <div ref={ref} style={inlineStyles} {...props} className={"flex flex-col outline-gray-300 " + (!props.landingpage && "hover:bg-neutral-50 group/info p-8 rounded-2xl transition-colors relative cursor-grab")}>
         {!props.landingpage && (
-        <div className="absolute top-4 right-8 opacity-0 group-hover/info:opacity-100 transition-all text-neutral-300 italic">
-          Hold and drag to reorder
-        </div>  
+          <div className="absolute top-4 right-8 opacity-0 group-hover/info:opacity-100 transition-all text-neutral-300 italic">
+            Hold and drag to reorder
+          </div>
         )}
         {!props.items.content && props.landingpage === "true" && (
           id === "1" ? (

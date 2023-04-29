@@ -133,7 +133,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
         onDragOver={handleDragOver}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          <div className="grid grid-cols-1 gap-8 w-full max-md:flex-col max-md:gap-4">
+          <div className="grid grid-cols-1 gap-8 w-full max-md:flex-col max-md:gap-4 items-center">
             {data &&
               items.map((item, index) => {
                 return (
@@ -156,7 +156,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
               })}
           </div>
         </SortableContext>
-        <DragOverlay style={{ transformOrigin: '50% 50%', zIndex: 9999 }}>
+        <DragOverlay style={{ transformOrigin: '0 0 ' }}>
           {activeId ? (
             <Item
               id={activeId}
