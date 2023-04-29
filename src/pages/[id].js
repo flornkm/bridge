@@ -281,7 +281,7 @@ export default function Published() {
                                                             </span>}
                                                         </div>
                                                         <div className="relative">
-                                                            <input required={item.required} className={"border border-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full focus:outline-gray-300"}
+                                                            <input required={item.required} className={"border border-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full  "}
                                                                 style={{ color: data.colors.text }}
                                                                 placeholder={item.content}
                                                                 name={item.label}
@@ -315,7 +315,7 @@ export default function Published() {
                                                         <div className="md:flex w-full justify-between items-center flex-wrap">
                                                             <input required={item.required}
                                                                 style={{ color: data.colors.text }}
-                                                                className={"file:hidden rounded-lg py-1.5 px-3 focus:outline-gray-300"}
+                                                                className={"file:hidden rounded-lg py-1.5 px-3  "}
                                                                 type="file" id={index}
                                                                 name={item.label}
                                                                 onChange={handleInputChange}
@@ -334,7 +334,7 @@ export default function Published() {
                                                             if (item.type === "submit") {
                                                                 handleSubmit(e);
                                                             }
-                                                        }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className={"text-white font-medium rounded-xl max-md:w-full justify-center py-4 px-8 gap-4 focus:ring-gray-400 hover:opacity-90 transition-all cursor-pointer items-center flex relative focus:outline-gray-300 " + (submitted && "pointer-events-none")}>
+                                                        }} key={index} style={{ backgroundColor: data.colors.primaryButton }} className={"text-white font-medium rounded-xl max-md:w-full justify-center py-4 px-8 gap-4 focus:ring-gray-400 hover:opacity-90 transition-all cursor-pointer items-center flex relative   " + (submitted && "pointer-events-none")}>
                                                             {loading && <div className="h-5 w-5 relative rounded-full ring-2 ring-white z-0 animate-spin"> <div className="absolute -left-1 -top-1 z-10 h-3 w-3 transition-all" style={{ backgroundColor: data.colors.primaryButton }} /> </div>}
                                                             {item.content}
                                                             {item.type === "submit" && data.effects.confetti && <div className="absolute w-0 left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%]"><Confetti active={confetti} config={config} /></div>}

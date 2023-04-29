@@ -13,10 +13,15 @@ a, button, input, textarea, select, .btn {
   outline-offset: 2px;
 }
 
-.custom-background {
-  background-color: red;
+.twitter-picker > div > span > div {
+  box-shadow: inset 0 2px 4px 0 rgba(255, 255, 255, 0.33) !important;
+  border: 1px solid #e5e5e5;
+  transition: all ease 0.2s;
 }
 
+.twitter-picker > div > span > div:hover {
+  transform: scale(1.1);
+}
 
 /* Fade In Animation Preset */
 

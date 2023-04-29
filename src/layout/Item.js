@@ -20,7 +20,7 @@ const Item = forwardRef(
       height: "auto",
       transition: "all 0.2s ease",
       objectFit: "cover",
-      position: "relative", 
+      position: "relative",
       ...style,
     };
 
@@ -39,12 +39,12 @@ const Item = forwardRef(
     };
 
     return (
-      <div ref={ref} style={inlineStyles} {...props} className={"flex flex-col outline-gray-300 " + (!props.landingpage && "relative border border-transparent group/info p-8 rounded-2xl transition-colors cursor-grab") + (withOpacity && " pointer-events-none")}>
+      <div ref={ref} style={inlineStyles} {...props} className={"flex flex-col outline-gray-300 " + (!props.landingpage && "relative max-md:my-4 max-md:p-4 border border-transparent group/info md:p-8 rounded-2xl transition-colors cursor-grab") + (withOpacity && " pointer-events-none")}>
         {withOpacity && (
           <div className="absolute top-0 left-0 w-full h-full bg-neutral-100 rounded-2xl z-50" />
         )}
         {!props.landingpage && !isDragging && (
-          <div className="absolute top-0 right-8 opacity-0 group-hover/info:opacity-100 transition-all text-neutral-300 italic">
+          <div className="absolute top-0 right-8 opacity-0 group-hover/info:opacity-100 transition-all text-neutral-300 italic max-md:hidden">
             Hold and drag to reorder
           </div>
         )}
@@ -78,7 +78,7 @@ const Item = forwardRef(
             )
           } else if (item.type === "text") {
             return (
-              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center " + (!item.visibility && "opacity-50")}>
+              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center max-md:pb-8 " + (!item.visibility && "opacity-50")}>
                 <input
                   onChange={(e) => {
                     props.changeInput(e, id, index)
@@ -90,7 +90,7 @@ const Item = forwardRef(
                   className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
                   style={{ color: props.colors.text }}
                 />
-                {id !== 1 && <div className="h-full flex">
+                {id !== 1 && <div className="h-full flex max-md:absolute max-md:bottom-0 max-md:right-0 max-md:h-10">
                   <div onClick={() => {
                     props.changeInput(null, id, index, "visibility");
                   }}
@@ -105,7 +105,7 @@ const Item = forwardRef(
                         <Icon.EyeClosed size={24} />
                       </div>
                     )}
-                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                    <div className="max-md:hidden text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
                       Visible?
                     </div>
                   </div>
@@ -128,7 +128,7 @@ const Item = forwardRef(
             )
           } else if (item.type === "textArea") {
             return (
-              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center h-40 " + (!item.visibility && "opacity-50")}>
+              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center h-40 max-md:pb-8 " + (!item.visibility && "opacity-50")}>
                 <textarea
                   onChange={(e) => {
                     props.changeInput(e, id, index)
@@ -140,7 +140,7 @@ const Item = forwardRef(
                   className="text-lg flex gap-4 h-full items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
                   style={{ color: props.colors.text }}
                 />
-                {id !== 1 && <div className="h-full flex items-center">
+                {id !== 1 && <div className="h-full flex items-center max-md:absolute max-md:bottom-0 max-md:right-0 max-md:h-10">
                   <div onClick={() => {
                     props.changeInput(null, id, index, "visibility");
                   }}
@@ -155,7 +155,7 @@ const Item = forwardRef(
                         <Icon.EyeClosed size={24} />
                       </div>
                     )}
-                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                    <div className="max-md:hidden text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
                       Visible?
                     </div>
                   </div>
@@ -178,7 +178,7 @@ const Item = forwardRef(
             )
           } else if (item.type === "textInput") {
             return (
-              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center " + (!item.visibility && "opacity-50")}>
+              <div key={index} className={"flex md:gap-32 max-md:gap-4 items-center max-md:pb-4 relative " + (!item.visibility && "opacity-50")}>
                 <div className={"px-1 grow flex flex-col gap-2 " + (props.items.content.indexOf(item) !== props.items.content.length - 1 && "mb-8")}>
                   <div className="flex justify-start">
                     <div>
@@ -223,7 +223,7 @@ const Item = forwardRef(
                     style={{ color: props.colors.text }}
                   />
                 </div>
-                <div className="h-full flex">
+                <div className="h-full flex max-md:absolute max-md:-top-1 max-md:right-0 max-md:h-10">
                   <div onClick={() => {
                     props.changeInput(null, id, index, "visibility");
                   }}
@@ -238,7 +238,7 @@ const Item = forwardRef(
                         <Icon.EyeClosed size={24} />
                       </div>
                     )}
-                    <div className="text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
+                    <div className="max-md:hidden text-sm absolute translate-x-[-50%] left-[50%] bottom-14 hidden group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
                       Visible?
                     </div>
                   </div>

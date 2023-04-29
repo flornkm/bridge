@@ -287,12 +287,12 @@ export default function Editor(props) {
                   <h1 className="text-lg font-medium">Dashboard</h1>
                 </div>
               </div>
-              <Link target="_blank" href={"/" + project.owner + project.id} className="px-4 truncate py-2 text-gray-600 hover:text-black bg-white ring-1 ring-neutral-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-w-screen">
+              <Link target="_blank" href={"/" + project.owner + project.id} className="px-4 truncate py-2 text-gray-600 hover:text-black bg-white ring-1 ring-neutral-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-md:w-[90%] justify-center">
                 <Icon.Link size={20} />
                 {"bridge.supply/" + project.owner + project.id}
               </Link>
               <div className="flex gap-6 items-stretch relative">
-                <div className="bg-neutral-100 ring-1 ring-neutral-200 rounded-full">
+                <div className="bg-neutral-100 ring-1 ring-neutral-200 rounded-full max-sm:hidden">
                   {!avatar ? (
                     <Icon.User size={40} className="p-2" />
                   ) : (
@@ -305,7 +305,7 @@ export default function Editor(props) {
                     />
                   )}
                 </div>
-                <div className="w-[1px] bg-neutral-200" />
+                <div className="w-[1px] bg-neutral-200 max-sm:hidden" />
                 <button onClick={() => {
                   publishCheck();
                 }} className={"font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center group " + (publishing && "pointer-events-none")}>
@@ -451,7 +451,7 @@ export default function Editor(props) {
                   <Popover className="relative">
                     <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100"><div
                       className={
-                        "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                        "rounded-full h-6 w-6 ring-1 ring-neutral-300 shadow-inner shadow-[#FFFFFF33]"
                       }
                       style={{ backgroundColor: colors.heading }}
                     />
@@ -490,7 +490,7 @@ export default function Editor(props) {
                     <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
                       <div
                         className={
-                          "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                          "rounded-full h-6 w-6 ring-1 ring-neutral-300 shadow-inner shadow-[#FFFFFF33]"
                         }
                         style={{ backgroundColor: colors.text }}
                       />
@@ -529,7 +529,7 @@ export default function Editor(props) {
                     <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
                       <div
                         className={
-                          "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                          "rounded-full h-6 w-6 ring-1 ring-neutral-300 shadow-inner shadow-[#FFFFFF33]"
                         }
                         style={{ backgroundColor: colors.label }}
                       />
@@ -571,7 +571,7 @@ export default function Editor(props) {
                     <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
                       <div
                         className={
-                          "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                          "rounded-full h-6 w-6 ring-1 ring-neutral-300 shadow-inner shadow-[#FFFFFF33]"
                         }
                         style={{ backgroundColor: colors.primaryButton }}
                       />
@@ -603,7 +603,7 @@ export default function Editor(props) {
                     <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
                       <div
                         className={
-                          "rounded-full h-6 w-6 ring-1 ring-neutral-300"
+                          "rounded-full h-6 w-6 ring-1 ring-neutral-300 shadow-inner shadow-[#FFFFFF33]"
                         }
                         style={{ backgroundColor: colors.danger }}
                       />
@@ -751,7 +751,7 @@ export default function Editor(props) {
               <button className="font-medium text-base rounded-lg flex gap-2 items-center" onClick={() => { setEffectSetting(true) }}>
                 <Popover className="relative">
                   <Popover.Button className="flex gap-2 transition-all items-center px-3 py-2 rounded-xl hover:bg-neutral-100">
-                    <Icon.Cursor size={20} weight="bold" />
+                    <Icon.Cursor size={20} weight="fill" />
                     Confirm</Popover.Button>
                   <Popover.Panel className="absolute bottom-0 translate-y-[-64px] rounded-xl flex gap-4 p-1 w-auto justify-between bg-white ring-1 ring-neutral-200" >
                     <div
