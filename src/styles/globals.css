@@ -13,6 +13,10 @@ a, button, input, textarea, select, .btn {
   outline-offset: 1px;
 }
 
+.custom-background {
+  background-color: red;
+}
+
 
 /* Fade In Animation Preset */
 

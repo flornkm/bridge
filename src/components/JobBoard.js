@@ -17,6 +17,10 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import {
+  restrictToWindowEdges,
+} from '@dnd-kit/modifiers';
+import { createPortal } from 'react-dom';
 import SortableItem from "@/layout/SortableItem";
 import Item from "@/layout/Item";
 
@@ -156,26 +160,38 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
               })}
           </div>
         </SortableContext>
-        <DragOverlay style={{ transformOrigin: '0 0 ' }}>
-          {activeId ? (
-            <Item
-              id={activeId}
-              index={items.findIndex((item) => item.id === activeId)}
-              items={items.find((item) => item.id === activeId)}
-              setItems={setItems}
-              onBlur={handleBlur}
-              changeInput={changeInput}
-              className={"bg-transparent text-base flex gap-4 items-center"}
-              colors={colors}
-              effects={effects}
-              confetti={confetti}
-              setConfetti={setConfetti}
-              deleteItem={deleteItem}
-              isDragging={true}
-            />
-
-          ) : null}
-        </DragOverlay>
+        {createPortal(
+          <DragOverlay
+            modifiers={[restrictToWindowEdges]}
+            zIndex={39}
+            dropAnimation={{
+              duration: 100,
+              easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
+            }}
+          >
+            {activeId ? (
+              <div style={{ background: "white", borderRadius: "16px" }}
+                className="ring-1 ring-neutral-200 shadow-lg scale-[1.01]">
+                <Item
+                  id={activeId}
+                  index={items.findIndex((item) => item.id === activeId)}
+                  items={items.find((item) => item.id === activeId)}
+                  setItems={setItems}
+                  onBlur={handleBlur}
+                  changeInput={changeInput}
+                  className={"bg-transparent text-base flex gap-4 items-center"}
+                  colors={colors}
+                  effects={effects}
+                  confetti={confetti}
+                  setConfetti={setConfetti}
+                  deleteItem={deleteItem}
+                  isDragging={true}
+                />
+              </div>
+            ) : null}
+          </DragOverlay>,
+          document.body,
+        )}
       </DndContext>
     </div>
   )

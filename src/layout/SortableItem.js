@@ -13,6 +13,7 @@ const SortableItem = (props) => {
     transition
 } = useSortable({ id: props.id });
 
+// transform with rotation
   const style = {
     transform: CSS.Transform.toString(transform),
     transition: transition || undefined,
