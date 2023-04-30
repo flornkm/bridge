@@ -258,10 +258,6 @@ export default function Editor(props) {
             property="og:description"
             content="Bridge is a tool that allows you to create interactive elements for your website."
           />
-          <meta
-            property="og:image"
-            content={`/api/og?title=${project.name}&text=Build with Bridge`}
-          />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@floriandwt" />
           <meta name="twitter:title" content="Florian Portfolio" />

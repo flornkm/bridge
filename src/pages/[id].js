@@ -160,7 +160,7 @@ export default function Published() {
             submitDataArr.map((item, index) => {
                 submitData = { ...submitData, ...item };
             })
-            
+
             setLoading(true);
             fetch(`/api/submit`, {
                 method: 'POST',
@@ -229,7 +229,7 @@ export default function Published() {
                 />
                 <meta
                     property="og:image"
-                    content="/images/bridge_opengraph.jpg"
+                    content={`/api/og?title=${project.name}&text=Build with Bridge`}
                 />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:site" content="@floriandwt" />
