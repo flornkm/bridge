@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
 import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import { useEffect, useState, useRef } from 'react';
 import * as Icon from 'phosphor-react'
 import Confetti from 'react-dom-confetti';
@@ -212,39 +213,24 @@ export default function Published() {
 
     return (
         <>
-            <Head>
-                <title>{data && data.name}</title>
-                <meta
-                    name="description"
-                    content="Bridge is a tool that allows you to create interactive elements for your website."
-                />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta
-                    property="og:title"
-                    content="Bridge is a tool that allows you to create interactive elements for your website."
-                />
-                <meta
-                    property="og:description"
-                    content="Bridge is a tool that allows you to create interactive elements for your website."
-                />
-                {data && <meta
-                    property="og:image"
-                    content={"https://bridge.supply/api/og?title=" + encodeURIComponent(data.name) + "&text=" + encodeURIComponent(data.type)}
-                />}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:site" content="@floriandwt" />
-                <meta name="twitter:title" content="Florian Portfolio" />
-                <meta
-                    name="twitter:image"
-                    content="/images/bridge_twitter.jpg"
-                />
-                <meta
-                    name="twitter:description"
-                    content="Bridge is a tool that allows you to create interactive elements for your website."
-                />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            {data && <NextSeo
+                title={data.name}
+                description="Test"
+                twitter={{
+                    handle: '@bridgesupply', site: '@bridgsupply',
+                    cardType: 'summary_large_image'
+                }}
+                openGraph={{
+                    type: 'website', url: "bridge.supply", title: data.name,
+                    description: "Test",
+                    images: [
+                        {
+                            url: `https://bridge.supply/api/og?title=${data.name}&text=test`,
+                            width: 1200, height: 600, alt: "Bridge Supply",
 
+                        }
+                    ]
+                }} />}
             <main className="h-full w-full bg-white overflow-hidden">
                 <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24">
                     <div className="flex flex-col">
