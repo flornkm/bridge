@@ -212,7 +212,7 @@ export default function Published() {
     }
 
     return (
-        data && (<>
+        data ? (<>
             <NextSeo
                 title={data && data.name}
                 description="Test"
@@ -233,11 +233,6 @@ export default function Published() {
             <main className="h-full w-full bg-white overflow-hidden">
                 <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24">
                     <div className="flex flex-col">
-                        {!data && (
-                            <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-6 bg-white overflow-hidden rounded-lg">
-                                <div className="h-16 w-16 relative rounded-full ring-8 ring-purple-500 z-0 animate-spin"> <div className="absolute -left-4 -top-4 bg-white z-10 h-12 w-12 transition-all" /> </div>
-                            </div>
-                        )}
                         {data && data.content !== undefined && (
                             data.content.map((items, index) => {
                                 return (
@@ -333,12 +328,11 @@ export default function Published() {
                                 )
                             })
                         )}
-                        {!data || data.content === undefined && (
+                        {!data.name && (
                             <div className="w-full h-full flex items-center justify-center">
                                 <h1 className="text-2xl font-semibold text-black">Project not found</h1>
                             </div>
-                        )
-                        }
+                        )}
                     </div>
                 </div>
                 <Link href="/" className="focus:ring-purple-400 focus:ring-1 focus:outline-none flex gap-3 items-center m-auto w-40 mb-16 justify-center text-xs px-3 py-1.5 font-medium bg-purple-100 ring-1 ring-purple-200 active:scale-95 active:shadow-none hover:shadow-purple-100 hover:bg-purple-50 transition-all rounded-md text-purple-500 shadow-lg shadow-purple-200">
@@ -346,6 +340,10 @@ export default function Published() {
                     Made with Bridge
                 </Link>
             </main>
-        </>)
+        </>) : !data && (
+            <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-6 bg-white overflow-hidden rounded-lg">
+                <div className="h-16 w-16 relative rounded-full ring-8 ring-purple-500 z-0 animate-spin"> <div className="absolute -left-4 -top-4 bg-white z-10 h-12 w-12 transition-all" /> </div>
+            </div>
+        )
     )
 }
