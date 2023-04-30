@@ -1,11 +1,11 @@
 import { ImageResponse } from '@vercel/og';
-import Image from 'next/image';
+import { NextRequest } from 'next/server';
 
 export const config = {
     runtime: 'edge',
 };
 
-export default async function handler(request) {
+export default async function handler(request = new NextRequest()) {
     const { searchParams } = request.nextUrl;
 
     const title = searchParams.get('title');
@@ -77,7 +77,6 @@ export default async function handler(request) {
                         display: 'flex',
                         top: 312,
                         left: 256,
-                        zIndex: 10,
                     }}
                     >
                         <svg
@@ -119,7 +118,6 @@ export default async function handler(request) {
                             marginTop: 32,
                             borderRadius: 16,
                             position: "relative",
-                            zIndex: 1,
                         }}
                     >
                         Start
