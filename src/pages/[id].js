@@ -229,7 +229,7 @@ export default function Published() {
                 />
                 {data && <meta
                     property="og:image"
-                    content={`/api/og?title=${data.name}&text=Build with Bridge`}
+                    content={`https://bridge.supply/api/og?title=${data.name}&text=${data.type}`}
                 />}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:site" content="@floriandwt" />

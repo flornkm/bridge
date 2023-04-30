@@ -11,8 +11,8 @@ export default async function handler(request) {
     const title = searchParams.get('title');
     const text = searchParams.get('text');
 
-    if (!title) {
-        return new ImageResponse(<>Visit with &quot;?text=example&quot;</>, {
+    if (!title || !text) {
+        return new ImageResponse(<>Visit with &quot;?title=example&quot;&amp;&quot;text=example&quot;</>, {
             width: 1200,
             height: 630,
         });
@@ -38,7 +38,7 @@ export default async function handler(request) {
                     style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 16,
+                        gap: 4,
                         justifyItems: 'center',
                         alignItems: 'flex-start',
                         position: 'absolute',
@@ -57,20 +57,20 @@ export default async function handler(request) {
                 >
                     <p
                         style={{
-                            fontSize: 56,
+                            fontSize: 48,
                             borderRadius: 24,
                             margin: 0,
                             color: 'black',
                         }}
-                    >{text}</p>
-                    {projectTitle && <p
+                    >{title}</p>
+                    {title && <p
                         style={{
                             fontSize: 40,
                             borderRadius: 24,
                             margin: 0,
                             color: 'gray',
                         }}
-                    >{projectTitle}</p>}
+                    >{text}</p>}
                     <div style={{
                         position: 'absolute',
                         transform: 'scale(2)',
@@ -117,6 +117,7 @@ export default async function handler(request) {
                             fontSize: 32,
                             color: "white",
                             marginTop: 32,
+                            borderRadius: 16,
                             position: "relative",
                             zIndex: 1,
                         }}
