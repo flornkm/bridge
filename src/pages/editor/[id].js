@@ -260,7 +260,7 @@ export default function Editor(props) {
           />
           <meta
             property="og:image"
-            content="/images/bridge_opengraph.jpg"
+            content={`/api/og?title=${project.name}&text=Build with Bridge`}
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@floriandwt" />
@@ -353,7 +353,7 @@ export default function Editor(props) {
               <Popover className="relative">
                 <Popover.Button className="font-medium text-base h-10 w-10 justify-center rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
                   <Icon.Plus size={24} weight="bold" />
-                  </Popover.Button>
+                </Popover.Button>
 
                 <Popover.Panel className="absolute bottom-0 translate-y-[-72px] rounded-md bg-white ring-1 ring-neutral-200 p-1 w-40" >
                   <div className="flex gap-2 items-center justify-left cursor-pointer hover:bg-neutral-100 pr-3 pl-2 py-1 rounded-md" onClick={() => {
