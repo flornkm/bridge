@@ -212,9 +212,9 @@ export default function Published() {
     }
 
     return (
-        <>
-            {data && <NextSeo
-                title={data.name}
+        data && (<>
+            <NextSeo
+                title={data && data.name}
                 description="Test"
                 twitter={{
                     handle: '@bridgesupply', site: '@bridgsupply',
@@ -227,10 +227,9 @@ export default function Published() {
                         {
                             url: `https://bridge.supply/api/og?title=${data.name}&text=test`,
                             width: 1200, height: 600, alt: "Bridge Supply",
-
                         }
                     ]
-                }} />}
+                }} />
             <main className="h-full w-full bg-white overflow-hidden">
                 <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24">
                     <div className="flex flex-col">
@@ -347,6 +346,6 @@ export default function Published() {
                     Made with Bridge
                 </Link>
             </main>
-        </>
+        </>)
     )
 }
