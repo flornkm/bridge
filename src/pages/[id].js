@@ -227,13 +227,9 @@ export default function Published() {
                     property="og:description"
                     content="Bridge is a tool that allows you to create interactive elements for your website."
                 />
-                {data ? <meta
+                {data && <meta
                     property="og:image"
                     content={"https://bridge.supply/api/og?title=" + encodeURIComponent(data.name) + "&text=" + encodeURIComponent(data.type)}
-                /> : 
-                <meta
-                    property="og:image"
-                    content={"https://bridge.supply/api/og?title=Bridge&text=Use Bridge now"}
                 />}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:site" content="@floriandwt" />
