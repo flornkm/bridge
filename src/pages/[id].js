@@ -231,7 +231,7 @@ export default function Published() {
                     ]
                 }}
             /> : <NextSeo
-                title="Bridge Supply"
+                title="Your Chance!"
                 description="Visit this site to continue"
                 openGraph={{
                     type: 'website', url: "bridge.supply", title: "Bridge Supply",

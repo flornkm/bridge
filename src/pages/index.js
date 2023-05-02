@@ -2,7 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useInView } from 'react-intersection-observer';
-import { useRef, useEffect, useState, useCallback, Fragment } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import * as Icon from "phosphor-react";
 import {
     DndContext,
@@ -16,6 +17,7 @@ import {
     KeyboardSensor,
     sortableKeyboardCoordinates,
 } from "@dnd-kit/core";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { Menu, Transition } from "@headlessui/react";
 import {
     arrayMove,
@@ -456,6 +458,34 @@ export default function Home() {
                                                 );
                                             })}
                                         </SortableContext>
+                                        {document && createPortal(
+                                            <DragOverlay
+                                                modifiers={[restrictToWindowEdges]}
+                                                zIndex={39}
+                                                dropAnimation={{
+                                                    duration: 100,
+                                                    easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
+                                                }}
+                                            >
+                                                {activeId ? (
+                                                    <div
+                                                        className={"ring-1 ring-neutral-200 shadow-xl scale-[1.01] transition-all"}
+                                                        style={{
+                                                            background: "white", borderRadius: "16px",
+                                                        }}>
+                                                        <SortableItem
+                                                            id={activeId}
+                                                            index={items.findIndex((item) => item.id === activeId)}
+                                                            items={items.find((item) => item.id === activeId)}
+                                                            setItems={setItems}
+                                                            className={"bg-transparent text-base flex gap-4 items-center"}
+                                                            landingpage="true"
+                                                        />
+                                                    </div>
+                                                ) : null}
+                                            </DragOverlay>,
+                                            document.body,
+                                        )}
                                     </DndContext>
                                 </div>
                             </div>
@@ -696,38 +726,38 @@ export default function Home() {
                                     className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Start for free</button>
                             </div>
                             <div className="col-span-2 relative">
-                            <div className="p-10 bg-white bg-opacity-50 ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-neutral-100 hover:bg-opacity-50 group">
-                                <div className="bg-purple-500 rounded-full absolute -top-3 -right-3 px-2 py-1 text-sm flex items-center gap-2 text-white font-medium group-hover:scale-105 transition-all group-hover:rotate-1">
-                                    <Icon.StarFour size={12} weight="fill" />
-                                    Popular
+                                <div className="p-10 bg-white bg-opacity-50 ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-neutral-100 hover:bg-opacity-50 group">
+                                    <div className="bg-purple-500 rounded-full absolute -top-3 -right-3 px-2 py-1 text-sm flex items-center gap-2 text-white font-medium group-hover:scale-105 transition-all group-hover:rotate-1">
+                                        <Icon.StarFour size={12} weight="fill" />
+                                        Popular
+                                    </div>
+                                    <h3 className="text-2xl font-medium text-black mb-8">Pro</h3>
+                                    <div className="flex flex-col gap-4 mb-16">
+                                        <div className="flex items-center gap-2 font-medium">
+                                            <Icon.Check size={20} weight="bold" />
+                                            Create up to 10 projects
+                                        </div>
+                                        <div className="flex items-center gap-2 font-medium">
+                                            <Icon.Check size={20} weight="bold" />
+                                            Support within 24 hours
+                                        </div>
+                                        <div className="flex items-center gap-2 font-medium">
+                                            <Icon.Check size={20} weight="bold" />
+                                            Connect a custom domain
+                                        </div>
+                                        <div className="flex items-center gap-2 font-medium">
+                                            <Icon.Check size={20} weight="bold" />
+                                            Full feature support
+                                        </div>
+                                    </div>
+                                    <p className="text-3xl font-semibold mb-6">49 € <span className="text-lg">/m</span></p>
+                                    <button
+                                        onClick={() => {
+                                            router.push('/login')
+                                        }}
+                                        className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Subscribe to Pro</button>
                                 </div>
-                                <h3 className="text-2xl font-medium text-black mb-8">Pro</h3>
-                                <div className="flex flex-col gap-4 mb-16">
-                                    <div className="flex items-center gap-2 font-medium">
-                                        <Icon.Check size={20} weight="bold" />
-                                        Create up to 10 projects
-                                    </div>
-                                    <div className="flex items-center gap-2 font-medium">
-                                        <Icon.Check size={20} weight="bold" />
-                                        Support within 24 hours
-                                    </div>
-                                    <div className="flex items-center gap-2 font-medium">
-                                        <Icon.Check size={20} weight="bold" />
-                                        Connect a custom domain
-                                    </div>
-                                    <div className="flex items-center gap-2 font-medium">
-                                        <Icon.Check size={20} weight="bold" />
-                                        Full feature support
-                                    </div>
-                                </div>
-                                <p className="text-3xl font-semibold mb-6">49 € <span className="text-lg">/m</span></p>
-                                <button
-                                    onClick={() => {
-                                        router.push('/login')
-                                    }}
-                                    className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Subscribe to Pro</button>
-                            </div>
-                            <div className="w-96 h-96 absolute z-10 pointer-events-none -right-40 top-16 bg-[url('/images/general/background_artwork_pricing.svg')] bg-cover bg-no-repeat bg-center max-lg:hidden" />
+                                <div className="w-96 h-96 absolute z-10 pointer-events-none -right-40 top-16 bg-[url('/images/general/background_artwork_pricing.svg')] bg-cover bg-no-repeat bg-center max-lg:hidden" />
                             </div>
                             <div className="relative">
                             </div>
