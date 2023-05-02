@@ -458,7 +458,7 @@ export default function Home() {
                                                 );
                                             })}
                                         </SortableContext>
-                                        {document && createPortal(
+                                        {/* {document && createPortal(
                                             <DragOverlay
                                                 modifiers={[restrictToWindowEdges]}
                                                 zIndex={39}
@@ -485,7 +485,7 @@ export default function Home() {
                                                 ) : null}
                                             </DragOverlay>,
                                             document.body,
-                                        )}
+                                        )} */}
                                     </DndContext>
                                 </div>
                             </div>
