@@ -30,6 +30,7 @@ import RiveComponent from '@rive-app/react-canvas';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Link from "next/link";
 import WaitList from "@/components/Waitlist";
+import Item from "@/layout/Item";
 
 export default function Home() {
     const cursor = useRef(null);
@@ -302,7 +303,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Bridge - Hiring talent with joy</title>
+                <title>Bridge - Hire talents with joy</title>
                 <meta
                     name="description"
                     content="Hiring talent with joy"
@@ -458,34 +459,36 @@ export default function Home() {
                                                 );
                                             })}
                                         </SortableContext>
-                                        {/* {document && createPortal(
-                                            <DragOverlay
-                                                modifiers={[restrictToWindowEdges]}
-                                                zIndex={39}
-                                                dropAnimation={{
-                                                    duration: 100,
-                                                    easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
-                                                }}
-                                            >
-                                                {activeId ? (
-                                                    <div
-                                                        className={"ring-1 ring-neutral-200 shadow-xl scale-[1.01] transition-all"}
-                                                        style={{
-                                                            background: "white", borderRadius: "16px",
-                                                        }}>
-                                                        <SortableItem
-                                                            id={activeId}
-                                                            index={items.findIndex((item) => item.id === activeId)}
-                                                            items={items.find((item) => item.id === activeId)}
-                                                            setItems={setItems}
-                                                            className={"bg-transparent text-base flex gap-4 items-center"}
-                                                            landingpage="true"
-                                                        />
-                                                    </div>
-                                                ) : null}
-                                            </DragOverlay>,
-                                            document.body,
-                                        )} */}
+                                        {typeof document !== 'undefined' && (
+                                            document.body && createPortal(
+                                                <DragOverlay
+                                                    modifiers={[restrictToWindowEdges]}
+                                                    zIndex={39}
+                                                    dropAnimation={{
+                                                        duration: 100,
+                                                        easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
+                                                    }}
+                                                >
+                                                    {activeId ? (
+                                                        <div
+                                                            className={"scale-[1.01] transition-all"}
+                                                            style={{
+                                                                background: "white", borderRadius: "16px",
+                                                            }}>
+                                                            <Item
+                                                                id={activeId}
+                                                                index={items.findIndex((item) => item.id === activeId)}
+                                                                items={items.find((item) => item.id === activeId)}
+                                                                setItems={setItems}
+                                                                className={"bg-transparent text-base flex gap-4 items-center"}
+                                                                landingpage="true"
+                                                            />
+                                                        </div>
+                                                    ) : null}
+                                                </DragOverlay>,
+                                                document.body,
+                                            )
+                                        )}
                                     </DndContext>
                                 </div>
                             </div>

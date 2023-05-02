@@ -8,9 +8,20 @@
   text-shadow: 0 0 10px #FFFFFF, 0px 0px 10px #FFFFFF;
 }
 
-a, button, input, textarea, select, .btn {
+a, button, select, .btn {
   outline-color: #60A5FA;
   outline-offset: 2px;
+}
+
+input, textarea {
+  outline-color: #60A5FA33;
+  outline-width: medium;
+  outline-offset: 2px;
+  box-sizing: border-box;
+}
+
+input:focus, textarea:focus {
+  border-color: #60A5FA;
 }
 
 .twitter-picker > div > span > div {

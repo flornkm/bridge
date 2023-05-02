@@ -50,7 +50,7 @@ function ProjectSetup(props) {
                                         type="text"
                                         required={true}
                                         value={project.name}
-                                        className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-2"
+                                        className="w-full border border-neutral-200 rounded-lg p-2 col-span-2"
                                         onChange={(e) => {
                                             setProject({ ...project, name: e.target.value })
                                         }}
@@ -63,7 +63,7 @@ function ProjectSetup(props) {
                                             onClick={() => {
                                                 props.closeSetup();
                                             }}
-                                            className="font-medium px-3 py-2 rounded-lg border border-neutral-200 bg-white text-black transition-all outline-gray-300 hover:bg-neutral-50 w-full focus:outline-gray-300">
+                                            className="font-medium px-3 py-2 rounded-lg border border-neutral-200 bg-white text-black transition-all hover:bg-neutral-50 w-full">
                                             Cancel
                                         </button>
                                     </div>
@@ -73,7 +73,7 @@ function ProjectSetup(props) {
                                                 props.createProject(project);
                                                 project.name = '';
                                             }}
-                                            className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full focus:outline-gray-300">
+                                            className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full">
                                             Create
                                         </button>
                                     </div>

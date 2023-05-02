@@ -40,8 +40,13 @@ const Item = forwardRef(
 
     return (
       <div ref={ref} style={inlineStyles} {...props} className={"flex flex-col outline-gray-300 " + (!props.landingpage && "relative max-md:my-4 max-md:p-4 border border-transparent group/info md:p-8 rounded-2xl transition-colors cursor-grab") + (withOpacity && " pointer-events-none")}>
-        {withOpacity && (
+        {withOpacity && !props.landingpage && (
           <div className="absolute top-0 left-0 w-full h-full bg-neutral-100 rounded-2xl z-50" />
+        )}
+        {withOpacity && props.landingpage && (
+          <div className="absolute top-0 left-0 w-full h-full bg-white">
+            <div className="w-full h-full bg-neutral-100 rounded-lg overflow-hidden z-50" />
+          </div>
         )}
         {!props.landingpage && !isDragging && (
           <div className="absolute top-0 right-8 opacity-0 group-hover/info:opacity-100 transition-all text-neutral-300 italic max-md:hidden">
@@ -55,7 +60,7 @@ const Item = forwardRef(
               <p className="text-gray-500">Order differently</p>
             </div>
           ) : (
-            <div className="bg-violet-500 text-white font-medium py-2 pl-3 pr-4 rounded-lg transition-all hover:opacity-90 cursor-grab flex gap-4 items-center">
+            <div className="bg-violet-500 text-white font-medium py-2 pl-3 pr-4 rounded-lg transition-all cursor-grab flex gap-4 items-center">
               <Icon.Check size={32} weight="fill" />
               Apply
             </div>
