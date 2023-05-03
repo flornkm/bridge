@@ -333,8 +333,8 @@ function Dashboard(props) {
               <div className="flex w-full justify-between gap-4 items-center">
                 <div className="truncate">
                   <h1 className="text-lg font-medium mb-2">{project.name}</h1>
-                  <Link target="_blank" href={"/" + project.owner + project.id} className="text-xs text-gray-500 relative z-10 hover:text-black" >
-                    https://bridge.supply/{project.owner + project.id}
+                  <Link target="_blank" href={"/" + project.name.toLowerCase() + "-" + project.id} className="text-xs text-gray-500 relative z-10 hover:text-black" >
+                    https://bridge.supply/{project.name.toLowerCase() + "-" + project.id}
                   </Link>
                 </div>
                 <div>

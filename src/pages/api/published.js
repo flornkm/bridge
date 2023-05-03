@@ -1,11 +1,12 @@
 import supabase from "../../supabase";
 
 export default async function handler(req, res) {
-    if (req.query.owner) {
+    if (req.query.name) {
         const { data, error } = await supabase
             .from("published")
             .select("*")
-            .eq("owner", req.query.owner)
+            .ilike("name", `%${req.query.name}%`)
+            // .eq("name", req.query.name.toLowerCase())
             .eq("id", req.query.id)
             .single();
 

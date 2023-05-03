@@ -36,10 +36,10 @@ export default function Published() {
 
     useEffect(() => {
         if (id) {
-            const ownerId = id.substring(0, 36);
-            const projNum = id.substring(36);
+            let name = id.substring(0, id.indexOf('-'));
+            let projNum = id.substring(id.indexOf('-') + 1);
 
-            fetch(`/api/published?owner=${ownerId}&id=${projNum}`, {
+            fetch(`/api/published?name=${name}&id=${projNum}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -213,33 +213,16 @@ export default function Published() {
 
     return (
         <>
-            {data ? <NextSeo
-                title={data.name}
-                description={data.content[0].content[1].content}
-                twitter={{
-                    handle: '@bridgesupply', site: '@bridgsupply',
-                    cardType: 'summary_large_image'
-                }}
-                openGraph={{
-                    type: 'website', url: "bridge.supply", title: data.name,
-                    description: data.content[0].content[1].content,
-                    images: [
-                        {
-                            url: `https://bridge.supply/api/og?title=${data.name}&text=test`,
-                            width: 1200, height: 600, alt: "Bridge Supply",
-                        }
-                    ]
-                }}
-            /> : <NextSeo
-                title="Your Chance!"
+            {id && <NextSeo
+                title={data && data.name ? data.name : id.substring(0, id.indexOf('-'))}
                 description="Visit this site to continue"
                 openGraph={{
-                    type: 'website', url: "bridge.supply", title: "Bridge Supply",
+                    type: 'website', url: "bridge.supply", title: id.substring(0, id.indexOf('-')),
                     description: "Visit this site to continue",
                     images: [
                         {
-                            url: `https://bridge.supply/api/og?title=Your%20Chance!&text=Visit%20this%20site%20to%20continue`,
-                            width: 1200, height: 600, alt: "Bridge Supply",
+                            url: `https://bridge.supply/api/og?title=${id.substring(0, id.indexOf('-'))}&text=Visit%20this%20site%20to%20continue`,
+                            width: 1200, height: 600, alt: id.substring(0, id.indexOf('-')),
                         }
                     ]
                 }}

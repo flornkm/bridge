@@ -108,10 +108,10 @@ export default function Published() {
                 <h1 className="text-lg font-medium">Dashboard</h1>
               </div>
             </div>
-           {session && router.query.id && <Link target="_blank" href={"/" + session.user.id + router.query.id.replace(session.user.id, '')} className="px-4 truncate py-2 text-gray-600 hover:text-black bg-white ring-1 ring-neutral-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-w-screen">
+           {/* {session && router.query.id && <Link target="_blank" href={"/" + session.user.id + router.query.id.replace(session.user.id, '')} className="px-4 truncate py-2 text-gray-600 hover:text-black bg-white ring-1 ring-neutral-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-w-screen">
                 <Icon.Link size={20} />
                 {"bridge.supply/" + session.user.id + router.query.id.replace(session.user.id, '')}
-              </Link>}
+              </Link>} */}
             <div className="flex gap-6 items-stretch relative">
               <div className="bg-neutral-100 ring-1 ring-neutral-200 rounded-full">
                 {!avatar ? (
