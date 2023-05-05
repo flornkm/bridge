@@ -533,7 +533,7 @@ export default function Home() {
                                 </div>}
                             </div>
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden h-96">
-                                <h3 className="text-black font-semibold md:text-2xl max-md:text-xl flex gap-4 items-center">Connect with canditates
+                                <h3 className="text-black font-semibold md:text-2xl max-md:text-xl flex gap-4 items-center">Connect with candidates
                                 </h3>
                                 <div className="w-full flex justify-between h-full items-center md:gap-4">
                                     <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-neutral-200 relative max-md:z-20" unoptimized={true} />
