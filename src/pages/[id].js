@@ -213,20 +213,20 @@ export default function Published() {
 
     return (
         <>
-            <NextSeo
-                title={data && data.name ? data.name : router.query.substring(0, id.indexOf('-'))}
+            {id && <NextSeo
+                title={data && data.name ? data.name : id.substring(0, id.indexOf('-'))}
                 description="Visit this site to continue"
                 openGraph={{
-                    type: 'website', url: "bridge.supply", title: router.query.substring(0, id.indexOf('-')),
+                    type: 'website', url: "bridge.supply", title: id.substring(0, id.indexOf('-')),
                     description: "Visit this site to continue",
                     images: [
                         {
-                            url: `https://bridge.supply/api/og?title=${router.query.substring(0, router.query.indexOf('-'))}&text=Visit%20this%20site%20to%20continue`,
-                            width: 1200, height: 600, alt: router.query.substring(0, router.query.indexOf('-')),
+                            url: `https://bridge.supply/api/og?title=${id.substring(0, id.indexOf('-'))}&text=Visit%20this%20site%20to%20continue`,
+                            width: 1200, height: 600, alt: id.substring(0, id.indexOf('-')),
                         }
                     ]
                 }}
-            />
+            />}
             <main className="h-full w-full bg-white overflow-hidden">
                 <div className="max-md:w-[90%] min-h-screen w-full max-w-7xl md:pl-[15%] md:pr-[15%] m-auto pb-16 bg-white pt-24">
                     <div className="flex flex-col">

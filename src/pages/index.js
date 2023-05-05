@@ -430,8 +430,12 @@ export default function Home() {
                     </div>
                     <div className="min-h-64 pt-24">
                         <div className="w-full flex justify-center flex-col md:items-center gap-3 mb-16">
-                            <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Features that&apos;ll make you fast <Icon.FastForward weight="fill" className="text-violet-900" /></h2>
-                            <p className="text-gray-500 text-xl font-medium">Built around users and their needs</p>
+                            <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Features that&apos;ll make you even faster 
+                            {/* <Icon.FastForward weight="fill" className="text-violet-500" /> */}
+                            </h2>
+                            <p className="text-gray-500 text-xl font-medium">
+                                Maximize your efficiency without sacrificing the user experience.
+                            </p>
                         </div>
                         <div className="grid grid-cols-3 gap-4 max-md:grid-cols-1">
                             <div className="flex flex-col gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden relative h-96">
