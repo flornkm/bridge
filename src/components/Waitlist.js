@@ -169,7 +169,7 @@ function WaitList(props) {
                                                 id="name"
                                                 type="text"
                                                 value={data.name}
-                                                className="group-hover:border-neutral-300 w-full border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
+                                                className="w-full border brdg-border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-none"
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
                                             {error.name && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
@@ -187,7 +187,7 @@ function WaitList(props) {
                                                 id="name"
                                                 type="text"
                                                 value={data.email}
-                                                className="group-hover:border-neutral-300 w-full border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-gray-300"
+                                                className="w-full border brdg-border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-none"
                                                 onChange={(e) => setData({ ...data, email: e.target.value })}
                                             />
                                             {error.email && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
@@ -198,7 +198,7 @@ function WaitList(props) {
                                             </div>}
                                         </div>
                                         <div className="h-4" />
-                                        <div className="group w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg relative" tabIndex={0} onKeyDown={(event) => {
+                                        <div className="group w-full flex items-center gap-4 cursor-pointer focus:outline-[#60A5FA] focus:outline-offset-8 rounded-lg relative" tabIndex={0} onKeyDown={(event) => {
                                             if (event.keyCode === 13) {
                                                 termsClick();
                                             }
@@ -218,7 +218,7 @@ function WaitList(props) {
                                             </div>}
                                         </div>
 
-                                        <div className="group w-full flex items-center gap-4 cursor-pointer focus:outline-gray-300 focus:outline-offset-8 rounded-lg" tabIndex={0} onKeyDown={(event) => {
+                                        <div className="group w-full flex items-center gap-4 cursor-pointer focus:outline-[#60A5FA] focus:outline-offset-8 rounded-lg" tabIndex={0} onKeyDown={(event) => {
                                             if (event.keyCode === 13) {
                                                 showcaseClick();
                                             }
@@ -238,14 +238,14 @@ function WaitList(props) {
                                                 onClick={() => {
                                                     props.closeModal();
                                                 }}
-                                                className="font-medium px-3 py-2 rounded-lg ring-1 ring-neutral-200 bg-white text-black transition-all outline-gray-300 hover:bg-neutral-50 w-full focus:outline-gray-300">
+                                                className="font-medium px-3 py-2 rounded-lg ring-1 ring-neutral-200 bg-white text-black transition-all hover:bg-neutral-50 w-full">
                                                 Cancel
                                             </button>
                                         </div>
                                         <div className="w-full">
                                             <button
                                                 onClick={handleSubmit}
-                                                className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full focus:outline-gray-300">
+                                                className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full">
                                                 Sign up
                                             </button>
                                         </div>
