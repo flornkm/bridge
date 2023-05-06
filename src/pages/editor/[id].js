@@ -271,7 +271,7 @@ export default function Editor(props) {
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div className={"w-screen h-screen bg-neutral-50 bg-cover bg-center " + (project.type === "cookieBanner" && "bg-[url('/images/editor/canvas.svg')]")}>
+        <div className={"w-screen h-screen overflow-x-hidden bg-neutral-50 bg-cover bg-center " + (project.type === "cookieBanner" && "bg-[url('/images/editor/canvas.svg')]")}>
           <div className="w-full bg-white py-6 fixed top-0 border-b border-b-neutral-200 z-40">
             <div className="max-w-[80%] w-full mx-auto justify-between flex items-center">
               <div className="flex gap-10 items-center">
@@ -312,6 +312,7 @@ export default function Editor(props) {
               </div>
             </div>
           </div>
+          <div className="bg-neutral-50 pt-40 w-full flex justify-center">
           {project && project.type === "cookieBanner" && (
             <CookieBanner
               data={project}
@@ -858,6 +859,7 @@ export default function Editor(props) {
             </>
           }
         />
+        </div>
       </>
     )
   );

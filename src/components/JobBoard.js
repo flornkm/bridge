@@ -167,7 +167,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
   }, []);
 
   return (
-    <div className="absolute top-[20%] left-[50%] h-fit translate-x-[-50%] flex gap-10 justify-between md:p-24 max-md:p-4 bg-white ring-1 ring-neutral-200 rounded-t-2xl max-md:pb-64 md:max-w-[80%] w-full shadow-lg pb-96 flex-col">
+    <div className="flex gap-10 justify-between lg:p-24 max-md:p-4 bg-white ring-1 ring-neutral-200 rounded-t-2xl max-md:pb-64 md:w-[80%] w-full shadow-lg flex-col">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
