@@ -263,7 +263,7 @@ export default function Published() {
                                                             </span>}
                                                         </div>
                                                         <div className="relative">
-                                                            <input required={item.required} className={"border border-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full  "}
+                                                            <input required={item.required} className={"border border-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full brdg-border "}
                                                                 style={{ color: data.colors.text }}
                                                                 placeholder={item.content}
                                                                 name={item.label}
@@ -289,23 +289,32 @@ export default function Published() {
                                                                 Required
                                                             </span>}
                                                         </div>
-                                                        <label style={{ backgroundColor: data.colors.primaryButton }} className={"text-white mb-1 font-medium rounded-xl max-md:w-full justify-center py-4 px-6 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative focus:outline-gray-500"} for={index}>
+                                                        <label
+                                                            htmlFor={index}
+                                                            style={{ backgroundColor: data.colors.primaryButton }}
+                                                            className={"text-white mb-1 font-medium focus:outline-[#60A5FA] outline-none outline-offset-0 rounded-xl max-md:w-full justify-center py-4 px-6 hover:opacity-90 transition-all cursor-pointer items-center flex gap-2 relative"}>
                                                             <Icon.Paperclip size={22} className="inline-block" />
                                                             {item.content}
                                                         </label>
 
                                                         <div className="md:flex w-full justify-between items-center flex-wrap">
-                                                            <input required={item.required}
+                                                            <input
+                                                                onmousedown={(e) => e.preventDefault()}
+                                                                required={item.required}
                                                                 style={{ color: data.colors.text }}
-                                                                className={"file:hidden rounded-lg py-1.5 px-3  "}
-                                                                type="file" id={index}
+                                                                className={"file:hidden rounded-lg py-1.5 px-3"}
+                                                                type="file"
+                                                                id={index}
                                                                 name={item.label}
                                                                 onChange={handleInputChange}
                                                                 accept="application/pdf"
+                                                                readOnly={true}
                                                             />
-                                                            {error && error[item.label] && <div className="text-xs text-red-500 relative pointer-events-none px-2">
-                                                                <p className="relative z-10">{error[item.label]}</p>
-                                                            </div>}
+                                                            {error && error[item.label] &&
+                                                                <div className="text-xs text-red-500 relative pointer-events-none px-2">
+                                                                    <p className="relative z-10">{error[item.label]}</p>
+                                                                </div>
+                                                            }
                                                         </div>
                                                     </div>
                                                 )

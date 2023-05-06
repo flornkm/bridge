@@ -11,6 +11,9 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    // borderWidth: {
+    //   DEFAULT: '1.5px',
+    // },
     extend: {},
     fontFamily: {
       sans: ['var(--inter-font)', ...fontFamily.sans],

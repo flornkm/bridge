@@ -98,7 +98,7 @@ export default function Account({ session, setSettings, avatar_url, setAvatarUrl
             id="username"
             type="text"
             value={username || ""}
-            className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-2"
+            className="w-full border border-neutral-200 rounded-lg p-2 col-span-2"
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -110,7 +110,7 @@ export default function Account({ session, setSettings, avatar_url, setAvatarUrl
             id="website"
             type="website"
             value={website || ""}
-            className="w-full ring-1 ring-neutral-200 rounded-lg p-2 col-span-2"
+            className="w-full border border-neutral-200 rounded-lg p-2 col-span-2"
             onChange={(e) => setWebsite(e.target.value)}
           />
         </div>

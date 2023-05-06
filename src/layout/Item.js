@@ -77,7 +77,7 @@ const Item = forwardRef(
                 onBlur={props.handleBlur}
                 type="text"
                 value={item.content}
-                className="text-4xl font-semibold w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1 mb-4"
+                className="text-4xl font-semibold w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1 mb-4 outline-none focus:border-none focus:shadow-none"
                 style={{ color: props.colors.heading }}
               />
             )
@@ -92,7 +92,7 @@ const Item = forwardRef(
                   onBlur={props.handleBlur}
                   type="text"
                   value={item.content}
-                  className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
+                  className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1 outline-none focus:border-none focus:shadow-none"
                   style={{ color: props.colors.text }}
                 />
                 {id !== 1 && <div className="h-full flex max-md:absolute max-md:bottom-0 max-md:right-0 max-md:h-10">
@@ -142,7 +142,7 @@ const Item = forwardRef(
                   onBlur={props.handleBlur}
                   type="text"
                   value={item.content}
-                  className="text-lg flex gap-4 h-full items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1"
+                  className="text-lg flex gap-4 h-full items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1 brdg-border focus:shadow-none border-none focus:border-none"
                   style={{ color: props.colors.text }}
                 />
                 {id !== 1 && <div className="h-full flex items-center max-md:absolute max-md:bottom-0 max-md:right-0 max-md:h-10">
@@ -213,7 +213,7 @@ const Item = forwardRef(
                       onBlur={props.handleBlur}
                       type="text"
                       value={item.label}
-                      className="text-base flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1.5 py-1"
+                      className="text-base flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1.5 py-1 focus:shadow-none focus:border-none outline-none"
                       style={{ color: props.colors.label }}
                     />
                   </div>
@@ -224,7 +224,7 @@ const Item = forwardRef(
                     onBlur={props.handleBlur}
                     type="text"
                     value={item.content}
-                    className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-3 py-2 ring-1 ring-neutral-200"
+                    className="text-lg flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md px-4 py-3 focus:bg-neutral-100 border border-neutral-200 focus:shadow-none focus:border-neutral-200 outline-none brdg-border"
                     style={{ color: props.colors.text }}
                   />
                 </div>
@@ -294,7 +294,7 @@ const Item = forwardRef(
                       onBlur={props.handleBlur}
                       type="text"
                       value={item.label}
-                      className="text-base flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1.5 py-1"
+                      className="text-base flex gap-4 items-center w-full bg-transparent focus:outline-none bg-opacity-0 transition-all rounded-md focus:bg-neutral-100 px-1.5 py-1 outline-none focus:border-none focus:shadow-none"
                       style={{ color: props.colors.label }}
                     />
                   </div>
@@ -306,7 +306,7 @@ const Item = forwardRef(
                         props.changeInput(e, id, index)
                       }}
                       onBlur={props.handleBlur}
-                      className="bg-transparent text-white font-medium transition-all focus:outline-none"
+                      className="bg-transparent text-white font-medium transition-all focus:outline-none outline-none focus:shadow-none focus:border-none"
                       style={{ width: `${item.content.length + 1}ch` }}
                     />
                   </div>
@@ -366,7 +366,7 @@ const Item = forwardRef(
                         props.changeInput(e, id, index)
                       }}
                       onBlur={props.handleBlur}
-                      className="bg-transparent text-white font-medium transition-all text-center focus:outline-none"
+                      className="bg-transparent text-white font-medium transition-all text-center focus:outline-none  outline-none focus:shadow-none focus:border-none"
                       style={{ width: `${item.content.length + 1}ch` }}
                     />
                   </div>

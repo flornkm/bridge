@@ -211,7 +211,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
           >
             {activeId ? (
               <div
-                className={"ring-1 ring-neutral-200 shadow-xl scale-[1.01] transition-all rotate-[" + rotationAngle + "deg]"}
+                className={"ring-1 ring-neutral-200 shadow-xl scale-[1.01] transition-all hover:-rotate-1"}
                 ref={rotationRect}
                 style={{
                   background: "white", borderRadius: "16px",

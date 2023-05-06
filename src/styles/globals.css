@@ -4,24 +4,29 @@
 
 /* Custom Classes */
 
+.brdg-border {
+  border-width: 1.5px;
+}
+
 .text-shadow {
   text-shadow: 0 0 10px #FFFFFF, 0px 0px 10px #FFFFFF;
 }
 
 a, button, select, .btn {
   outline-color: #60A5FA;
-  outline-offset: 2px;
+  outline-width: 1px;
+  outline-offset: 1px;
 }
 
 input, textarea {
-  outline-color: #60A5FA33;
-  outline-width: medium;
-  outline-offset: 2px;
-  box-sizing: border-box;
+  transition: box-shadow ease 0.2s;
 }
 
 input:focus, textarea:focus {
-  border-color: #60A5FA;
+  border: 1.5px solid #60A5FA;
+  outline: none;
+  box-shadow: rgba(96,165,250, 0.2) 0px 0px 0px 3px;
+
 }
 
 .twitter-picker > div > span > div {
