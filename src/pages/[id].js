@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
-import Head from 'next/head'
 import { NextSeo } from 'next-seo'
 import { useEffect, useState, useRef } from 'react';
 import * as Icon from 'phosphor-react'
@@ -16,7 +15,8 @@ export default function Published() {
     const [submitted, setSubmitted] = useState(false);
 
     const router = useRouter();
-
+    const { id } = router.query;
+    const slug = id ? id.substring(0, id.indexOf('-')) : "Project";
 
     const config = {
         angle: 90,
@@ -31,8 +31,6 @@ export default function Published() {
         perspective: "359px",
         colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
     };
-
-    const { id } = router.query;
 
     useEffect(() => {
         if (id) {
@@ -214,15 +212,15 @@ export default function Published() {
     return (
         <>
             <NextSeo
-                title={data && data.name ? data.name : id && id.substring(0, id.indexOf('-'))}
+                title={data && data.name ? data.name : slug}
                 description="Visit this site to continue"
                 openGraph={{
-                    type: 'website', url: "bridge.supply", title: id && id.substring(0, id.indexOf('-')),
+                    type: 'website', url: "bridge.supply", title: slug,
                     description: "Visit this site to continue",
                     images: [
                         {
-                            url: id && `https://bridge.supply/api/og?title=${id && id.substring(0, id.indexOf('-'))}&text=Visit%20this%20site%20to%20continue`,
-                            width: 1200, height: 600, alt: id && id.substring(0, id.indexOf('-')),
+                            url: `https://bridge.supply/api/og?title=${slug}&text=Visit%20this%20site%20to%20continue`,
+                            width: 1200, height: 600, alt: slug,
                         }
                     ]
                 }}
