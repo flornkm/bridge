@@ -261,7 +261,9 @@ export default function Published() {
                                                             </span>}
                                                         </div>
                                                         <div className="relative">
-                                                            <input required={item.required} className={"border border-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full brdg-border "}
+                                                            <input 
+                                                            required={item.required}
+                                                             className={`border border-gray-200 bg-gray-50 rounded-md px-4 py-3 w-full brdg-border focus:border-[${data.colors.primaryButton}] `}
                                                                 style={{ color: data.colors.text }}
                                                                 placeholder={item.content}
                                                                 name={item.label}

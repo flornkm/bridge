@@ -430,8 +430,8 @@ export default function Home() {
                     </div>
                     <div className="min-h-64 pt-24">
                         <div className="w-full flex justify-center flex-col md:items-center gap-3 mb-16">
-                            <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Features that&apos;ll make you even faster 
-                            {/* <Icon.FastForward weight="fill" className="text-violet-500" /> */}
+                            <h2 className="font-semibold md:text-4xl max-md:text-2xl text-black flex gap-4 items-center">Features that&apos;ll make you even faster
+                                {/* <Icon.FastForward weight="fill" className="text-violet-500" /> */}
                             </h2>
                             <p className="text-gray-500 text-xl font-medium">
                                 Maximize your efficiency without sacrificing the user experience.
@@ -589,7 +589,9 @@ export default function Home() {
                             </div>
                             <div className="sticky top-64 w-full h-auto col-span-2 flex items-center justify-center">
                                 {scrollPosition < 0.2 && (
-                                    <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[512px] w-full rounded-3xl relative -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden">
+                                    <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[60vh] w-full rounded-3xl relative -top-8 flex flex-col items-center justify-center overflow-hidden">
+                                        <div className="flex gap-16 justify-center items-start ">
+                                        <div className="flex flex-col gap-4 w-80 items-center">
                                         <p className="text-center text-white font-medium text-lg relative z-10">Elegant Colors</p>
                                         <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10">
                                             <div className="h-10 w-10 bg-white rounded-full ring-1 ring-neutral-200" />
@@ -619,10 +621,26 @@ export default function Home() {
                                             <div className="h-10 w-10 bg-blue-600 rounded-full ring-1 ring-neutral-200" />
                                             <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-neutral-200" />
                                         </div>
-                                        <Icon.Swatches size={512} weight="light" className="absolute z-0 text-purple-100 -left-32 -bottom-16 rotate-12 mix-blend-multiply max-md:hidden" />
+                                        </div>
+                                        <div className="text-white h-full items-center flex text-2xl max-lg:hidden">
+                                        +
+                                        </div>
+                                        <div className="flex flex-col gap-4 w-80 items-center max-lg:hidden h-full">
+                                        <p className="text-center text-white font-medium text-lg relative z-10">Joyful Effects</p>
+                                        <div className="bg-transparent rounded-xl flex gap-2 relative z-10 h-full w-full overflow-hidden">
+                                            <RiveComponent
+                                                src="/animations/confetti.riv"
+                                                className="w-full h-full scale-[2]"
+                                                animations={['Explosion']}
+                                                autoplay
+                                                loop={true}
+                                            />                                        
+                                            </div>
+                                        </div>
+                                        </div>
                                     </div>)}
                                 {scrollPosition > 0.2 && scrollPosition < 0.4 && entries.length > 0 && (
-                                    <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[512px] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
+                                    <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[60vh] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
                                         <p className="text-center text-white font-medium text-lg relative z-10">Manage your candidates</p>
                                         <div className="p-4 rounded-xl mx-auto bg-white w-[512px] max-w-full relative z-10">
                                             <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Latest Waitlist Entries</p>
@@ -651,17 +669,15 @@ export default function Home() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <Icon.HandPointing size={512} weight="light" className="absolute z-0 text-indigo-100 -right-32 -bottom-16 -rotate-12 mix-blend-multiply max-md:hidden" />
                                     </div>
                                 )}
                                 {scrollPosition > 0.4 && (
-                                    <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[512px] w-full rounded-3xl -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden relative">
-                                        <p className="text-white font-medium text-xl relative z-10">Most jobs publishable in</p>
-                                        <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl relative z-10">
-                                            <h4 className="text-6xl text-emerald-700 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
+                                    <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[60vh] w-full rounded-3xl -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden relative">
+                                        <p className="text-white font-medium text-xl relative z-10">Time needed</p>
+                                        <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl relative z-10 h-56 w-72 flex items-center justify-center">
+                                            <h4 className="text-6xl text-emerald-300 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
                                             <h4 className="text-6xl font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
                                         </div>
-                                        <Icon.UploadSimple size={512} weight="light" className="absolute z-0 text-emerald-200 -left-32 -bottom-16 rotate-12 mix-blend-multiply max-md:hidden" />
                                     </div>
                                 )}
                             </div>
@@ -672,23 +688,12 @@ export default function Home() {
                             <div className="flex flex-col gap-3">
                                 <h2 className="font-semibold md:text-3xl max-md:text-2xl text-black flex gap-4 items-center justify-center">Integrate in your Pipeline</h2>
                             </div>
-                            <div className="max-md:h-80 w-full flex justify-center max-md:pb-24">
-                                <RiveComponent src="/animations/bridge_explanation.riv" className="max-md:w-screen md:w-[85%] max-md:absolute max-md:translate-x-[-50%] left-[50%] aspect-video" />
-                            </div>
-                            <div className="flex flex-col gap-4 md:hidden mb-12">
-                                <h3 className="font-medium text-black">Get Applicants from</h3>
-                                <div className="flex gap-4">
-                                    <Icon.LinkedinLogo size={48} weight="fill" className="text-blue-600" />
-                                    <Icon.TwitterLogo size={48} weight="fill" className="text-blue-500" />
-                                    <Icon.Note size={48} weight="fill" className="text-black rotate-12" />
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-4 md:hidden">
-                                <h3 className="font-medium text-black">Send Applicants to</h3>
-                                <div className="flex gap-4 items-end">
-                                    <Icon.Envelope size={48} weight="fill" className="text-blue-500" />
-                                    <p className="text-xl font-medium">…</p>
-                                </div>
+                            <div className="max-md:h-80 w-full flex justify-center max-md:pb-12 max-md:pt-12">
+                                <RiveComponent
+                                    src="/animations/bridge_explanation.riv"
+                                    artboard={typeof window !== "undefined" && window.innerWidth < 768 ? "artboard_mobile" : "artboard"}
+                                    className="max-md:w-screen md:w-[85%] max-md:absolute max-md:translate-x-[-50%] left-[50%] aspect-video"
+                                />
                             </div>
                         </div>
                     </div>
