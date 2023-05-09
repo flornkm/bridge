@@ -580,16 +580,16 @@ export default function Home() {
                         <div className="h-[200vh] relative flex flex-col items-start pt-16" ref={scrollDiv}>
                             <div className="flex justify-center sticky top-6 w-full z-10 max-md:top-28">
                                 <div className="px-2 max-md:py-0.5 ring-1 ring-neutral-200 bg-white rounded-full items-center flex relative shadow-md overflow-hidden max-sm:w-full sm:gap-4 md:gap-0">
-                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center max-sm:flex-grow " + (scrollPosition < 0.2 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customizable</h3>
-                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.2 && scrollPosition < 0.4 ? "text-black" : "text-gray-400")} ref={navItems[1]}>Organisable</h3>
-                                    <h3 className={"md:px-4 md:py-4 max-md:py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.4 ? "text-black" : "text-gray-400")} ref={navItems[2]}>Super fast</h3>
+                                    <h3 className={"md:px-4 py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center max-sm:flex-grow " + (scrollPosition < 0.2 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customizable</h3>
+                                    <h3 className={"md:px-4 py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.2 && scrollPosition < 0.4 ? "text-black" : "text-gray-400")} ref={navItems[1]}>Organisable</h3>
+                                    <h3 className={"md:px-4 py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.4 ? "text-black" : "text-gray-400")} ref={navItems[2]}>Super fast</h3>
 
                                     <div className="bg-neutral-100 ring-4 ring-neutral-100 absolute top-2 bottom-2 rounded-full transition-all w-36" ref={navRect} />
                                 </div>
                             </div>
-                            <div className="sticky top-0 max-md:top-8 w-full h-auto col-span-2 flex items-center justify-center cursor-none">
+                            <div className="sticky top-0 max-md:top-8 w-full h-auto col-span-2 flex items-center justify-center">
                                 {scrollPosition < 0.2 && (
-                                    <div className="w-full h-screen flex items-center pointer-events-none">
+                                    <div className="w-full h-screen flex items-center">
                                         <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex flex-col items-center justify-center overflow-hidden">
                                             <div className="flex gap-16 justify-center items-start ">
                                                 <div className="flex flex-col gap-4 w-80 items-center">
@@ -629,21 +629,19 @@ export default function Home() {
                                                 <div className="flex flex-col gap-4 w-80 items-center max-lg:hidden h-full">
                                                     <p className="text-center text-white font-medium text-lg relative z-10">Joyful Effects</p>
                                                     <div className="bg-transparent bg-white rounded-xl flex gap-2 relative z-10 h-full w-full overflow-hidden">
-                                                        <RiveComponent
-                                                            src="/animations/confetti.riv"
-                                                            className="w-full h-full scale-[2]"
-                                                            animations={['Explosion']}
-                                                            autoplay
-                                                            loop={true}
-                                                            
-                                                        />
+                                                        {/* Confetti animating */}
+                                                        {Array.from({ length: 10 }).map((_, i) => (
+                                                            <div key={i} className="absolute w-8 h-8 rounded-md mix-blend-multiply animate-confetti" style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%`, 
+                                                            // backgroundColor with tailwind colors
+                                                            backgroundColor: ["#F87171", "#FBBF24", "#34D399", "#60A5FA", "#A78BFA", "#F472B6", "#FCD34D", "#6EE7B7", "#93C5FD", "#D1D5DB"][Math.floor(Math.random() * 10)] }} />
+                                                        ))}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>)}
                                 {scrollPosition > 0.2 && scrollPosition < 0.4 && entries.length > 0 && (
-                                    <div className="w-full h-screen flex items-center pointer-events-none">
+                                    <div className="w-full h-screen flex items-center">
                                         <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
                                             <p className="text-center text-white font-medium text-lg relative z-10">Manage your candidates</p>
                                             <div className="p-4 rounded-xl mx-auto bg-white w-[512px] max-w-full relative z-10">
@@ -674,7 +672,7 @@ export default function Home() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="text-black absolute z-10 bottom-24 right-72 animate-random-translate pointer-events-none">
+                                            <div className="text-black absolute z-10 bottom-24 right-72 max-md:right-24 animate-random-translate pointer-events-none">
                                                 <svg width="56" height="59" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <g>
                                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.8407 12.5161L17.4865 10.8649L5 4L8.64025 17.7764L11.3663 13.668L14.63 17.8454L16.1044 16.6935L12.8407 12.5161V12.5161Z" fill="currentColor" />
@@ -693,36 +691,17 @@ export default function Home() {
                                                     </defs>
                                                 </svg>
                                             </div>
-                                            {/* <div className="text-black absolute z-10 bottom-24 left-72 animate-random-translate-mirror pointer-events-none">
-                                                <svg width="56" height="59" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <g>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.8407 12.5161L17.4865 10.8649L5 4L8.64025 17.7764L11.3663 13.668L14.63 17.8454L16.1044 16.6935L12.8407 12.5161V12.5161Z" fill="currentColor" />
-                                                        <path d="M17.654 11.3361L18.7031 10.9632L17.7274 10.4268L5.24089 3.56185L4.21854 2.99978L4.51659 4.12773L8.15684 17.9042L8.44129 18.9806L9.05688 18.0529L11.3994 14.5225L14.236 18.1532L14.5439 18.5472L14.9379 18.2394L16.4122 17.0875L16.8063 16.7797L16.4984 16.3857L13.6618 12.7549L17.654 11.3361Z" stroke="white" />
-                                                    </g>
-                                                    <defs>
-                                                        <filter id="filter0_d_298_11" x="0.4375" y="-0.000488281" width="22.4824" height="24.1853" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                                                            <feOffset dy="1" />
-                                                            <feGaussianBlur stdDeviation="1.5" />
-                                                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                                                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_298_11" />
-                                                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_298_11" result="shape" />
-                                                        </filter>
-                                                    </defs>
-                                                </svg>
-                                            </div> */}
                                         </div>
                                     </div>
                                 )}
                                 {scrollPosition > 0.4 && (
-                                    <div className="w-full h-screen flex items-center pointer-events-none">
+                                    <div className="w-full h-screen flex items-center">
 
                                         <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden relative">
                                             <p className="text-white font-medium text-xl relative z-10">Time needed</p>
-                                            <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl relative z-10 md:h-56 md:w-72 flex items-center justify-center">
-                                                <h4 className="text-6xl text-emerald-300 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
-                                                <h4 className="text-6xl font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
+                                            <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl relative z-10 md:h-80 md:w-72 flex items-center justify-center">
+                                                <h4 className="text-[96px] text-emerald-300 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
+                                                <h4 className="text-[96px] font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
                                             </div>
                                         </div>
                                     </div>
