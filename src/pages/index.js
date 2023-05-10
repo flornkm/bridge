@@ -591,31 +591,31 @@ export default function Home() {
                                 {scrollPosition < 0.2 && (
                                     <div className="w-full h-screen flex items-center">
                                         <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex flex-col items-center justify-center overflow-hidden">
-                                            <div className="flex gap-16 justify-center items-start ">
-                                                <div className="flex flex-col gap-4 w-80 items-center">
+                                            <div className="flex gap-16 justify-center items-start group ">
+                                                <div className="flex flex-col gap-4 w-80 h-auto items-center absolute left-[50%] translate-x-[-80%] z-10 -rotate-3 top-[50%] translate-y-[-50%] transition-all group-hover:rotate-0 group-hover:translate-x-[-100%]">
                                                     <p className="text-center text-white font-medium text-lg relative z-10">Elegant Colors</p>
-                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10">
+                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
                                                         <div className="h-10 w-10 bg-white rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-zinc-200 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-zinc-400 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-zinc-600 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-zinc-800 rounded-full ring-1 ring-neutral-200" />
                                                     </div>
-                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10">
+                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
                                                         <div className="h-10 w-10 bg-red-200 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-red-400 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-red-500 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-red-600 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-red-800 rounded-full ring-1 ring-neutral-200" />
                                                     </div>
-                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10">
+                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
                                                         <div className="h-10 w-10 bg-green-200 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-green-400 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-green-500 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-green-600 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-green-800 rounded-full ring-1 ring-neutral-200" />
                                                     </div>
-                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10">
+                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
                                                         <div className="h-10 w-10 bg-blue-200 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-blue-400 rounded-full ring-1 ring-neutral-200" />
                                                         <div className="h-10 w-10 bg-blue-500 rounded-full ring-1 ring-neutral-200" />
@@ -623,18 +623,10 @@ export default function Home() {
                                                         <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-neutral-200" />
                                                     </div>
                                                 </div>
-                                                <div className="text-white h-full items-center flex text-4xl max-lg:hidden">
-                                                    +
-                                                </div>
-                                                <div className="flex flex-col gap-4 w-80 items-center max-lg:hidden h-full">
+                                                <div className="flex flex-col gap-4 w-80 h-80 items-center absolute left-[50%] translate-x-[-30%] rotate-3 top-[50%] translate-y-[-50%] transition-all group-hover:rotate-0 group-hover:translate-x-[-0%]">
                                                     <p className="text-center text-white font-medium text-lg relative z-10">Joyful Effects</p>
-                                                    <div className="bg-transparent bg-white rounded-xl flex gap-2 relative z-10 h-full w-full overflow-hidden">
-                                                        {/* Confetti animating */}
-                                                        {Array.from({ length: 10 }).map((_, i) => (
-                                                            <div key={i} className="absolute w-8 h-8 rounded-md mix-blend-multiply animate-confetti" style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%`, 
-                                                            // backgroundColor with tailwind colors
-                                                            backgroundColor: ["#F87171", "#FBBF24", "#34D399", "#60A5FA", "#A78BFA", "#F472B6", "#FCD34D", "#6EE7B7", "#93C5FD", "#D1D5DB"][Math.floor(Math.random() * 10)] }} />
-                                                        ))}
+                                                    <div className="bg-transparent bg-white shadow-xl items-center justify-center rounded-xl flex gap-2 relative z-10 h-full w-full overflow-hidden">
+                                                        <p className="text-6xl p-8 bg-neutral-100 transition-all group-hover:bg-neutral-200 rounded-full">&#127881;</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -644,7 +636,7 @@ export default function Home() {
                                     <div className="w-full h-screen flex items-center">
                                         <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
                                             <p className="text-center text-white font-medium text-lg relative z-10">Manage your candidates</p>
-                                            <div className="p-4 rounded-xl mx-auto bg-white w-[512px] max-w-full relative z-10">
+                                            <div className="p-4 rounded-xl mx-auto bg-white shadow-xl w-[512px] max-w-full relative z-10">
                                                 <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Latest Waitlist Entries</p>
                                                 <div className="ring-1 ring-neutral-200 rounded-lg">
                                                     <div className="grid text-xs text-black sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 px-3 justify-between items-center bg-neutral-100 rounded-t-lg border-b border-neutral-200">
@@ -699,7 +691,7 @@ export default function Home() {
 
                                         <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden relative">
                                             <p className="text-white font-medium text-xl relative z-10">Time needed</p>
-                                            <div className="text-emerald-500 bg-white px-4 py-2 rounded-xl relative z-10 md:h-80 md:w-72 flex items-center justify-center">
+                                            <div className="text-emerald-500 bg-white shadow-xl px-4 py-2 rounded-xl relative z-10 md:h-80 md:w-72 flex items-center justify-center">
                                                 <h4 className="text-[96px] text-emerald-300 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
                                                 <h4 className="text-[96px] font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
                                             </div>
