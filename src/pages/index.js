@@ -357,7 +357,7 @@ export default function Home() {
             <main className="h-full w-full bg-white">
                 <div className="max-md:w-[90%] w-full max-w-7xl pl-[5%] pr-[5%] m-auto min-h-[200vh] bg-white">
                     <div
-                        className="min-h-64 md:pt-48 max-md:pt-40 relative z-20 border-b border-b-neutral-200"
+                        className="min-h-64 md:pt-48 max-md:pt-40 relative z-20 border-b border-b-zinc-200"
 
                     >
                         <div className="max-w-3xl flex flex-col gap-6 md:mb-16">
@@ -392,7 +392,7 @@ export default function Home() {
                                     </pre>
                                 </code>
                             </div>
-                            <div onClick={openModal} className="md:py-16 md:px-20 max-md:py-8 max-md:px-10 flex-col bg-white z-20 shadow-2xl rounded-2xl ring-1 ring-neutral-200 top-24 absolute left-[50%] translate-x-[-50%] w-[90%] md:max-w-4xl flex justify-between max-lg:flex-col transition-all duration-500 md:hover:scale-[1.01]">
+                            <div onClick={openModal} className="md:py-16 md:px-20 max-md:py-8 max-md:px-10 flex-col bg-white z-20 shadow-2xl rounded-2xl ring-1 ring-zinc-200 top-24 absolute left-[50%] translate-x-[-50%] w-[90%] md:max-w-4xl flex justify-between max-lg:flex-col transition-all duration-500 md:hover:scale-[1.01]">
                                 <p className="text-3xl font-semibold mb-4">Senior UI / UX Designer</p>
                                 <p className="text-lg font-medium text-gray-500 mb-10">We are seeking a highly experienced Senior UI/UX Designer …</p>
                                 <div className="flex flex-col gap-1 items-start w-full mb-8">
@@ -415,7 +415,7 @@ export default function Home() {
                                 </div>
                                 <div className="h-96" />
                             </div>
-                            <div className="bg-neutral-50 ring-1 ring-neutral-200 text-slate-100 text-xl px-7 py-4 rounded-2xl rotate-2 relative xl:right-32 max-xl:right-32 -top-16 max-md:hidden">
+                            <div className="bg-zinc-50 ring-1 ring-zinc-200 text-slate-100 text-xl px-7 py-4 rounded-2xl rotate-2 relative xl:right-32 max-xl:right-32 -top-16 max-md:hidden">
                                 <div className="p-4 rounded-full h-56 w-56 bg-gradient-to-r from-violet-500 to-purple-400 flex justify-center items-center">
                                     <div className="bg-white rounded-full h-44 w-44 p-4 flex justify-center items-center flex-col gap-1">
                                         <p className="font-bold text-5xl text-purple-900">100</p>
@@ -438,9 +438,9 @@ export default function Home() {
                             </p>
                         </div>
                         <div className="grid grid-cols-3 gap-4 max-md:grid-cols-1">
-                            <div className="flex flex-col gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden relative h-96">
+                            <div className="flex flex-col gap-3 p-6 bg-zinc-50 rounded-2xl overflow-hidden relative h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl">Drag and Drop</h3>
-                                <div className="flex flex-col gap-8 items-start bg-white left-8 p-8 absolute right-4 bottom-4 pr-8 ring-1 top-[30%] ring-neutral-200 rounded-2xl pb-8">
+                                <div className="flex flex-col gap-8 items-start bg-white left-8 p-8 absolute right-4 bottom-4 pr-8 ring-1 top-[30%] ring-zinc-200 rounded-2xl pb-8">
                                     <DndContext
                                         sensors={sensors}
                                         collisionDetection={closestCenter}
@@ -496,13 +496,13 @@ export default function Home() {
                                     </DndContext>
                                 </div>
                             </div>
-                            <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden relative h-96">
+                            <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-zinc-50 rounded-2xl overflow-hidden relative h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl">Shortcuts from the future</h3>
                                 {shortcuts === 0 && <div className="h-full w-full flex justify-center items-center gap-4 group" onClick={() => setShortcuts(1)}>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[0]}>
+                                    <div className="bg-gradient-to-t from-zinc-100 to-white rounded-xl ring-zinc-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[0]}>
                                         <Icon.Command weight="fill" size={56} />
                                     </div>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[1]}>
+                                    <div className="bg-gradient-to-t from-zinc-100 to-white rounded-xl ring-zinc-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[1]}>
                                         K
                                     </div>
                                     <div className="absolute bottom-8 bg-black text-white font-medium py-2 px-4 rounded-full">
@@ -510,10 +510,10 @@ export default function Home() {
                                     </div>
                                 </div>}
                                 {shortcuts === 1 && <div className="h-full w-full flex justify-center items-center gap-4 group" onClick={() => setShortcuts(2)}>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[0]}>
+                                    <div className="bg-gradient-to-t from-zinc-100 to-white rounded-xl ring-zinc-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[0]}>
                                         <Icon.Command weight="fill" size={56} />
                                     </div>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[2]}>
+                                    <div className="bg-gradient-to-t from-zinc-100 to-white rounded-xl ring-zinc-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[2]}>
                                         E
                                     </div>
                                     <div className="absolute bottom-8 bg-black text-white font-medium py-2 px-4 rounded-full">
@@ -521,10 +521,10 @@ export default function Home() {
                                     </div>
                                 </div>}
                                 {shortcuts === 2 && <div className="h-full w-full flex justify-center items-center gap-4 group" onClick={() => setShortcuts(0)}>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[0]}>
+                                    <div className="bg-gradient-to-t from-zinc-100 to-white rounded-xl ring-zinc-200 ring-1 p-2 shadow-md text-black h-20 w-20 flex justify-center items-center transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[0]}>
                                         <Icon.Command weight="fill" size={56} />
                                     </div>
-                                    <div className="bg-gradient-to-t from-neutral-100 to-white rounded-xl ring-neutral-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[3]}>
+                                    <div className="bg-gradient-to-t from-zinc-100 to-white rounded-xl ring-zinc-200 ring-1 p-2 shadow-md flex justify-center items-center text-black h-20 w-20 text-5xl transition-all group-active:scale-90 group-active:opacity-50 cursor-pointer" ref={keys[3]}>
                                         H
                                     </div>
                                     <div className="absolute bottom-8 bg-black text-white font-medium py-2 px-4 rounded-full">
@@ -532,18 +532,18 @@ export default function Home() {
                                     </div>
                                 </div>}
                             </div>
-                            <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden h-96">
+                            <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-zinc-50 rounded-2xl overflow-hidden h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl flex gap-4 items-center">Connect with candidates
                                 </h3>
                                 <div className="w-full flex justify-between h-full items-center md:gap-4">
-                                    <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-neutral-200 relative max-md:z-20" unoptimized={true} />
+                                    <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-zinc-200 relative max-md:z-20" unoptimized={true} />
                                     <Icon.Link size={40} weight="fill" className="text-gray-500 max-md:hidden" />
-                                    <Image src="/images/general/memoji_2.jpg" alt="Isabelle" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-neutral-200 relative max-md:z-10 max-md:-left-4" unoptimized={true} />
+                                    <Image src="/images/general/memoji_2.jpg" alt="Isabelle" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-zinc-200 relative max-md:z-10 max-md:-left-4" unoptimized={true} />
                                     <Icon.Link size={40} weight="fill" className="text-gray-500 max-md:hidden" />
-                                    <Image src="/images/general/memoji_3.jpg" alt="Nataly" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-neutral-200 relative max-md:-left-8" unoptimized={true} />
+                                    <Image src="/images/general/memoji_3.jpg" alt="Nataly" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-zinc-200 relative max-md:-left-8" unoptimized={true} />
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-3 p-6 bg-neutral-50 rounded-2xl overflow-hidden h-96">
+                            <div className="flex flex-col gap-3 p-6 bg-zinc-50 rounded-2xl overflow-hidden h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl">Publishing made easy</h3>
                                 <div className="h-full w-full flex justify-center items-center">
                                     <button onClick={() => {
@@ -566,7 +566,7 @@ export default function Home() {
                             <p className="text-gray-500 text-xl font-medium">Our editor works for everyone.</p>
                         </div>
                         {isInView ? (
-                            <video autoPlay loop muted className="rounded-2xl ring-1 w-full object-cover aspect-video bg-[#FAF9FA] ring-neutral-200">
+                            <video autoPlay loop muted className="rounded-2xl ring-1 w-full object-cover aspect-video bg-[#FAF9FA] ring-zinc-200">
                                 <source src="/videos/showcase.mp4" type="video/mp4" />
                             </video>
                         ) : (
@@ -579,12 +579,12 @@ export default function Home() {
                         </div>
                         <div className="h-[200vh] relative flex flex-col items-start pt-16" ref={scrollDiv}>
                             <div className="flex justify-center sticky top-6 w-full z-10 max-md:top-28">
-                                <div className="px-2 max-md:py-0.5 ring-1 ring-neutral-200 bg-white rounded-full items-center flex relative shadow-md overflow-hidden max-sm:w-full sm:gap-4 md:gap-0">
+                                <div className="px-2 max-md:py-0.5 ring-1 ring-zinc-200 bg-white rounded-full items-center flex relative shadow-md overflow-hidden max-sm:w-full sm:gap-4 md:gap-0">
                                     <h3 className={"md:px-4 py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center max-sm:flex-grow " + (scrollPosition < 0.2 ? "text-black" : "text-gray-400")} ref={navItems[0]}>Customizable</h3>
                                     <h3 className={"md:px-4 py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.2 && scrollPosition < 0.4 ? "text-black" : "text-gray-400")} ref={navItems[1]}>Organisable</h3>
                                     <h3 className={"md:px-4 py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.4 ? "text-black" : "text-gray-400")} ref={navItems[2]}>Super fast</h3>
 
-                                    <div className="bg-neutral-100 ring-4 ring-neutral-100 absolute top-2 bottom-2 rounded-full transition-all w-36" ref={navRect} />
+                                    <div className="bg-zinc-100 ring-4 ring-zinc-100 absolute top-2 bottom-2 rounded-full transition-all w-36" ref={navRect} />
                                 </div>
                             </div>
                             <div className="sticky top-0 max-md:top-8 w-full h-auto col-span-2 flex items-center justify-center">
@@ -595,38 +595,38 @@ export default function Home() {
                                                 <div className="flex flex-col gap-4 w-80 h-auto items-center absolute left-[50%] translate-x-[-80%] z-10 -rotate-3 top-[50%] translate-y-[-50%] transition-all group-hover:rotate-0 group-hover:translate-x-[-100%]">
                                                     <p className="text-center text-white font-medium text-lg relative z-10">Elegant Colors</p>
                                                     <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
-                                                        <div className="h-10 w-10 bg-white rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-zinc-200 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-zinc-400 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-zinc-600 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-zinc-800 rounded-full ring-1 ring-neutral-200" />
+                                                        <div className="h-10 w-10 bg-white rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-zinc-200 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-zinc-400 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-zinc-600 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-zinc-800 rounded-full ring-1 ring-zinc-200" />
                                                     </div>
                                                     <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
-                                                        <div className="h-10 w-10 bg-red-200 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-red-400 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-red-500 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-red-600 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-red-800 rounded-full ring-1 ring-neutral-200" />
+                                                        <div className="h-10 w-10 bg-red-200 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-red-400 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-red-500 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-red-600 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-red-800 rounded-full ring-1 ring-zinc-200" />
                                                     </div>
                                                     <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
-                                                        <div className="h-10 w-10 bg-green-200 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-green-400 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-green-500 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-green-600 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-green-800 rounded-full ring-1 ring-neutral-200" />
+                                                        <div className="h-10 w-10 bg-green-200 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-green-400 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-green-500 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-green-600 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-green-800 rounded-full ring-1 ring-zinc-200" />
                                                     </div>
                                                     <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
-                                                        <div className="h-10 w-10 bg-blue-200 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-blue-400 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-blue-500 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-blue-600 rounded-full ring-1 ring-neutral-200" />
-                                                        <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-neutral-200" />
+                                                        <div className="h-10 w-10 bg-blue-200 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-blue-400 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-blue-500 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-blue-600 rounded-full ring-1 ring-zinc-200" />
+                                                        <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-zinc-200" />
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col gap-4 w-80 h-80 items-center absolute left-[50%] translate-x-[-30%] rotate-3 top-[50%] translate-y-[-50%] transition-all group-hover:rotate-0 group-hover:translate-x-[-0%]">
                                                     <p className="text-center text-white font-medium text-lg relative z-10">Joyful Effects</p>
                                                     <div className="bg-transparent bg-white shadow-xl items-center justify-center rounded-xl flex gap-2 relative z-10 h-full w-full overflow-hidden">
-                                                        <p className="text-6xl p-8 bg-neutral-100 transition-all group-hover:bg-neutral-200 rounded-full">&#127881;</p>
+                                                        <p className="text-6xl p-8 bg-zinc-100 transition-all group-hover:bg-zinc-200 rounded-full">&#127881;</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -638,8 +638,8 @@ export default function Home() {
                                             <p className="text-center text-white font-medium text-lg relative z-10">Manage your candidates</p>
                                             <div className="p-4 rounded-xl mx-auto bg-white shadow-xl w-[512px] max-w-full relative z-10">
                                                 <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Latest Waitlist Entries</p>
-                                                <div className="ring-1 ring-neutral-200 rounded-lg">
-                                                    <div className="grid text-xs text-black sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 px-3 justify-between items-center bg-neutral-100 rounded-t-lg border-b border-neutral-200">
+                                                <div className="ring-1 ring-zinc-200 rounded-lg">
+                                                    <div className="grid text-xs text-black sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 px-3 justify-between items-center bg-zinc-100 rounded-t-lg border-b border-zinc-200">
                                                         <p className="max-sm:hidden">Time</p>
                                                         <p>Name</p>
                                                         <p className="w-full text-right">Status</p>
@@ -647,7 +647,7 @@ export default function Home() {
                                                     <div className="p-1">
                                                         {entries.map((entry, index) => (
                                                             index < 4 &&
-                                                            <div key={index} className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-neutral-100 rounded-lg items-center">
+                                                            <div key={index} className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
                                                                 <p className="text-sm max-sm:hidden text-indigo-400">{
                                                                     // only return the time from entry.fields.Date
                                                                     entry.fields.Date.split("T")[1].split(":").slice(0, 2).join(":")
@@ -657,7 +657,7 @@ export default function Home() {
                                                                 </div>
 
                                                                 <div className="w-full flex justify-end">
-                                                                    <Icon.DotsThree size={32} className="hover:bg-neutral-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                                    <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
                                                                 </div>
                                                             </div>
                                                         ))}
@@ -701,7 +701,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="rounded-3xl bg-neutral-50 relative overflow-hidden mb-12">
+                    <div className="rounded-3xl bg-zinc-50 relative overflow-hidden mb-12">
                         <div className="pt-10 px-8 rounded-[23px] relative z-20 max-md:pb-8">
                             <div className="flex flex-col gap-3">
                                 <h2 className="font-semibold md:text-3xl max-md:text-2xl text-black flex gap-4 items-center justify-center">Integrate in your Pipeline</h2>
@@ -715,8 +715,8 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="rounded-3xl bg-neutral-50 relative overflow-hidden">
-                        <div className="pt-10 px-8 rounded-[23px] relative z-20 bg-neutral-50">
+                    {/* <div className="rounded-3xl bg-zinc-50 relative overflow-hidden">
+                        <div className="pt-10 px-8 rounded-[23px] relative z-20 bg-zinc-50">
                             <div className="flex flex-col gap-3">
                                 <h2 className="font-semibold md:text-3xl max-md:text-2xl text-black flex gap-4 items-center justify-center">AI Choices <span className="rounded-full ring-2 ring-fuchsia-300 text-fuchsia-500 text-base px-2 py-1">Soon</span></h2>
                             </div>
@@ -732,7 +732,7 @@ export default function Home() {
                             {/* <p className="text-gray-500 text-lg font-medium">Because 90% of Bridge Users are using mobile browsers.</p> */}
                         </div>
                         <div className="w-full grid grid-cols-4 gap-8 items-start max-lg:grid-cols-1 mb-4 max-w-3xl mx-auto">
-                            <div className="p-10 bg-white ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-neutral-100 hover:bg-opacity-50">
+                            <div className="p-10 bg-white ring-1 ring-zinc-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-zinc-100 hover:bg-opacity-50">
                                 <h3 className="text-2xl font-medium text-black mb-8">Starter</h3>
                                 <div className="flex flex-col gap-4 mb-16">
                                     <div className="flex items-center gap-2 font-medium">
@@ -753,10 +753,10 @@ export default function Home() {
                                     onClick={() => {
                                         router.push('/login')
                                     }}
-                                    className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Start for free</button>
+                                    className="bg-black hover:bg-zinc-900 w-full text-white font-medium rounded-lg px-4 py-2">Start for free</button>
                             </div>
                             <div className="col-span-2 relative">
-                                <div className="p-10 bg-white bg-opacity-50 ring-1 ring-neutral-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-neutral-100 hover:bg-opacity-50 group">
+                                <div className="p-10 bg-white bg-opacity-50 ring-1 ring-zinc-200 rounded-3xl shadow-md col-span-2 relative z-20 transition-all hover:bg-zinc-100 hover:bg-opacity-50 group">
                                     <div className="bg-purple-500 rounded-full absolute -top-3 -right-3 px-2 py-1 text-sm flex items-center gap-2 text-white font-medium group-hover:scale-105 transition-all group-hover:rotate-1">
                                         <Icon.StarFour size={12} weight="fill" />
                                         Popular
@@ -785,7 +785,7 @@ export default function Home() {
                                         onClick={() => {
                                             router.push('/login')
                                         }}
-                                        className="bg-black hover:bg-neutral-900 w-full text-white font-medium rounded-lg px-4 py-2">Subscribe to Pro</button>
+                                        className="bg-black hover:bg-zinc-900 w-full text-white font-medium rounded-lg px-4 py-2">Subscribe to Pro</button>
                                 </div>
                                 <div className="w-96 h-96 absolute z-10 pointer-events-none -right-40 top-16 bg-[url('/images/general/background_artwork_pricing.svg')] bg-cover bg-no-repeat bg-center max-lg:hidden" />
                             </div>
@@ -805,7 +805,7 @@ export default function Home() {
                         <div className="flex gap-16 items-end justify-center w-full relative">
                             <Image src="/images/general/bridge_mockup_iphone.jpg" alt="Bridge Mobile" width={300} height={300} />
                             {/* <Image src="/images/general/bridge_mockup_macbook.jpg" alt="Bridge Mobile" width={1000} height={600} className="max-xl:hidden" /> */}
-                    {/* <div className="absolute md:bottom-16 max-md:-bottom-16 right-0 px-6 gap-8 flex flex-col items-start py-4 bg-white rounded-lg ring-1 ring-neutral-200 shadow-md text-gray-500 max-w-md">
+                    {/* <div className="absolute md:bottom-16 max-md:-bottom-16 right-0 px-6 gap-8 flex flex-col items-start py-4 bg-white rounded-lg ring-1 ring-zinc-200 shadow-md text-gray-500 max-w-md">
                                 <p>We have designed Bridge in a way that it is easy to use on both mobile and desktop devices.
                                     You do not need to wrap your mind around how to layout everything, Bridge is responsive from the start.</p>
                                 <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80" onClick={openModal}>
