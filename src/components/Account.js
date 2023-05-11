@@ -79,38 +79,38 @@ export default function Account({ session, setSettings, avatar_url, setAvatarUrl
           setAvatar={setAvatar}
         />
         <div className="w-full grid grid-cols-3 items-center">
-          <label htmlFor="email" className="text-neutral-500">
+          <label htmlFor="email" className="text-zinc-500">
             Email
           </label>
           <input
             id="email"
             type="text"
-            className="w-full bg-neutral-100 rounded-lg p-2 col-span-2"
+            className="w-full bg-zinc-100 rounded-lg p-2 col-span-2"
             value={session.user.email}
             disabled
           />
         </div>
         <div className="w-full grid grid-cols-3 items-center">
-          <label htmlFor="username" className="text-neutral-500">
+          <label htmlFor="username" className="text-zinc-500">
             Username
           </label>
           <input
             id="username"
             type="text"
             value={username || ""}
-            className="w-full border border-neutral-200 rounded-lg p-2 col-span-2"
+            className="w-full brdg-border rounded-lg p-2 col-span-2"
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className="w-full grid grid-cols-3 items-center">
-          <label htmlFor="website" className="text-neutral-500">
+          <label htmlFor="website" className="text-zinc-500">
             Website
           </label>
           <input
             id="website"
             type="website"
             value={website || ""}
-            className="w-full border border-neutral-200 rounded-lg p-2 col-span-2"
+            className="w-full brdg-border rounded-lg p-2 col-span-2"
             onChange={(e) => setWebsite(e.target.value)}
           />
         </div>
@@ -118,7 +118,7 @@ export default function Account({ session, setSettings, avatar_url, setAvatarUrl
         <div className="w-full flex justify-left gap-4 mt-14">
           <div className="w-full">
             <button
-              className="font-medium px-3 py-2 rounded-lg ring-1 ring-neutral-200 bg-white text-black transition-all hover:bg-neutral-50 w-full"
+              className="font-medium px-3 py-2 rounded-lg border border-zinc-200 bg-white text-black transition-all hover:bg-zinc-50 w-full"
               onClick={() => {
                 setSettings(false);
               }}

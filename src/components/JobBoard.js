@@ -167,7 +167,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
   }, []);
 
   return (
-    <div className="flex gap-10 justify-between lg:p-24 max-md:p-4 bg-white ring-1 ring-neutral-200 rounded-t-2xl max-md:pb-64 md:w-[80%] w-full shadow-lg flex-col">
+    <div className="flex gap-10 justify-between lg:p-24 max-md:p-4 bg-white ring-1 ring-zinc-200 rounded-t-[32px] max-md:pb-64 md:w-[80%] w-full shadow-lg flex-col">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -211,7 +211,7 @@ function JobBoard({ data, session, id, colors, confetti, setConfetti, effects, i
           >
             {activeId ? (
               <div
-                className={"ring-1 ring-neutral-200 shadow-xl scale-[1.01] transition-all hover:-rotate-1"}
+                className={"ring-1 ring-zinc-200 shadow-xl scale-[1.01] transition-all hover:-rotate-1"}
                 ref={rotationRect}
                 style={{
                   background: "white", borderRadius: "16px",

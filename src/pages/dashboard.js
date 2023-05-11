@@ -173,14 +173,14 @@ function Dashboard(props) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="w-screen h-screen bg-neutral-50 bg-[url('/images/dashboard/dashboard_gradient.jpg')] bg-cover">
+      <div className="w-screen h-screen bg-zinc-50 bg-[url('/images/dashboard/dashboard_gradient.jpg')] bg-cover">
         <div className="w-full bg-white py-6 bg-opacity-80 fixed top-0 backdrop-blur-xl z-50">
           <div className="max-w-[80%] w-full mx-auto justify-between flex items-center">
             <h1 className="text-lg font-medium">Dashboard</h1>
             <div className="flex">
               <Menu as="div" className="relative inline-block text-left">
                 <div className="h-full flex items-center">
-                  <Menu.Button className="bg-neutral-100 ring-1 ring-neutral-200 cursor-pointer rounded-full transition-all hover:opacity-80">
+                  <Menu.Button className="bg-zinc-100 ring-1 ring-zinc-200 cursor-pointer rounded-full transition-all hover:opacity-80">
                     {!avatar ? (
                       <Icon.User size={40} className="p-2" />
                     ) : (
@@ -212,8 +212,8 @@ function Dashboard(props) {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-neutral-100 text-gray-900"
-                                : "text-neutral-700",
+                                ? "bg-zinc-100 text-gray-900"
+                                : "text-zinc-700",
                               "block px-4 py-2 text-sm rounded-md"
                             )}
                             onClick={() => setSettings(true)}
@@ -228,8 +228,8 @@ function Dashboard(props) {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-neutral-100 text-gray-900"
-                                : "text-neutral-700",
+                                ? "bg-zinc-100 text-gray-900"
+                                : "text-zinc-700",
                               "block px-4 py-2 text-sm rounded-md"
                             )}
                           >
@@ -243,8 +243,8 @@ function Dashboard(props) {
                             href="#"
                             className={classNames(
                               active
-                                ? "bg-neutral-100 text-gray-900"
-                                : "text-neutral-700",
+                                ? "bg-zinc-100 text-gray-900"
+                                : "text-zinc-700",
                               "block px-4 py-2 text-sm rounded-md"
                             )}
                           >
@@ -258,8 +258,8 @@ function Dashboard(props) {
                             type="submit"
                             className={classNames(
                               active
-                                ? "bg-neutral-100 text-gray-900"
-                                : "text-neutral-700",
+                                ? "bg-zinc-100 text-gray-900"
+                                : "text-zinc-700",
                               "block w-full px-4 py-2 text-left text-sm rounded-md"
                             )}
                             onClick={() => {
@@ -277,7 +277,7 @@ function Dashboard(props) {
               </Menu>
             </div>
           </div>
-          <div className="h-[1px] w-full bg-gradient-to-r from-violet-300 to-neutral-50 absolute bottom-0" />
+          <div className="h-[1px] w-full bg-gradient-to-r from-violet-300 to-zinc-50 absolute bottom-0" />
         </div>
         <div className="pt-40 text-3xl font-semibold max-w-[80%] mx-auto mb-8 flex justify-between items-center flex-wrap gap-4">
           <h2>Your projects</h2>
@@ -299,7 +299,7 @@ function Dashboard(props) {
           {projects.length > 0 && projects.map((project) => (
             <div
               key={project.id}
-              className="col-span-1 bg-white rounded-lg ring-1 ring-neutral-200 p-6 cursor-pointer transition-all hover:bg-opacity-80 shadow-lg shadow-neutral-100 active:ring-neutral-300"
+              className="col-span-1 bg-white rounded-2xl border border-zinc-200 p-6 cursor-pointer transition-all hover:bg-zinc-50"
               onClick={(e) => {
                 console.log(e.target.tagName);
                 if (e.target.tagName !== "A" && e.target.tagName !== "BUTTON") {
@@ -309,9 +309,9 @@ function Dashboard(props) {
               }}
             >
               <div>
-                <div className="bg-indigo-50 mb-6 h-56 rounded-lg ring-1 ring-indigo-200 gap-1 px-8 flex flex-col items-left justify-center truncate">
-                  <div className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-blue-600 flex flex-col gap-4">
-                    {
+                <div className="bg-zinc-100 mb-6 h-56 rounded-lg border border-zinc-200 gap-1 flex flex-col items-left justify-center truncate">
+                  {/* <div className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-blue-600 flex flex-col gap-4"> */}
+                    {/* {
                       project.content.map((item, index) => {
                         if (item.id < 6) {
                           const maxLength = Math.max(...project.content.map(item => item.content[0].content.length));
@@ -326,8 +326,15 @@ function Dashboard(props) {
                           )
                         }
                       })
-                    }
-                  </div>
+                    } */}
+                    <Image 
+                    src={`https://bridge.supply/api/og?title=${project.name}&text=${project.content[0].content[0].content}&image=${project.content[0].content[1].content}`}
+                    alt={project.name} 
+                    width={200} 
+                    height={200}
+                    className="h-full w-full" 
+                    />
+                  {/* </div> */}
                 </div>
               </div>
               <div className="flex w-full justify-between gap-4 items-center">
@@ -342,7 +349,7 @@ function Dashboard(props) {
                 <button className="flex flex-col items-center justify-center ">
                   <Menu as="div" className="relative inline-block text-left">
                     <div className="h-full flex items-center">
-                      <Menu.Button className="cursor-pointer p-2 transition-all hover:bg-neutral-100 rounded-md relative text-gray-500 hover:text-black ">
+                      <Menu.Button className="cursor-pointer p-2 transition-all hover:bg-zinc-100 rounded-md relative text-gray-500 hover:text-black ">
                         <Icon.DotsThree weight="bold" className="w-6 h-6 pointer-events-none " />
                       </Menu.Button>
                     </div>
@@ -368,8 +375,8 @@ function Dashboard(props) {
                                 }}
                                 className={classNames(
                                   active
-                                    ? "bg-neutral-100 text-gray-900"
-                                    : "text-neutral-700",
+                                    ? "bg-zinc-100 text-gray-900"
+                                    : "text-zinc-700",
                                   "block w-full px-4 py-2 text-left text-sm rounded-md"
                                 )}
                               >
@@ -386,8 +393,8 @@ function Dashboard(props) {
                                 }}
                                 className={classNames(
                                   active
-                                    ? "bg-red-100 text-red-900"
-                                    : "text-red-700",
+                                    ? "bg-red-50 text-red-500"
+                                    : "text-red-500",
                                   "block w-full px-4 py-2 text-left text-sm rounded-md"
                                 )}
                               >

@@ -83,8 +83,8 @@ export default function Manage({ id, session, supabase }) {
                     <div className="h-16 w-16 relative rounded-full ring-8 ring-purple-500 z-0 animate-spin"> <div className="absolute -left-4 -top-4 bg-white z-10 h-12 w-12 transition-all" /> </div>
                 </div>
             ) : (
-                submissions && objectWithMostKeys !== undefined ? (<div className="flex flex-col gap-2 rounded-lg bg-white ring-1 ring-neutral-200 max-h-[756px] w-full">
-                    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="text-sm p-2 bg-neutral-100 shadow-lg shadow-neutral-100 z-10 sticky top-0 border-b border-neutral-200 items-center rounded-t-lg px-5">
+                submissions && objectWithMostKeys !== undefined ? (<div className="flex flex-col gap-2 rounded-lg bg-white ring-1 ring-zinc-200 max-h-[756px] w-full">
+                    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="text-sm p-2 bg-zinc-100 shadow-lg shadow-zinc-100 z-10 sticky top-0 border-b border-zinc-200 items-center rounded-t-lg px-5">
                         {Object.keys(objectWithMostKeys).map((key) => (
                             objectWithMostKeys[key] && typeof objectWithMostKeys[key] === 'object' && (
                                 Object.keys(objectWithMostKeys[key]).filter(childKey => childKey !== 'id').map((childKey) => (
@@ -99,7 +99,7 @@ export default function Manage({ id, session, supabase }) {
                     </div>
                     <div className="p-2 flex flex-col gap-2">
                         {submissions.map((submission) => (
-                            <div key={submission.id} style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="hover:bg-neutral-100 cursor-default transition-all p-0.5 rounded-md px-2 ">
+                            <div key={submission.id} style={{ display: 'grid', gridTemplateColumns: `repeat(${Object.keys(objectWithMostKeys).filter(key => key !== 'id').length}, 1fr)`, gap: '8px' }} className="hover:bg-zinc-100 cursor-default transition-all p-0.5 rounded-md px-2 ">
                                 {Object.keys(objectWithMostKeys).map((key) => (
                                     objectWithMostKeys[key] && typeof objectWithMostKeys[key] === 'object' && (
                                         Object.keys(objectWithMostKeys[key]).filter(childKey => childKey !== 'id').map((childKey) => (
@@ -107,7 +107,7 @@ export default function Manage({ id, session, supabase }) {
                                                 {submission[key] && typeof submission[key] === 'object' && submission[key][childKey] !== undefined && (
                                                     childKey === "date" || childKey === "time" ? (
                                                         <>
-                                                            <p className="truncate px-1.5 items-center py-1 hover:bg-neutral-100 rounded-lg transition-all text-indigo-400 text-sm">{new Date(submission[key][childKey]).toLocaleString()}</p>
+                                                            <p className="truncate px-1.5 items-center py-1 hover:bg-zinc-100 rounded-lg transition-all text-indigo-400 text-sm">{new Date(submission[key][childKey]).toLocaleString()}</p>
                                                             <div className="text-sm absolute z-20 truncate hidden left-[50%] translate-x-[-50%] bottom-12 group-hover:block text-white px-2.5 py-1 bg-black rounded-full">
                                                                 {new Date(submission[key][childKey]).toLocaleString()}
                                                             </div>
@@ -142,8 +142,8 @@ export default function Manage({ id, session, supabase }) {
 
                                                                                                 className={classNames(
                                                                                                     active
-                                                                                                        ? "bg-neutral-100 text-gray-900"
-                                                                                                        : "text-neutral-700",
+                                                                                                        ? "bg-zinc-100 text-gray-900"
+                                                                                                        : "text-zinc-700",
                                                                                                     "block w-full px-4 py-2 text-left text-sm rounded-md"
                                                                                                 )}
                                                                                             >
@@ -177,7 +177,7 @@ export default function Manage({ id, session, supabase }) {
                     </div>
                 </div>)
                     : (<div className="flex flex-col gap-2 rounded-lg">
-                        <h1 className="text-center text-3xl font-bold italic text-indigo-500">No submissions yet!</h1>
+                        <h1 className="text-center text-2xl font-medium text-black">No submissions yet.</h1>
                     </div>)
             )}
         </div>

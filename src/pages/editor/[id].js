@@ -39,7 +39,16 @@ export default function Editor(props) {
     animOut: "fadeOut 1s ease-in-out",
   });
   const [publishing, setPublishing] = useState(false);
-  let [isOpen, setIsOpen] = useState(false)
+  let [isOpen, setIsOpen] = useState(false);
+
+  const trainsitionPreset = {
+    enter: "transform transition duration-[150ms]",
+    enterFrom: "opacity-0 scale-90",
+    enterTo: "opacity-100 scale-100",
+    leave: "transform duration-[150ms] transition ease-in-out",
+    leaveFrom: "opacity-100 scale-100",
+    leaveTo: "opacity-0 scale-90",
+  };
 
   const [colors, setColors] = useState({
     heading: "#000000",
@@ -341,12 +350,12 @@ export default function Editor(props) {
             <Transition
               show={!colorSetting && !effectSetting}
               as={Fragment}
-              enter="transform transition duration-[100ms]"
-              enterFrom="opacity-0 scale-50"
-              enterTo="opacity-100 scale-100"
-              leave="transform duration-100 transition ease-in-out"
-              leaveFrom="opacity-100 scale-100 "
-              leaveTo="opacity-0 scale-95 "
+              enter={trainsitionPreset.enter}
+              enterFrom={trainsitionPreset.enterFrom}
+              enterTo={trainsitionPreset.enterTo}
+              leave={trainsitionPreset.leave}
+              leaveFrom={trainsitionPreset.leaveFrom}
+              leaveTo={trainsitionPreset.leaveTo}
             ><div className="shadow-lg z-50 px-4 py-2.5 bg-black rounded-full fixed bottom-12 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
                 <Popover className="relative">
                   <Popover.Button className="font-medium text-base h-10 w-10 justify-center rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center">
@@ -434,12 +443,12 @@ export default function Editor(props) {
             <Transition
               show={colorSetting}
               as={Fragment}
-              enter="transform transition duration-[100ms]"
-              enterFrom="opacity-0 scale-50"
-              enterTo="opacity-100 scale-100"
-              leave="transform duration-100 transition ease-in-out"
-              leaveFrom="opacity-100 scale-100 "
-              leaveTo="opacity-0 scale-95 "
+              enter={trainsitionPreset.enter}
+              enterFrom={trainsitionPreset.enterFrom}
+              enterTo={trainsitionPreset.enterTo}
+              leave={trainsitionPreset.leave}
+              leaveFrom={trainsitionPreset.leaveFrom}
+              leaveTo={trainsitionPreset.leaveTo}
             ><div className="shadow-lg z-50 px-4 py-2.5 bg-black rounded-full fixed bottom-12 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
                 <button className="font-medium text-base h-10 w-10 justify-center rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setColorSetting(false) }}>
                   <Icon.ArrowLeft size={24} weight="bold" />
@@ -638,12 +647,12 @@ export default function Editor(props) {
             </Transition>
             {project.type === "cookieBanner" && <Transition
               as={Fragment}
-              enter="transform transition duration-[400ms]"
-              enterFrom="opacity-0 scale-50"
-              enterTo="opacity-100 scale-100"
-              leave="transform duration-200 transition ease-in-out"
-              leaveFrom="opacity-100 scale-100 "
-              leaveTo="opacity-0 scale-95 "
+              enter={trainsitionPreset.enter}
+              enterFrom={trainsitionPreset.enterFrom}
+              enterTo={trainsitionPreset.enterTo}
+              leave={trainsitionPreset.leave}
+              leaveFrom={trainsitionPreset.leaveFrom}
+              leaveTo={trainsitionPreset.leaveTo}
             ><div className="shadow-lg z-50 px-4 py-2.5 bg-black rounded-full fixed bottom-12 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
                 <button className="font-medium text-base h-10 w-10 justify-center rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setAnimationSetting(false) }}>
                   <Icon.ArrowLeft size={24} weight="bold" />
@@ -738,12 +747,12 @@ export default function Editor(props) {
             <Transition
               show={effectSetting}
               as={Fragment}
-              enter="transform transition duration-[100ms]"
-              enterFrom="opacity-0 scale-50"
-              enterTo="opacity-100 scale-100"
-              leave="transform duration-100 transition ease-in-out"
-              leaveFrom="opacity-100 scale-100 "
-              leaveTo="opacity-0 scale-95 "
+              enter={trainsitionPreset.enter}
+              enterFrom={trainsitionPreset.enterFrom}
+              enterTo={trainsitionPreset.enterTo}
+              leave={trainsitionPreset.leave}
+              leaveFrom={trainsitionPreset.leaveFrom}
+              leaveTo={trainsitionPreset.leaveTo}
             ><div className="shadow-lg z-50 px-4 py-2.5 bg-black rounded-full fixed bottom-12 flex gap-4 left-[50%] translate-x-[-50%] items-stretch">
                 <button className="font-medium text-base h-10 w-10 justify-center rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center" onClick={() => { setEffectSetting(false) }}>
                   <Icon.ArrowLeft size={24} weight="bold" />
@@ -783,12 +792,12 @@ export default function Editor(props) {
             <Dialog as="div" className="relative z-50" onClose={closeModal}>
               <Transition.Child
                 as={Fragment}
-                enter="transform transition duration-[100ms]"
-                enterFrom="opacity-0 scale-50"
-                enterTo="opacity-100 scale-100"
-                leave="transform duration-100 transition ease-in-out"
-                leaveFrom="opacity-100 scale-100 "
-                leaveTo="opacity-0 scale-95 "
+                enter={trainsitionPreset.enter}
+                enterFrom={trainsitionPreset.enterFrom}
+                enterTo={trainsitionPreset.enterTo}
+                leave={trainsitionPreset.leave}
+                leaveFrom={trainsitionPreset.leaveFrom}
+                leaveTo={trainsitionPreset.leaveTo}
               >
                 <div className="fixed inset-0 bg-black bg-opacity-25" />
               </Transition.Child>
@@ -797,12 +806,12 @@ export default function Editor(props) {
                 <div className="flex min-h-full items-center justify-center p-4 text-center">
                   <Transition.Child
                     as={Fragment}
-                    enter="transform transition duration-[100ms]"
-                    enterFrom="opacity-0 scale-50"
-                    enterTo="opacity-100 scale-100"
-                    leave="transform duration-100 transition ease-in-out"
-                    leaveFrom="opacity-100 scale-100 "
-                    leaveTo="opacity-0 scale-95 "
+                    enter={trainsitionPreset.enter}
+                    enterFrom={trainsitionPreset.enterFrom}
+                    enterTo={trainsitionPreset.enterTo}
+                    leave={trainsitionPreset.leave}
+                    leaveFrom={trainsitionPreset.leaveFrom}
+                    leaveTo={trainsitionPreset.leaveTo}
                   >
                     <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
