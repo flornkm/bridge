@@ -792,12 +792,12 @@ export default function Editor(props) {
             <Dialog as="div" className="relative z-50" onClose={closeModal}>
               <Transition.Child
                 as={Fragment}
-                enter={trainsitionPreset.enter}
-                enterFrom={trainsitionPreset.enterFrom}
-                enterTo={trainsitionPreset.enterTo}
-                leave={trainsitionPreset.leave}
-                leaveFrom={trainsitionPreset.leaveFrom}
-                leaveTo={trainsitionPreset.leaveTo}
+                enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
               >
                 <div className="fixed inset-0 bg-black bg-opacity-25" />
               </Transition.Child>
@@ -806,12 +806,12 @@ export default function Editor(props) {
                 <div className="flex min-h-full items-center justify-center p-4 text-center">
                   <Transition.Child
                     as={Fragment}
-                    enter={trainsitionPreset.enter}
-                    enterFrom={trainsitionPreset.enterFrom}
-                    enterTo={trainsitionPreset.enterTo}
-                    leave={trainsitionPreset.leave}
-                    leaveFrom={trainsitionPreset.leaveFrom}
-                    leaveTo={trainsitionPreset.leaveTo}
+                    enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
                   >
                     <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
@@ -834,7 +834,7 @@ export default function Editor(props) {
                         <div className="w-full">
                           <button
                             onClick={closeModal}
-                            className="font-medium px-3 py-2 rounded-lg ring-1 ring-zinc-200 bg-white text-black transition-all outline-gray-300 hover:bg-zinc-50 w-full focus:outline-gray-300">
+                            className="font-medium px-3 py-2 rounded-lg border border-zinc-200 bg-white text-black transition-all outline-gray-300 hover:bg-zinc-50 w-full focus:outline-gray-300">
                             Cancel
                           </button>
                         </div>
