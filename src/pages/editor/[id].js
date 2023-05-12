@@ -292,9 +292,9 @@ export default function Editor(props) {
                   <h1 className="text-lg font-medium">Dashboard</h1>
                 </div>
               </div>
-              <Link target="_blank" href={"/" + project.name.toLowerCase() + "-" + project.id} className="px-4 truncate py-2 text-gray-600 hover:text-black bg-white ring-1 ring-zinc-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-md:w-[90%] justify-center">
+              <Link target="_blank" href={"/" + project.name.toLowerCase() + "-" + project.id} className="px-4 truncate py-2 text-gray-600 hover:text-black hover:bg-zinc-50 transition-all bg-white ring-1 ring-zinc-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-md:w-[90%] justify-center">
                 <Icon.Link size={20} />
-                {"bridge.supply/" + project.name.toLowerCase() + "-" + project.id}
+                Link to the project
               </Link>
               <div className="flex gap-6 items-stretch relative">
                 <div className="bg-zinc-100 ring-1 ring-zinc-200 rounded-full max-sm:hidden">
@@ -310,7 +310,7 @@ export default function Editor(props) {
                     />
                   )}
                 </div>
-                <div className="w-[1px] bg-zinc-200 max-sm:hidden" />
+                <div className="border-l border-zinc-200 border-dashed max-sm:hidden" />
                 <button onClick={() => {
                   publishCheck();
                 }} className={"font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 flex gap-2 items-center group " + (publishing && "pointer-events-none")}>
