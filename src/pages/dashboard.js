@@ -13,6 +13,7 @@ import Account from "@/components/Account";
 import ProjectSetup from "@/components/ProjectSetup";
 import * as Icon from "phosphor-react";
 import CommandMenu from "@/components/CommandMenu";
+import { set } from "lodash";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -30,6 +31,7 @@ function Dashboard(props) {
   const [avatar, setAvatar] = React.useState(null);
   const [settings, setSettings] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
+  const [names, setNames] = React.useState([]);
 
   const router = useRouter();
 
@@ -87,6 +89,7 @@ function Dashboard(props) {
     // sort by the most recent
     data.sort((a, b) => b.id - a.id);
     setProjects(data);
+    setNames(data.map((project) => project.name));
   };
 
   const selectProject = (id) => {
@@ -136,7 +139,7 @@ function Dashboard(props) {
       fetchProjects(session.user.id);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-
+  
 
   return (
     <>
@@ -247,7 +250,7 @@ function Dashboard(props) {
                               "block px-4 py-2 text-sm rounded-md"
                             )}
                           >
-                            License
+                            Upgrade to Pro
                           </a>
                         )}
                       </Menu.Item>
@@ -295,13 +298,13 @@ function Dashboard(props) {
               <div className="h-16 w-16 relative rounded-full ring-8 ring-white z-0 animate-spin"> <div className="absolute -left-4 -top-4 bg-black z-10 h-12 w-12 transition-all" /> </div>
             </div>
           )}
-          {projects.length > 0 && projects.map((project) => (
+          {projects.length > 0 && projects.map((project, index) => (
             <div
               key={project.id}
-              className="col-span-1 bg-white rounded-2xl border border-zinc-200 p-6 cursor-pointer transition-all hover:bg-zinc-50"
+              className="col-span-1 bg-white rounded-2xl border border-zinc-200 p-6 cursor-pointer transition-all hover:bg-zinc-50 group relative"
               onClick={(e) => {
                 console.log(e.target.tagName);
-                if (e.target.tagName !== "A" && e.target.tagName !== "BUTTON") {
+                if (e.target.tagName !== "A" && e.target.tagName !== "BUTTON" && e.target.tagName !== "INPUT") {
                   selectProject(project.id);
                   router.push("/editor/" + project.owner + project.id);
                 }
@@ -309,103 +312,112 @@ function Dashboard(props) {
             >
               <div>
                 <div className="bg-zinc-100 mb-6 h-56 rounded-lg border border-zinc-200 gap-1 flex flex-col items-left justify-center truncate">
-                  {/* <div className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-blue-600 flex flex-col gap-4"> */}
-                  {/* {
-                      project.content.map((item, index) => {
-                        if (item.id < 6) {
-                          const maxLength = Math.max(...project.content.map(item => item.content[0].content.length));
-                          const percentage = ((item.content[0].content.length + 1) / maxLength) * 100;
-                          const limitedPercentage = percentage > 100 ? 100 : percentage;
-                          return (
-                            <div
-                              key={index}
-                              className="h-3 bg-indigo-500 opacity-30 rounded-full"
-                              style={{ width: `${limitedPercentage}%` }}
-                            />
-                          )
-                        }
-                      })
-                    } */}
                   <Image
                     src={`https://bridge.supply/api/og?title=${project.name}&text=${project.content[0].content[0].content}&image=${project.content[0].content[1].content}`}
                     alt={project.name}
                     width={200}
                     height={200}
-                    className="h-full w-full"
+                    className="h-full w-full object-cover"
                   />
-                  {/* </div> */}
                 </div>
               </div>
               <div className="flex w-full justify-between gap-4 items-center">
-                <div className="truncate">
-                  <h1 className="text-lg font-medium mb-2">{project.name}</h1>
-                  <Link target="_blank" href={"/" + project.name.toLowerCase() + "-" + project.id} className="text-xs text-gray-500 relative z-10 hover:text-black" >
-                    https://bridge.supply/{project.name.toLowerCase() + "-" + project.id}
+                <div className="">
+                  <div className=" w-full group mb-2 ">
+                    <input 
+                    type="text" 
+                    className="text-lg font-medium relative z-10 w-full bg-transparent focus-within:bg-white rounded-md border border-transparent transition-all focus-within:px-1.5" 
+                    value={names[index]} 
+                    onChange={(e) => {
+                      let newNames = [...names];
+                      newNames[index] = e.target.value;
+                      setNames(newNames);
+                    }}
+                    />
+                    {/* <Icon.Check
+                    onClick={() => {
+                      console.log("clicked");
+                    }}
+                     weight="bold" 
+                     className="cursor-pointer absolute transition-all z-20 -top-2.5 -right-2.5 text-white bg-black h-8 w-8 rounded-full flex items-center justify-center p-1.5 pointer-events-none" 
+                     /> */}
+                  </div>
+                  {/* <h1 className="text-lg font-medium mb-2">{project.name}</h1> */}
+                  <Link target="_blank" href={"/jobs/" + project.name.toLowerCase() + "-" + project.id} className="text-xs text-gray-500 relative z-10 hover:text-black" >
+                    https://bridge.supply/jobs/{project.name.toLowerCase() + "-" + project.id}
                   </Link>
                 </div>
                 <div>
                 </div>
-                <button className="flex flex-col items-center justify-center ">
-                  <Menu as="div" className="relative inline-block text-left">
-                    <div className="h-full flex items-center">
-                      <Menu.Button className="cursor-pointer p-2 transition-all hover:bg-zinc-100 rounded-md relative text-gray-500 hover:text-black ">
-                        <Icon.DotsThree weight="bold" className="w-6 h-6 pointer-events-none " />
-                      </Menu.Button>
-                    </div>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => {
+                    router.push("/manage/" + project.owner + project.id);
+                  }}
+                    className="cursor-pointer p-2 transition-all hover:bg-zinc-100 rounded-md relative text-gray-500 hover:text-black ">
+                    <Icon.Users className="w-6 h-6 pointer-events-none " />
+                  </button>
+                  <button className="flex flex-col items-center justify-center ">
+                    <Menu as="div" className="relative inline-block text-left">
+                      <div className="h-full flex items-center">
+                        <Menu.Button className="cursor-pointer p-2 transition-all hover:bg-zinc-100 rounded-md relative text-gray-500 hover:text-black ">
+                          <Icon.DotsThree weight="bold" className="w-6 h-6 pointer-events-none " />
+                        </Menu.Button>
+                      </div>
 
-                    <Transition
-                      as={React.Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <div className="p-1 font-medium">
-                          <Menu.Item>
-                            {({ active }) => (
-                              <button
-                                type="submit"
-                                onClick={() => {
-                                  // go to manage/project.owner+project.id
-                                  router.push("/manage/" + project.owner + project.id);
-                                }}
-                                className={classNames(
-                                  active
-                                    ? "bg-zinc-100 text-gray-900"
-                                    : "text-zinc-700",
-                                  "block w-full px-4 py-2 text-left text-sm rounded-md"
-                                )}
-                              >
-                                Manage Submissions
-                              </button>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <button
-                                type="submit"
-                                onClick={() => {
-                                  deleteProject(project.id);
-                                }}
-                                className={classNames(
-                                  active
-                                    ? "bg-red-50 text-red-500"
-                                    : "text-red-500",
-                                  "block w-full px-4 py-2 text-left text-sm rounded-md"
-                                )}
-                              >
-                                Delete
-                              </button>
-                            )}
-                          </Menu.Item>
-                        </div>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                </button>
+                      <Transition
+                        as={React.Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <div className="p-1 font-medium">
+                            {/* <Menu.Item>
+                              {({ active }) => (
+                                <button
+                                  type="submit"
+                                  onClick={() => {
+                                    // go to manage/project.owner+project.id
+                                    router.push("/manage/" + project.owner + project.id);
+                                  }}
+                                  className={classNames(
+                                    active
+                                      ? "bg-zinc-100 text-gray-900"
+                                      : "text-zinc-700",
+                                    "block w-full px-4 py-2 text-left text-sm rounded-md"
+                                  )}
+                                >
+                                  Manage Submissions
+                                </button>
+                              )}
+                            </Menu.Item> */}
+                            <Menu.Item>
+                              {({ active }) => (
+                                <button
+                                  type="submit"
+                                  onClick={() => {
+                                    deleteProject(project.id);
+                                  }}
+                                  className={classNames(
+                                    active
+                                      ? "bg-red-50 text-red-500"
+                                      : "text-red-500",
+                                    "block w-full px-4 py-2 text-left text-sm rounded-md"
+                                  )}
+                                >
+                                  Delete Project
+                                </button>
+                              )}
+                            </Menu.Item>
+                          </div>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -448,6 +460,43 @@ function Dashboard(props) {
                 }
               }
             })
+          },
+          {
+            name: "Manage Project",
+            type: "commandGroup",
+            content: projects.map((project) => {
+              return {
+                name: "Manage " + project.name,
+                type: "command",
+                description: "Manage " + project.name,
+                action: () => {
+                  selectProject(project.id);
+                  router.push("/manage/" + project.owner + project.id);
+                }
+              }
+            })
+          },
+          {
+            name: "Delete Project",
+            type: "commandGroup",
+            content: projects.map((project) => {
+              return {
+                name: "Delete " + project.name,
+                type: "command",
+                description: "Delete " + project.name,
+                action: () => {
+                  deleteProject(project.id);
+                }
+              }
+            })
+          },
+          {
+            name: "Sign Out",
+            type: "command",
+            description: "Sign out of your account",
+            action: () => {
+              signOut();
+            }
           }
         ]}
       />

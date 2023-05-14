@@ -15,10 +15,10 @@ const CommandMenu = (props) => {
   }, []);
 
   return (
-    <Command.Dialog open={props.open} onOpenChange={props.setOpen} className="fixed min-w-[712px] pb-8 shadow-xl bg-opacity-50 backdrop-blur-lg z-50 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-lg ring-1 flex flex-col gap-8 ring-zinc-200">
+    <Command.Dialog open={props.open} onOpenChange={props.setOpen} className="fixed min-w-[712px] max-h-[412px] transition-all pb-8 shadow-xl bg-opacity-50 backdrop-blur-lg z-50 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-lg ring-1 flex flex-col gap-8 ring-zinc-200">
       <Command.Input className="w-full bg-white ring-1 ring-zinc-200 focus:outline-offset-[-1px] rounded-t-lg text-base px-4 py-3" placeholder="What do you want to do?" />
 
-      <Command.List className="p-4 h-80 overflow-y-scroll flex flex-col justify-start">
+      <Command.List className="p-4 overflow-y-scroll flex flex-col justify-start transition-all">
         <Command.Empty>No results found.</Command.Empty>
 
         {props.commands && props.commands.map((command) => (
@@ -33,7 +33,10 @@ const CommandMenu = (props) => {
               command.action()
             }}>
             {command.name === "Create New Project" && <Icon.FolderSimplePlus size={18} weight="bold" />}
-            {command.name.includes("Open") && <Icon.FolderSimple size={18} weight="bold" />}
+            {command.name === "Sign Out" && <Icon.SignOut size={18} weight="bold" />}
+            {command.name.includes("Back") && <Icon.ArrowBendUpLeft size={18} weight="bold" />}
+            {command.name.includes("Publish") && <Icon.UploadSimple size={18} weight="bold" />}
+            {command.name.includes("Preview") && <Icon.Globe size={18} weight="bold" />}
             {command.name}
           </Command.Item> :
           <Command.Group key={command.id} className="text-sm px-2 text-gray-500 pb-4" heading={command.name}>
@@ -47,8 +50,9 @@ const CommandMenu = (props) => {
                   props.setOpen(false);
                   subcommand.action()
                 }}>
-                {subcommand.name === "Create New Project" && <Icon.FolderSimplePlus size={18} weight="bold" />}
                 {subcommand.name.includes("Open") && <Icon.FolderSimple size={18} weight="bold" />}
+                {subcommand.name.includes("Manage") && <Icon.Users size={18} weight="bold" />}
+                {subcommand.name.includes("Delete") && <Icon.TrashSimple size={18} weight="bold" />}
                 {subcommand.name}
               </Command.Item>
         ))}

@@ -292,9 +292,9 @@ export default function Editor(props) {
                   <h1 className="text-lg font-medium">Dashboard</h1>
                 </div>
               </div>
-              <Link target="_blank" href={"/" + project.name.toLowerCase() + "-" + project.id} className="px-4 truncate py-2 text-gray-600 hover:text-black hover:bg-zinc-50 transition-all bg-white ring-1 ring-zinc-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-md:w-[90%] justify-center">
+              <Link target="_blank" href={"/jobs/" + project.name.toLowerCase() + "-" + project.id} className="px-4 truncate py-2 text-gray-600 hover:text-black hover:bg-zinc-50 transition-all bg-white ring-1 ring-zinc-200 rounded-xl flex gap-2 items-center max-2xl:absolute max-2xl:top-24 max-2xl:left-[50%] max-2xl:translate-x-[-50%] max-md:w-[90%] justify-center">
                 <Icon.Link size={20} />
-                Link to the project
+                {"bridge.supply/jobs/" + project.name.toLowerCase() + "-" + project.id}
               </Link>
               <div className="flex gap-6 items-stretch relative">
                 <div className="bg-zinc-100 ring-1 ring-zinc-200 rounded-full max-sm:hidden">
@@ -793,11 +793,11 @@ export default function Editor(props) {
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
               >
                 <div className="fixed inset-0 bg-black bg-opacity-25" />
               </Transition.Child>
@@ -807,11 +807,11 @@ export default function Editor(props) {
                   <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
                   >
                     <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
@@ -855,7 +855,38 @@ export default function Editor(props) {
           <CommandMenu
             open={open}
             setOpen={setOpen}
-            
+            commands={
+              [
+                {
+                  name: "Back to Dashboard",
+                  description: "Go back to the Dashboard",
+                  type: "command",
+                  action: () => {
+                    setOpen(false);
+                    router.push("/dashboard");
+                  }
+                },
+                {
+                  name: "Publish",
+                  description: "Publish your changes",
+                  type: "command",
+                  action: () => {
+                    setOpen(false);
+                    publishCheck();
+                  }
+                },
+                {
+                  name: "Preview",
+                  description: "Preview your changes",
+                  type: "command",
+                  action: () => {
+                    setOpen(false);
+                    // open "/" + project.name.toLowerCase() + "-" + project.id
+                    window.open("/" + project.name.toLowerCase() + "-" + project.id, "_blank");
+                  }
+                },
+              ]
+            }
           />
         </div>
       </>
