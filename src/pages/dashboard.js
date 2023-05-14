@@ -13,7 +13,6 @@ import Account from "@/components/Account";
 import ProjectSetup from "@/components/ProjectSetup";
 import * as Icon from "phosphor-react";
 import CommandMenu from "@/components/CommandMenu";
-import { Command } from 'cmdk'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -311,7 +310,7 @@ function Dashboard(props) {
               <div>
                 <div className="bg-zinc-100 mb-6 h-56 rounded-lg border border-zinc-200 gap-1 flex flex-col items-left justify-center truncate">
                   {/* <div className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-blue-600 flex flex-col gap-4"> */}
-                    {/* {
+                  {/* {
                       project.content.map((item, index) => {
                         if (item.id < 6) {
                           const maxLength = Math.max(...project.content.map(item => item.content[0].content.length));
@@ -327,13 +326,13 @@ function Dashboard(props) {
                         }
                       })
                     } */}
-                    <Image 
+                  <Image
                     src={`https://bridge.supply/api/og?title=${project.name}&text=${project.content[0].content[0].content}&image=${project.content[0].content[1].content}`}
-                    alt={project.name} 
-                    width={200} 
+                    alt={project.name}
+                    width={200}
                     height={200}
-                    className="h-full w-full" 
-                    />
+                    className="h-full w-full"
+                  />
                   {/* </div> */}
                 </div>
               </div>
@@ -426,99 +425,33 @@ function Dashboard(props) {
       <CommandMenu
         open={open}
         setOpen={setOpen}
-        commands={
-          <>
-            <Command.Item
-              key={1}
-              value="Create new project"
-              tabIndex={0}
-              onSelect={() => {
-                setOpen(false);
-                openSetup();
-              }}
-
-              className="mb-1 focus:outline-none flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md ">
-              <Icon.FolderSimplePlus size={18} weight="bold" />
-              Create new project
-            </Command.Item>
-            {projects.length > 0 && <Command.Group heading="Projects" className="text-sm px-2 text-gray-500 py-4">
-              {projects.map((project) => {
-                return (
-                  <Command.Item
-                    key={project.id}
-                    tabIndex={0}
-                    value={project.name + "edit"}
-                    onSelect={() => {
-                      selectProject(project.id);
-                      router.push("/editor/" + project.owner + project.id);
-                    }}
-                    className="mb-1 text-base text-black focus:outline-none selection:bg-opacity-5 flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md">
-                    <Icon.FolderSimple size={18} weight="bold" />
-                    Open {project.name}
-                  </Command.Item>
-                );
-              })
-              }
-            </Command.Group>}
-            {
-              // Manage projects
-              projects.length > 0 && <Command.Group heading="Manage projects" className="text-sm px-2 text-gray-500 py-4">
-                {projects.map((project) => {
-                  return (
-                    <Command.Item
-                      key={project.id}
-                      tabIndex={0}
-                      value={project.name + "manage"}
-                      onSelect={() => {
-                        selectProject(project.id);
-                        router.push("/manage/" + project.owner + project.id);
-                      }}
-                      className="mb-1 text-base text-black focus:outline-none selection:bg-opacity-5 flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md">
-                      <Icon.Users size={18} weight="bold" />
-                      Manage {project.name}
-                    </Command.Item>
-                  );
-                })
+        commands={[
+          {
+            name: "Create New Project",
+            type: "command",
+            description: "Create a new project",
+            action: () => {
+              openSetup();
+            }
+          },
+          {
+            name: "Open Project",
+            type: "commandGroup",
+            content: projects.map((project) => {
+              return {
+                name: "Open " + project.name,
+                type: "command",
+                description: "Open " + project.name,
+                action: () => {
+                  selectProject(project.id);
+                  router.push("/editor/" + project.owner + project.id);
                 }
-              </Command.Group>
-            }
-            {
-              // Preview projects
-              projects.length > 0 && <Command.Group heading="Preview projects" className="text-sm px-2 text-gray-500 py-4">
-                {projects.map((project) => {
-                  return (
-                    <Command.Item
-                      key={project.id}
-                      tabIndex={0}
-                      value={project.name + "preview"}
-                      onSelect={() => {
-                        selectProject(project.id);
-                        // new tab
-                        window.open("/" + project.owner + project.id, "_blank");
-                      }}
-                      className="mb-1 text-base text-black focus:outline-none selection:bg-opacity-5 flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md">
-                      <Icon.Globe size={18} weight="bold" />
-                      Preview {project.name}
-                    </Command.Item>
-                  );
-                })
-            }
-            </Command.Group>
-            }
-            <Command.Item
-              key={1}
-              value="Sign out"
-              tabIndex={0}
-              onSelect={() => {
-                supabase.auth.signOut();
-              }}
-              className="mb-1 focus:outline-none flex items-center gap-3 outline-none p-2 cursor-pointer transition-all bg-black hover:bg-opacity-5 aria-selected:bg-opacity-5 bg-opacity-0 rounded-md ">
-              <Icon.SignOut size={18} weight="bold" />
-              Sign out
-            </Command.Item>
-          </>
-        }
+              }
+            })
+          }
+        ]}
       />
+
     </>
   );
 }
