@@ -156,7 +156,7 @@ function WaitList(props) {
                                     <h2 className="text-xl font-semibold mb-2">Join the waitlist</h2>
                                     <div className="mt-2 mb-8">
                                         <p className="text-base text-gray-500">
-                                            Be the first to get notified when we launch.
+                                            Be the first to get notified when Bridge launches.
                                         </p>
                                     </div>
 
@@ -169,7 +169,7 @@ function WaitList(props) {
                                                 id="name"
                                                 type="text"
                                                 value={data.name}
-                                                className="w-full border brdg-border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-none"
+                                                className="w-full border brdg-border border-zinc-200 rounded-lg p-2 col-span-3 focus:outline-none"
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
                                             {error.name && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
@@ -187,7 +187,7 @@ function WaitList(props) {
                                                 id="name"
                                                 type="text"
                                                 value={data.email}
-                                                className="w-full border brdg-border border-neutral-200 rounded-lg p-2 col-span-3 focus:outline-none"
+                                                className="w-full border brdg-border border-zinc-200 rounded-lg p-2 col-span-3 focus:outline-none"
                                                 onChange={(e) => setData({ ...data, email: e.target.value })}
                                             />
                                             {error.email && <div className="text-xs text-red-500 absolute right-2 top-[50%] translate-y-[-50%] z-10 pointer-events-none px-2">
@@ -238,7 +238,7 @@ function WaitList(props) {
                                                 onClick={() => {
                                                     props.closeModal();
                                                 }}
-                                                className="font-medium px-3 py-2 rounded-lg ring-1 ring-neutral-200 bg-white text-black transition-all hover:bg-neutral-50 w-full">
+                                                className="font-medium px-3 py-2 rounded-lg ring-1 ring-zinc-200 bg-white text-black transition-all hover:bg-zinc-50 w-full">
                                                 Cancel
                                             </button>
                                         </div>

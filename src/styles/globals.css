@@ -12,20 +12,53 @@
   text-shadow: 0 0 10px #FFFFFF, 0px 0px 10px #FFFFFF;
 }
 
-a, button, select, .btn {
+a,
+button,
+select,
+.btn {
   outline-color: #60A5FA;
   outline-width: 1px;
   outline-offset: 1px;
 }
 
-input, textarea {
+input,
+textarea {
   transition: box-shadow ease 0.2s;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border: 1.5px solid #60A5FA;
   outline: none;
-  box-shadow: rgba(96,165,250, 0.2) 0px 0px 0px 3px;
+  box-shadow: rgba(96, 165, 250, 0.2) 0px 0px 0px 3px;
+}
+
+/* Safari specific styles */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .brdg-border {
+    border-width: 1px;
+    border-style: solid;
+    -webkit-border-image:
+      -webkit-linear-gradient(left, #60A5FA 0%, #60A5FA 50%, transparent 50%, transparent 100%) 0 0 0 1px stretch;
+    border-image:
+      -webkit-linear-gradient(left, #60A5FA 0%, #60A5FA 50%, transparent 50%, transparent 100%) 0 0 0 1px stretch;
+  }
+
+  a,
+  button,
+  select,
+  .btn {
+    outline-color: #60A5FA;
+    outline-width: 1.5px;
+    outline-offset: -1px;
+  }
+
+  input:focus,
+  textarea:focus {
+    border: 1px solid #60A5FA;
+    outline: none;
+    box-shadow: rgba(96, 165, 250, 0.2) 0px 0px 0px 3px;
+  }
 }
 
 .animate-random-translate {
@@ -36,15 +69,19 @@ input:focus, textarea:focus {
   0% {
     transform: translate(0, 0) rotate(0deg);
   }
+
   25% {
     transform: translate(12px, 20px) rotate(12deg);
   }
+
   50% {
     transform: translate(0, 0) rotate(0deg);
   }
+
   75% {
     transform: translate(-48px, -96px) rotate(-12deg);
   }
+
   100% {
     transform: translate(0, 0) rotate(0deg);
   }
@@ -58,15 +95,19 @@ input:focus, textarea:focus {
   0% {
     transform: translate(0, 0) rotate(0deg);
   }
+
   25% {
     transform: translate(-8px, 16px) rotate(-6deg);
   }
+
   50% {
     transform: translate(0, 0) rotate(0deg);
   }
+
   75% {
     transform: translate(40px, -128px) rotate(10deg);
   }
+
   100% {
     transform: translate(0, 0) rotate(0deg);
   }
@@ -76,11 +117,11 @@ div.twitter-picker {
   background-color: #000 !important;
 }
 
-.twitter-picker > div {
+.twitter-picker>div {
   width: auto;
 }
 
-.twitter-picker > div > div > input {
+.twitter-picker>div>div>input {
   background-color: #000;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -90,17 +131,17 @@ div.twitter-picker {
   left: -1px;
 }
 
-.twitter-picker > div > div {
+.twitter-picker>div>div {
   background: #3f3f46 !important;
   color: white !important;
 }
 
-.twitter-picker > div > span > div {
+.twitter-picker>div>span>div {
   box-shadow: inset 0 2px 4px 0 rgba(255, 255, 255, 0.33) !important;
   transition: all ease 0.2s;
 }
 
-.twitter-picker > div > span > div:hover {
+.twitter-picker>div>span>div:hover {
   box-shadow: inset 0 2px 4px 0 rgba(255, 255, 255, 0.8) !important;
   opacity: 0.8;
 }
@@ -112,6 +153,7 @@ div.twitter-picker {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -124,6 +166,7 @@ div.twitter-picker {
     opacity: 0;
     transform: translateX(-50%) translateY(50%);
   }
+
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(-50%);
@@ -136,6 +179,7 @@ div.twitter-picker {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -148,6 +192,7 @@ div.twitter-picker {
     opacity: 1;
     transform: translateX(-50%) translateY(-50%);
   }
+
   to {
     opacity: 0;
     transform: translateX(-50%) translateY(50%);

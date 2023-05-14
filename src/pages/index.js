@@ -592,7 +592,7 @@ export default function Home() {
                                     <div className="w-full h-screen flex items-center">
                                         <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex flex-col items-center justify-center overflow-hidden">
                                             <div className="flex gap-16 justify-center items-start group ">
-                                                <div className="flex flex-col gap-4 w-80 h-auto items-center absolute left-[50%] translate-x-[-80%] z-10 -rotate-3 top-[50%] translate-y-[-50%] transition-all group-hover:rotate-0 group-hover:translate-x-[-100%]">
+                                                <div className="flex flex-col gap-4 w-80 h-auto items-center absolute left-[50%] translate-x-[-80%] max-md:translate-x-[-50%] z-10 -rotate-3 top-[50%] translate-y-[-50%] transition-all max-md:group-hover:translate-x-[-50%] group-hover:rotate-0 group-hover:translate-x-[-100%]">
                                                     <p className="text-center text-white font-medium text-lg relative z-10">Elegant Colors</p>
                                                     <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
                                                         <div className="h-10 w-10 bg-white rounded-full ring-1 ring-zinc-200" />
@@ -623,7 +623,7 @@ export default function Home() {
                                                         <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-zinc-200" />
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col gap-4 w-80 h-80 items-center absolute left-[50%] translate-x-[-30%] rotate-3 top-[50%] translate-y-[-50%] transition-all group-hover:rotate-0 group-hover:translate-x-[-0%]">
+                                                <div className="flex flex-col gap-4 w-80 h-80 items-center absolute left-[50%] translate-x-[-30%] rotate-3 top-[50%] max-md:translate-x-[-50%] max-md:blur-md max-md:opacity-50 max-md:group-hover:translate-x-[-50%] translate-y-[-50%] transition-all group-hover:rotate-0 group-hover:translate-x-[-0%]">
                                                     <p className="text-center text-white font-medium text-lg relative z-10">Joyful Effects</p>
                                                     <div className="bg-transparent bg-white shadow-xl items-center justify-center rounded-xl flex gap-2 relative z-10 h-full w-full overflow-hidden">
                                                         <p className="text-6xl p-8 bg-zinc-100 transition-all group-hover:bg-zinc-200 rounded-full">&#127881;</p>
@@ -637,15 +637,71 @@ export default function Home() {
                                         <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
                                             <p className="text-center text-white font-medium text-lg relative z-10">Manage your candidates</p>
                                             <div className="p-4 rounded-xl mx-auto bg-white shadow-xl w-[512px] max-w-full relative z-10">
-                                                <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Latest Waitlist Entries</p>
+                                                <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Project Submissions</p>
                                                 <div className="ring-1 ring-zinc-200 rounded-lg">
                                                     <div className="grid text-xs text-black sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 px-3 justify-between items-center bg-zinc-100 rounded-t-lg border-b border-zinc-200">
                                                         <p className="max-sm:hidden">Time</p>
                                                         <p>Name</p>
                                                         <p className="w-full text-right">Status</p>
                                                     </div>
+
                                                     <div className="p-1">
-                                                        {entries.map((entry, index) => (
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                            <p className="text-sm max-sm:hidden text-indigo-400">
+                                                                11:03
+                                                            </p>
+                                                            <div className="flex gap-4 items-center">
+                                                                <p className="">Bob U.</p>
+                                                            </div>
+                                                            <div className="w-full flex justify-end">
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                            <p className="text-sm max-sm:hidden text-indigo-400">
+                                                                3:32
+                                                            </p>
+                                                            <div className="flex gap-4 items-center">
+                                                                <p className="">Johnson I.</p>
+                                                            </div>
+                                                            <div className="w-full flex justify-end">
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                            <p className="text-sm max-sm:hidden text-indigo-400">
+                                                                6:15
+                                                            </p>
+                                                            <div className="flex gap-4 items-center">
+                                                                <p className="">Peter T.</p>
+                                                            </div>
+                                                            <div className="w-full flex justify-end">
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                            <p className="text-sm max-sm:hidden text-indigo-400">
+                                                                8:49
+                                                            </p>
+                                                            <div className="flex gap-4 items-center">
+                                                                <p className="">Igor S.</p>
+                                                            </div>
+                                                            <div className="w-full flex justify-end">
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                            <p className="text-sm max-sm:hidden text-indigo-400">
+                                                                10:12
+                                                            </p>
+                                                            <div className="flex gap-4 items-center">
+                                                                <p className="">John D.</p>
+                                                            </div>
+                                                            <div className="w-full flex justify-end">
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                        {/* {entries.map((entry, index) => (
                                                             index < 4 &&
                                                             <div key={index} className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
                                                                 <p className="text-sm max-sm:hidden text-indigo-400">{
@@ -660,7 +716,7 @@ export default function Home() {
                                                                     <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
                                                                 </div>
                                                             </div>
-                                                        ))}
+                                                        ))} */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -751,7 +807,7 @@ export default function Home() {
                                 <p className="text-3xl font-semibold mb-6">Free</p>
                                 <button
                                     onClick={() => {
-                                        router.push('/login')
+                                        openModal(true);
                                     }}
                                     className="bg-black hover:bg-zinc-900 w-full text-white font-medium rounded-lg px-4 py-2">Start for free</button>
                             </div>
@@ -783,7 +839,7 @@ export default function Home() {
                                     <p className="text-3xl font-semibold mb-6">49 € <span className="text-lg">/m</span></p>
                                     <button
                                         onClick={() => {
-                                            router.push('/login')
+                                            openModal(true);
                                         }}
                                         className="bg-black hover:bg-zinc-900 w-full text-white font-medium rounded-lg px-4 py-2">Subscribe to Pro</button>
                                 </div>
