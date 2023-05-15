@@ -139,7 +139,7 @@ function Dashboard(props) {
       fetchProjects(session.user.id);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  
+
 
   return (
     <>
@@ -323,24 +323,34 @@ function Dashboard(props) {
               </div>
               <div className="flex w-full justify-between gap-4 items-center">
                 <div className="">
-                  <div className=" w-full group mb-2 ">
-                    <input 
-                    type="text" 
-                    className="text-lg font-medium relative z-10 w-full bg-transparent focus-within:bg-white rounded-md border border-transparent transition-all focus-within:px-1.5" 
-                    value={names[index]} 
-                    onChange={(e) => {
-                      let newNames = [...names];
-                      newNames[index] = e.target.value;
-                      setNames(newNames);
-                    }}
+                  <div className=" w-full group mb-2 relative">
+                    <input
+                      type="text"
+                      className="text-lg font-medium relative z-10 w-full bg-transparent focus-within:bg-white rounded-md border border-transparent transition-all focus-within:px-1.5"
+                      value={names[index]}
+                      onChange={(e) => {
+                        let newNames = [...names];
+                        newNames[index] = e.target.value;
+                        setNames(newNames);
+                      }}
+                      // on Key Enter
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          
+                        }
+                      }}
                     />
-                    {/* <Icon.Check
-                    onClick={() => {
-                      console.log("clicked");
-                    }}
-                     weight="bold" 
-                     className="cursor-pointer absolute transition-all z-20 -top-2.5 -right-2.5 text-white bg-black h-8 w-8 rounded-full flex items-center justify-center p-1.5 pointer-events-none" 
-                     /> */}
+                  <div
+                    style={{ opacity: names[index] === project.name ? 0 : 1, zIndex: 30 }}
+                    className="cursor-pointer absolute transition-all z-30 top-[50%] translate-y-[-50%] right-0.5 text-black bg-white h-7 w-7 rounded-full flex items-center justify-center pointer-events-none"
+                  >
+                    <Icon.KeyReturn
+                      weight="bold"
+                      className="h-5 w-5"
+                      width={20}
+                    />
+                  </div>
                   </div>
                   {/* <h1 className="text-lg font-medium mb-2">{project.name}</h1> */}
                   <Link target="_blank" href={"/jobs/" + project.name.toLowerCase() + "-" + project.id} className="text-xs text-gray-500 relative z-10 hover:text-black" >
