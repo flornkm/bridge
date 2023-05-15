@@ -118,20 +118,21 @@ function Dashboard(props) {
   };
 
   const createProject = async (project) => {
+    if (project.name !== "") {
+      project.owner = session.user.id;
 
-    project.owner = session.user.id;
-
-    const res = await fetch("/api/projects", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(project),
-    });
-    const data = await res.json();
-    console.log(data);
-    setSetup(false);
-    fetchProjects(session.user.id);
+      const res = await fetch("/api/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(project),
+      });
+      const data = await res.json();
+      console.log(data);
+      setSetup(false);
+      fetchProjects(session.user.id);
+    }
   };
 
   React.useEffect(() => {
@@ -285,14 +286,14 @@ function Dashboard(props) {
         </div>
         <div className="pt-40 text-3xl font-semibold max-w-[80%] mx-auto mb-8 flex justify-between items-center flex-wrap gap-4">
           <h2>Your projects</h2>
-          <button
+          {projects.length !== 0 && <button
             onClick={() => {
               setSetup(true);
             }}
             className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800"
           >
             Create Project
-          </button>
+          </button>}
         </div>
         <div className="grid grid-cols-3 gap-10 max-w-[80%] mx-auto max-md:grid-cols-1 max-xl:grid-cols-2 pb-32">
           {projectLoading && (
@@ -301,7 +302,22 @@ function Dashboard(props) {
             </div>
           )}
           {projects.length === 0 && !projectLoading && (
-            <h1 className="text-center w-full absolute translate-x-[-50%] left-[50%] top-[50%] translate-y-[-50%] text-3xl font-semibold">No Projects yet</h1>
+            <div className="absolute translate-x-[-50%] left-[50%] top-[50%] translate-y-[-50%] flex flex-col gap-4 px-12 py-10 rounded-2xl shadow-lg shadow-zinc-100 bg-white border border-zinc-200">
+              <h1 className="w-full text-3xl font-semibold">
+                No Projects yet
+              </h1>
+              <p className="mb-8 text-zinc-500">
+                Create a project to get started by clicking the button below.
+              </p>
+              <button
+                onClick={() => {
+                  setSetup(true);
+                }}
+                className="font-medium text-base px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800"
+              >
+                Create Project
+              </button>
+            </div>
           )}
           {projects.length > 0 && !projectLoading && projects.map((project, index) => (
             <div
@@ -367,8 +383,11 @@ function Dashboard(props) {
                   <button onClick={() => {
                     router.push("/manage/" + project.owner + project.id);
                   }}
-                    className="cursor-pointer p-2 transition-all hover:bg-zinc-100 rounded-md relative text-gray-500 hover:text-black ">
+                    className="cursor-pointer p-2 transition-all hover:bg-zinc-100 group/user rounded-md relative text-gray-500 hover:text-black ">
                     <Icon.Users className="w-6 h-6 pointer-events-none " />
+                    <div className="max-md:hidden truncate text-sm absolute translate-x-[-50%] left-[50%] bottom-12 hidden group-hover/user:block text-white px-2.5 py-1 bg-black rounded-full">
+                      Manage Submissions
+                    </div>
                   </button>
                   <button className="flex flex-col items-center justify-center ">
                     <Menu as="div" className="relative inline-block text-left">

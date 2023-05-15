@@ -63,7 +63,7 @@ export default function Account({ session, setSettings, avatar_url, setAvatarUrl
   }
 
   return (
-    <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 bg-black bg-opacity-40 w-screen h-screen flex justify-center items-center px-[5%]">
+    <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50 bg-black bg-opacity-40 w-screen h-screen flex justify-center items-center px-[5%]">
       <div className="form-widget bg-white p-6 rounded-xl w-[550px] flex flex-col gap-4 relative z-20">
         <h2 className="text-xl font-semibold mb-2">Account Settings</h2>
         <Avatar
@@ -124,16 +124,19 @@ export default function Account({ session, setSettings, avatar_url, setAvatarUrl
               }}
               disabled={loading}
             >
-              Done
+              Cancel
             </button>
           </div>
           <div className="w-full">
             <button
               className="font-medium px-3 py-2 rounded-lg bg-black text-white transition-all hover:bg-zinc-800 w-full"
-              onClick={() => updateProfile({ username, website, avatar_url })}
+              onClick={() => {
+                updateProfile({ username, website, avatar_url })
+                setSettings(false);
+              }} 
               disabled={loading}
             >
-              {loading ? "Loading ..." : "Update Settings"}
+              {loading ? "Loading ..." : "Update and Close"}
             </button>
           </div>
         </div>
