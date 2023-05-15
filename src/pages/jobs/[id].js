@@ -341,7 +341,7 @@ export default function Published() {
                         )}
                         {!data || data.content === undefined && (
                             <div className="w-full h-full flex items-center justify-center">
-                                <h1 className="text-2xl font-semibold text-black">Project not found</h1>
+                                <h1 className="text-2xl font-semibold text-black">Job not found</h1>
                             </div>
                         )
                         }

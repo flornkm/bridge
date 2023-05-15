@@ -1,11 +1,19 @@
 import supabase from "../../supabase";
 
 export default async function handler(req, res) {
-  const submission = {
+  let submission = {
     ...req.body.submitData,
     time: new Date().toISOString(), // add actual time to the submission
     status: "pending",
   };
+
+  // convert the submission into a normal object and remove the ' ' from the keys
+  submission = Object.fromEntries(
+    Object.entries(submission).map(([key, value]) => [key.replace(/'/g, ""), value])
+  );
+
+  console.log(submission);
+
   const keys = Object.keys(submission).sort((a, b) => {
     if (a === "time") {
       return -1;

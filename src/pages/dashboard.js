@@ -26,6 +26,7 @@ function Dashboard(props) {
   const user = useUser();
   const [username, setUsername] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
+  const [projectLoading, setProjectLoading] = React.useState(true);
   const [setup, setSetup] = React.useState(false);
   const [avatar_url, setAvatarUrl] = React.useState(null);
   const [avatar, setAvatar] = React.useState(null);
@@ -90,6 +91,7 @@ function Dashboard(props) {
     data.sort((a, b) => b.id - a.id);
     setProjects(data);
     setNames(data.map((project) => project.name));
+    setProjectLoading(false);
   };
 
   const selectProject = (id) => {
@@ -293,12 +295,15 @@ function Dashboard(props) {
           </button>
         </div>
         <div className="grid grid-cols-3 gap-10 max-w-[80%] mx-auto max-md:grid-cols-1 max-xl:grid-cols-2 pb-32">
-          {projects.length === 0 && (
+          {projectLoading && (
             <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-6 bg-black overflow-hidden rounded-lg mix-blend-exclusion">
               <div className="h-16 w-16 relative rounded-full ring-8 ring-white z-0 animate-spin"> <div className="absolute -left-4 -top-4 bg-black z-10 h-12 w-12 transition-all" /> </div>
             </div>
           )}
-          {projects.length > 0 && projects.map((project, index) => (
+          {projects.length === 0 && !projectLoading && (
+            <h1 className="text-center w-full absolute translate-x-[-50%] left-[50%] top-[50%] translate-y-[-50%] text-3xl font-semibold">No Projects yet</h1>
+          )}
+          {projects.length > 0 && !projectLoading && projects.map((project, index) => (
             <div
               key={project.id}
               className="col-span-1 bg-white rounded-2xl border border-zinc-200 p-6 cursor-pointer transition-all hover:bg-zinc-50 group relative"
@@ -333,24 +338,23 @@ function Dashboard(props) {
                         newNames[index] = e.target.value;
                         setNames(newNames);
                       }}
-                      // on Key Enter
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           e.preventDefault();
-                          
+
                         }
                       }}
                     />
-                  <div
-                    style={{ opacity: names[index] === project.name ? 0 : 1, zIndex: 30 }}
-                    className="cursor-pointer absolute transition-all z-30 top-[50%] translate-y-[-50%] right-0.5 text-black bg-white h-7 w-7 rounded-full flex items-center justify-center pointer-events-none"
-                  >
-                    <Icon.KeyReturn
-                      weight="bold"
-                      className="h-5 w-5"
-                      width={20}
-                    />
-                  </div>
+                    <div
+                      style={{ opacity: names[index] === project.name ? 0 : 1, zIndex: 30 }}
+                      className="cursor-pointer absolute transition-all z-30 top-[50%] translate-y-[-50%] right-0.5 text-black bg-white h-7 w-7 rounded-full flex items-center justify-center pointer-events-none"
+                    >
+                      <Icon.KeyReturn
+                        weight="bold"
+                        className="h-5 w-5"
+                        width={20}
+                      />
+                    </div>
                   </div>
                   {/* <h1 className="text-lg font-medium mb-2">{project.name}</h1> */}
                   <Link target="_blank" href={"/jobs/" + project.name.toLowerCase() + "-" + project.id} className="text-xs text-gray-500 relative z-10 hover:text-black" >
