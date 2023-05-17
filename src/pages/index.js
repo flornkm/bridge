@@ -662,7 +662,7 @@ export default function Home() {
                                                                 3:32
                                                             </p>
                                                             <div className="flex gap-4 items-center">
-                                                                <p className="">Johnson I.</p>
+                                                                <p className="">Johnson B.</p>
                                                             </div>
                                                             <div className="w-full flex justify-end">
                                                                 <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
