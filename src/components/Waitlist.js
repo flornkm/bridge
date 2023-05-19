@@ -262,8 +262,6 @@ function WaitList(props) {
                                     <div className="flex flex-col h-full w-full gap-2">
                                         <div className="h-[354px] mb-4 rounded-xl overflow-hidden ring-1 ring-violet-100">
                                             <Image src="/images/general/logo.svg" width={96} height={96} alt="3d bridge" className="absolute z-20 left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%]" />
-                                            <Image src="/images/general/logo.svg" width={128} height={128} alt="3d bridge" className="absolute z-10 left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] blur-3xl" />
-                                            <Image src="/images/general/morph_lines.svg" width={512} height={512} alt="3d bridge" className="h-full w-full object-cover object-top" unoptimized />
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <h2 className="text-xl font-semibold">Success! &#x1F38A;</h2>

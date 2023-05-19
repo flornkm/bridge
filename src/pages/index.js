@@ -237,15 +237,15 @@ export default function Home() {
                     navRect.current.style.left = navItems[1].current.offsetLeft + "px";
                 } else if (percentage > 0.4) {
                     if (circles[0].current && circles[1].current && circles[2].current) {
-                        circles[0].current.style.transform = "translateY(-50%) translateX(-50%) scale(1)";
+                        circles[0].current.style.transform = "translateY(-50%) translateX(-50%) scale(1) rotate(12deg)";
                         circles[0].current.style.opacity = 1;
                         setTimeout(() => {
                             if (circles[1].current && circles[2].current) {
-                                circles[1].current.style.transform = "translateY(-50%) translateX(-50%) scale(1)";
+                                circles[1].current.style.transform = "translateY(-50%) translateX(-50%) scale(1) rotate(-8deg)";
                                 circles[1].current.style.opacity = 1;
                                 setTimeout(() => {
                                     if (circles[2].current) {
-                                        circles[2].current.style.transform = "translateY(-50%) translateX(-50%) scale(1)";
+                                        circles[2].current.style.transform = "translateY(-50%) translateX(-50%) scale(1) rotate(4deg)";
                                         circles[2].current.style.opacity = 1;
                                     }
                                 }, 100);
@@ -341,22 +341,10 @@ export default function Home() {
         }
     });
 
-    function getRandomEmoji() {
-        const emojis = ['😀', '😍', '🤔', '😴', '🤯', '👻', '👽', '🤖'];
-        const randomIndex = Math.floor(Math.random() * emojis.length);
-        return emojis[randomIndex];
-    }
-
     const fetchNewestEntries = async () => {
         const response = await fetch('/api/airtable');
         const data = await response.json();
-        const entriesWithEmojis = data.map(entry => {
-            return {
-                ...entry,
-                emoji: getRandomEmoji()
-            }
-        });
-        setEntries(entriesWithEmojis);
+        setEntries(data);
     };
 
     useEffect(() => {
@@ -599,7 +587,7 @@ export default function Home() {
                             <div className="flex flex-col md:col-span-2 gap-3 p-6 bg-zinc-50 rounded-2xl overflow-hidden h-96">
                                 <h3 className="text-black font-semibold md:text-2xl max-md:text-xl flex gap-4 items-center">Connect with candidates
                                 </h3>
-                                <div className="w-full flex justify-between h-full items-center md:gap-4">
+                                <div className="w-full flex justify-center h-full items-center md:gap-4">
                                     <Image src="/images/general/memoji_1.jpg" alt="Daniel" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-zinc-200 relative max-md:z-20" unoptimized={true} />
                                     <Icon.Link size={40} weight="fill" className="text-gray-500 max-md:hidden" />
                                     <Image src="/images/general/memoji_2.jpg" alt="Isabelle" width={128} height={128} className="rounded-full transition-all hover:scale-105 hover:shadow-xl md:ring-1 border-white border-8 ring-zinc-200 relative max-md:z-10 max-md:-left-4" unoptimized={true} />
@@ -811,34 +799,16 @@ export default function Home() {
                                                 <h4 className="text-[96px] text-emerald-300 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
                                                 <h4 className="text-[96px] font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
                                             </div> */}
-                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[30%] bg-white shadow-xl h-28 w-28 md:h-40 md:w-40 rounded-full top-[20%] translate-y-[-0%] transition-all duration-1000 opacity-0" ref={circles[0]}>
-                                                <Image
-                                                    src="/images/general/custom_cursor.svg"
-                                                    alt="Custom Bridge Cursor"
-                                                    width={92}
-                                                    height={92}
-
-                                                />
+                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[30%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[20%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:border-4 max-md:border-emerald-400" ref={circles[0]}>
+                                                <Icon.HandGrabbing size={72} className=" text-black" />
                                                 <p className="absolute -bottom-8 font-medium text-white">Build</p>
                                             </div>
-                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] right-[10%] bg-white shadow-xl h-28 w-28 md:h-40 md:w-40 rounded-full top-[30%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:right-[-10%]" ref={circles[1]}>
-                                                <Image
-                                                    src="/images/general/custom_cursor.svg"
-                                                    alt="Custom Bridge Cursor"
-                                                    width={92}
-                                                    height={92}
-
-                                                />
+                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] right-[10%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[30%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:right-[-10%] max-md:border-4 max-md:border-emerald-400" ref={circles[1]}>
+                                                <Icon.UploadSimple size={72} className="text-black" />
                                                 <p className="absolute -bottom-8 font-medium text-white">Publish</p>
                                             </div>
-                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[45%] bg-white shadow-xl h-28 w-28 md:h-40 md:w-40 rounded-full top-[80%] translate-y-[-0%] transition-all duration-1000 opacity-0" ref={circles[2]}>
-                                                <Image
-                                                    src="/images/general/custom_cursor.svg"
-                                                    alt="Custom Bridge Cursor"
-                                                    width={92}
-                                                    height={92}
-
-                                                />
+                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[45%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[80%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:border-4 max-md:border-emerald-400" ref={circles[2]}>
+                                                <Icon.Share size={72} className="text-black" />
                                                 <p className="absolute -bottom-8 font-medium text-white">Share</p>
                                             </div>
                                         </div>
@@ -1012,6 +982,23 @@ export default function Home() {
             />}
             <div></div>
             {waitlist && <WaitList isOpen={isOpen} closeModal={closeModal} openModal={openModal} />}
+            {entries.length > 0 && <div className="fixed translate-y-[-50%] top-[50%] translate-x-[97%] hover:translate-x-[0%] right-0 transition-all pr-0 duration-500 group w-30 z-50">
+                <div onClick={() => {
+                    if (window && window.innerWidth > 768) {
+                        openModal(true);
+                    }
+                }} className="p-4 pr-6 pl-2 rounded-xl bg-white group-hover:scale-105 text-white group-hover:text-black items-center flex group w-56 justify-between relative right-4 transition-all shadow-lg border border-zinc-200 cursor-pointer">
+                    <div className="h-12 group-hover:h-0 duration-500 rounded-full w-1 bg-zinc-300 transition-all" />
+                    <div className="flex flex-col gap-2">
+                        <p className="truncate font-medium pb-1">Latest Waitlist Entries</p>
+                        {entries.map((entry, index) => (
+                            <div key={index} className="truncate text-sm max-w-[152px] opacity-0 group-hover:opacity-50">
+                                {index + 1 + ". "} {entry.fields.Name}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>}
         </>
     );
 }
