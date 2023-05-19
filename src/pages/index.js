@@ -42,6 +42,19 @@ export default function Home() {
     const [waitlist, setWaitlist] = useState(false);
     const scrollDiv = useRef(null);
     const navRect = useRef(null);
+    const inViewState = [
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+    ];
+    const cards = [
+        useRef(null),
+        useRef(null),
+        useRef(null),
+    ]
     const navItems = [
         useRef(null),
         useRef(null),
@@ -181,15 +194,47 @@ export default function Home() {
                 setScrollPosition(percentage);
 
                 if (percentage < 0.2) {
+                    if (inViewState[0].current && inViewState[1].current && inViewState[2].current && inViewState[3].current && inViewState[4].current && inViewState[5].current) {
+                        inViewState[0].current.style.transform = "scale(1) rotate(0deg)";
+                        inViewState[0].current.style.right = "0";
+                        inViewState[4].current.style.transform = "scale(1) rotate(0deg)";
+                        inViewState[5].current.style.gap = "24px";
+                        setTimeout(() => {
+                            if (inViewState[1].current && inViewState[2].current && inViewState[3].current) {
+                                inViewState[1].current.style.transform = "scale(1) rotate(0deg)";
+                                inViewState[1].current.style.left = "0";
+                            }
+                            setTimeout(() => {
+                                if (inViewState[2].current && inViewState[3].current) {
+                                    inViewState[2].current.style.transform = "scale(1) rotate(0deg)";
+                                    inViewState[2].current.style.right = "0";
+                                }
+                                setTimeout(() => {
+                                    if (inViewState[3].current) {
+                                        inViewState[3].current.style.transform = "scale(1) rotate(0deg)";
+                                        inViewState[3].current.style.left = "0";
+                                    }
+                                }, 100);
+                            }, 100);
+                        }, 100);
+                    }
+                    navRect.current.style.opacity = 1;
                     navRect.current.style.width = navItems[0].current.offsetWidth + "px";
                     navRect.current.style.left = navItems[0].current.offsetLeft + "px";
                 } else if (percentage > 0.2 && percentage < 0.4) {
+                    if (cards[0].current && cards[1].current && cards[2].current) {
+                        cards[0].current.style.transform = "scale(1)";
+                        cards[1].current.style.transform = "translateY(-50%) scale(1)";
+                        cards[2].current.style.transform = "translateY(-50%) scale(1)";
+                    }
+
                     navRect.current.style.width = navItems[1].current.offsetWidth + "px";
                     navRect.current.style.left = navItems[1].current.offsetLeft + "px";
                 } else if (percentage > 0.4) {
+                    navRect.current.style.opacity = 1;
                     navRect.current.style.width = navItems[2].current.offsetWidth + "px";
                     navRect.current.style.left = navItems[2].current.offsetLeft + "px";
-                }
+                } 
             }
         };
 
@@ -284,7 +329,6 @@ export default function Home() {
     const fetchNewestEntries = async () => {
         const response = await fetch('/api/airtable');
         const data = await response.json();
-        console.log(data);
         const entriesWithEmojis = data.map(entry => {
             return {
                 ...entry,
@@ -292,7 +336,6 @@ export default function Home() {
             }
         });
         setEntries(entriesWithEmojis);
-        console.log(entriesWithEmojis);
     };
 
     useEffect(() => {
@@ -584,49 +627,43 @@ export default function Home() {
                                     <h3 className={"md:px-4 py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.2 && scrollPosition < 0.4 ? "text-black" : "text-gray-400")} ref={navItems[1]}>Organisable</h3>
                                     <h3 className={"md:px-4 py-3 max-md:px-1.5 font-medium md:text-lg max-md:text-sm relative z-10 text-center truncate max-sm:flex-grow " + (scrollPosition > 0.4 ? "text-black" : "text-gray-400")} ref={navItems[2]}>Super fast</h3>
 
-                                    <div className="bg-zinc-100 ring-4 ring-zinc-100 absolute top-2 bottom-2 rounded-full transition-all w-36" ref={navRect} />
+                                    <div className="bg-zinc-100 ring-4 ring-zinc-100 absolute top-2 bottom-2 rounded-full transition-all opacity-0" ref={navRect} />
                                 </div>
                             </div>
                             <div className="sticky top-0 max-md:top-8 w-full h-auto col-span-2 flex items-center justify-center">
                                 {scrollPosition < 0.2 && (
                                     <div className="w-full h-screen flex items-center">
                                         <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex flex-col items-center justify-center overflow-hidden">
-                                            <div className="flex gap-16 justify-center items-start group ">
-                                                <div className="flex flex-col gap-4 w-80 h-auto items-center absolute left-[50%] translate-x-[-80%] max-md:translate-x-[-50%] z-10 -rotate-3 top-[50%] translate-y-[-50%] transition-all max-md:group-hover:translate-x-[-50%] group-hover:rotate-0 group-hover:translate-x-[-100%]">
-                                                    <p className="text-center text-white font-medium text-lg relative z-10">Elegant Colors</p>
-                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
-                                                        <div className="h-10 w-10 bg-white rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-zinc-200 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-zinc-400 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-zinc-600 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-zinc-800 rounded-full ring-1 ring-zinc-200" />
+                                            <div className="flex gap-16 justify-center items-start group">
+                                                <div className="flex flex-col gap-16 w-80 h-auto items-center absolute left-[50%] z-10 top-[50%] translate-y-[-50%] transition-all translate-x-[-50%] rotate-0 duration-700" ref={inViewState[5]}>
+                                                    <p className="text-center text-white font-medium text-lg relative z-10 transition-all -rotate-6 group-hover:rotate-0 scale-125 group-hover:scale-100 duration-500" ref={inViewState[4]}>Elegant Colors</p>
+                                                    <div className="p-2 bg-black rounded-xl flex gap-2 relative z-10 shadow-xl scale-125 group-hover:scale-100 right-8 transition-all group-hover:right-0 -rotate-6 group-hover:rotate-0 duration-500" ref={inViewState[0]}>
+                                                        <div className="h-10 w-10 bg-white rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-zinc-200 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-zinc-400 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-zinc-600 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-zinc-800 rounded-full color-p" />
                                                     </div>
-                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
-                                                        <div className="h-10 w-10 bg-red-200 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-red-400 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-red-500 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-red-600 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-red-800 rounded-full ring-1 ring-zinc-200" />
+                                                    <div className="p-2 bg-black rounded-xl flex gap-2 relative z-10 shadow-xl scale-125 group-hover:scale-100 left-8 transition-all group-hover:left-0 -rotate-6 group-hover:rotate-0 duration-500" ref={inViewState[1]}>
+                                                        <div className="h-10 w-10 bg-red-200 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-red-400 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-red-500 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-red-600 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-red-800 rounded-full color-p" />
                                                     </div>
-                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
-                                                        <div className="h-10 w-10 bg-green-200 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-green-400 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-green-500 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-green-600 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-green-800 rounded-full ring-1 ring-zinc-200" />
+                                                    <div className="p-2 bg-black rounded-xl flex gap-2 relative z-10 shadow-xl scale-125 group-hover:scale-100 right-8 transition-all group-hover:right-0 -rotate-6 group-hover:rotate-0 duration-500" ref={inViewState[2]}>
+                                                        <div className="h-10 w-10 bg-green-200 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-green-400 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-green-500 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-green-600 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-green-800 rounded-full color-p" />
                                                     </div>
-                                                    <div className="p-2 bg-white rounded-xl flex gap-2 relative z-10 shadow-xl">
-                                                        <div className="h-10 w-10 bg-blue-200 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-blue-400 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-blue-500 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-blue-600 rounded-full ring-1 ring-zinc-200" />
-                                                        <div className="h-10 w-10 bg-blue-800 rounded-full ring-1 ring-zinc-200" />
-                                                    </div>
-                                                </div>
-                                                <div className="flex flex-col gap-4 w-80 h-80 items-center absolute left-[50%] translate-x-[-30%] rotate-3 top-[50%] max-md:translate-x-[-50%] max-md:blur-md max-md:opacity-50 max-md:group-hover:translate-x-[-50%] translate-y-[-50%] transition-all group-hover:rotate-0 group-hover:translate-x-[-0%]">
-                                                    <p className="text-center text-white font-medium text-lg relative z-10">Joyful Effects</p>
-                                                    <div className="bg-transparent bg-white shadow-xl items-center justify-center rounded-xl flex gap-2 relative z-10 h-full w-full overflow-hidden">
-                                                        <p className="text-6xl p-8 bg-zinc-100 transition-all group-hover:bg-zinc-200 rounded-full">&#127881;</p>
+                                                    <div className="p-2 bg-black rounded-xl flex gap-2 relative z-10 shadow-xl scale-125 group-hover:scale-100 left-8 transition-all group-hover:left-0 -rotate-6 group-hover:rotate-0 duration-500" ref={inViewState[3]}>
+                                                        <div className="h-10 w-10 bg-blue-200 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-blue-400 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-blue-500 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-blue-600 rounded-full color-p" />
+                                                        <div className="h-10 w-10 bg-blue-800 rounded-full color-p" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -636,7 +673,7 @@ export default function Home() {
                                     <div className="w-full h-screen flex items-center">
                                         <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
                                             <p className="text-center text-white font-medium text-lg relative z-10">Manage your candidates</p>
-                                            <div className="p-4 rounded-xl mx-auto bg-white shadow-xl w-[512px] max-w-full relative z-10">
+                                            <div className="p-4 rounded-xl mx-auto bg-white shadow-xl w-[512px] max-w-full relative z-30 scale-105 transition-all duration-200" ref={cards[0]}>
                                                 <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Project Submissions</p>
                                                 <div className="ring-1 ring-zinc-200 rounded-lg">
                                                     <div className="grid text-xs text-black sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 px-3 justify-between items-center bg-zinc-100 rounded-t-lg border-b border-zinc-200">
@@ -646,7 +683,7 @@ export default function Home() {
                                                     </div>
 
                                                     <div className="p-1">
-                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-50 rounded-lg items-center">
                                                             <p className="text-sm max-sm:hidden text-indigo-400">
                                                                 11:03
                                                             </p>
@@ -654,10 +691,10 @@ export default function Home() {
                                                                 <p className="">Bob U.</p>
                                                             </div>
                                                             <div className="w-full flex justify-end">
-                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-100 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
                                                             </div>
                                                         </div>
-                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-50 rounded-lg items-center">
                                                             <p className="text-sm max-sm:hidden text-indigo-400">
                                                                 3:32
                                                             </p>
@@ -665,10 +702,10 @@ export default function Home() {
                                                                 <p className="">Johnson B.</p>
                                                             </div>
                                                             <div className="w-full flex justify-end">
-                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-100 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
                                                             </div>
                                                         </div>
-                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-50 rounded-lg items-center">
                                                             <p className="text-sm max-sm:hidden text-indigo-400">
                                                                 6:15
                                                             </p>
@@ -676,10 +713,10 @@ export default function Home() {
                                                                 <p className="">Peter T.</p>
                                                             </div>
                                                             <div className="w-full flex justify-end">
-                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-100 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
                                                             </div>
                                                         </div>
-                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-50 rounded-lg items-center">
                                                             <p className="text-sm max-sm:hidden text-indigo-400">
                                                                 8:49
                                                             </p>
@@ -687,10 +724,10 @@ export default function Home() {
                                                                 <p className="">Igor S.</p>
                                                             </div>
                                                             <div className="w-full flex justify-end">
-                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-100 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
                                                             </div>
                                                         </div>
-                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-100 rounded-lg items-center">
+                                                        <div className="grid sm:grid-cols-3 max-sm:grid-cols-2 w-full gap-8 p-2 justify-between hover:bg-zinc-50 rounded-lg items-center">
                                                             <p className="text-sm max-sm:hidden text-indigo-400">
                                                                 10:12
                                                             </p>
@@ -698,7 +735,7 @@ export default function Home() {
                                                                 <p className="">John D.</p>
                                                             </div>
                                                             <div className="w-full flex justify-end">
-                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-200 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
+                                                                <Icon.DotsThree size={32} className="hover:bg-zinc-100 text-gray-800 transition-all rounded-md p-1 cursor-pointer" />
                                                             </div>
                                                         </div>
                                                         {/* {entries.map((entry, index) => (
@@ -720,7 +757,9 @@ export default function Home() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="text-black absolute z-10 bottom-24 right-72 max-md:right-24 animate-random-translate pointer-events-none">
+                                            <div className="p-4 rounded-xl mx-auto bg-zinc-100 shadow-xl w-[512px] max-w-full z-20 absolute top-[50%] translate-y-[-24%] scale-95 h-80 transition-all duration-1000" ref={cards[1]} />
+                                            <div className="p-4 rounded-xl mx-auto bg-zinc-100 shadow-xl w-[512px] max-w-full z-10 absolute top-[50%] translate-y-[-14%] scale-90 h-80 transition-all duration-1000" ref={cards[2]} />
+                                            <div className="text-black absolute bottom-24 right-72 max-md:right-24 animate-random-translate pointer-events-none z-40">
                                                 <svg width="56" height="59" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <g>
                                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.8407 12.5161L17.4865 10.8649L5 4L8.64025 17.7764L11.3663 13.668L14.63 17.8454L16.1044 16.6935L12.8407 12.5161V12.5161Z" fill="currentColor" />
