@@ -355,7 +355,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Bridge - The flexible tool for jobpages</title>
+                <title>Bridge - Unlocking seamless job page creation</title>
                 <meta
                     name="description"
                     content="Bridge simplifies your hiring process, providing a great experience for candidates."
@@ -412,13 +412,12 @@ export default function Home() {
                         className="min-h-64 md:pt-48 max-md:pt-40 relative z-20 border-b border-b-zinc-200"
 
                     >
-                        <div className="max-w-3xl flex flex-col gap-6 md:mb-16">
+                        <div className="md:mx-auto flex flex-col gap-6 md:w-[80%] md:mb-32">
                             <h1 className="font-semibold md:text-5xl max-md:text-4xl md:leading-[1.3em]">
-                                The hiring tool that integrates
-                                with your workflow.
+                                Unlocking seamless job page creation
                             </h1>
                             <p className="text-gray-500 font-medium md:text-3xl max-md:text-xl leading-tight md:leading-[1.3em]">
-                                Bridge simplifies your hiring process, providing a great experience for candidates.
+                                Discover Bridge, the intuitive tool that effortlessly enables you to craft and showcase job pages.
                             </p>
                         </div>
                         <div className="flex justify-between relative left-[50%] translate-x-[-50%] w-[90vw] overflow-hidden max-md:py-48 md:py-10 pl-[5%] pr-[5%] items-center md:cursor-none" onMouseEnter={() => setCustomCursor(true)}
