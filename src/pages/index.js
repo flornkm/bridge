@@ -355,19 +355,19 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Bridge - The flexible hiring tool</title>
+                <title>Bridge - The flexible tool for jobpages</title>
                 <meta
                     name="description"
-                    content="Hiring talent with joy"
+                    content="Bridge simplifies your hiring process, providing a great experience for candidates."
                 />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta
                     property="og:title"
-                    content="Hiring talent with joy"
+                    content="Bridge simplifies your hiring process, providing a great experience for candidates."
                 />
                 <meta
                     property="og:description"
-                    content="Hiring talent with joy"
+                    content="Bridge simplifies your hiring process, providing a great experience for candidates."
                 />
                 <meta
                     property="og:image"
@@ -382,7 +382,7 @@ export default function Home() {
                 />
                 <meta
                     name="twitter:description"
-                    content="Hiring talent with joy"
+                    content="Bridge simplifies your hiring process, providing a great experience for candidates."
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
