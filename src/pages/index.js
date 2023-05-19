@@ -619,7 +619,7 @@ export default function Home() {
                         </div>
                         {isInView ? (
                             <video autoPlay loop muted className="rounded-2xl ring-1 w-full object-cover aspect-video bg-[#FAF9FA] ring-zinc-200">
-                                <source src="/videos/showcase.mp4" type="video/mp4" />
+                                <source src="/videos/tool_showcase.mp4" type="video/mp4" />
                             </video>
                         ) : (
                             <div ref={ref}></div>
