@@ -358,16 +358,16 @@ export default function Home() {
                 <title>Bridge - Unlocking seamless job page creation</title>
                 <meta
                     name="description"
-                    content="Bridge simplifies your hiring process, providing a great experience for candidates."
+                    content="Discover Bridge, the intuitive tool that effortlessly enables you to craft and showcase job pages, simplifying and streamlining your hiring process for optimal candidate discovery."
                 />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta
                     property="og:title"
-                    content="Bridge simplifies your hiring process, providing a great experience for candidates."
+                    content="Discover Bridge, the intuitive tool that effortlessly enables you to craft and showcase job pages, simplifying and streamlining your hiring process for optimal candidate discovery."
                 />
                 <meta
                     property="og:description"
-                    content="Bridge simplifies your hiring process, providing a great experience for candidates."
+                    content="Discover Bridge, the intuitive tool that effortlessly enables you to craft and showcase job pages, simplifying and streamlining your hiring process for optimal candidate discovery."
                 />
                 <meta
                     property="og:image"
@@ -382,7 +382,7 @@ export default function Home() {
                 />
                 <meta
                     name="twitter:description"
-                    content="Bridge simplifies your hiring process, providing a great experience for candidates."
+                    content="Discover Bridge, the intuitive tool that effortlessly enables you to craft and showcase job pages, simplifying and streamlining your hiring process for optimal candidate discovery."
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -798,15 +798,15 @@ export default function Home() {
                                                 <h4 className="text-[96px] text-emerald-300 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
                                                 <h4 className="text-[96px] font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
                                             </div> */}
-                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[30%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[20%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:border-4 max-md:border-emerald-400" ref={circles[0]}>
+                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[30%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[20%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:border-4 max-md:border-emerald-500" ref={circles[0]}>
                                                 <Icon.HandGrabbing size={72} className=" text-black" />
                                                 <p className="absolute -bottom-8 font-medium text-white selection:bg-green-300">Build</p>
                                             </div>
-                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] right-[10%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[30%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:right-[-10%] max-md:border-4 max-md:border-emerald-400" ref={circles[1]}>
+                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] right-[10%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[30%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:right-[-10%] max-md:border-4 max-md:border-emerald-500" ref={circles[1]}>
                                                 <Icon.UploadSimple size={72} className="text-black" />
                                                 <p className="absolute -bottom-8 font-medium text-white selection:bg-green-300">Publish</p>
                                             </div>
-                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[45%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[80%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:border-4 max-md:border-emerald-400" ref={circles[2]}>
+                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[45%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[80%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:border-4 max-md:border-emerald-500" ref={circles[2]}>
                                                 <Icon.Share size={72} className="text-black" />
                                                 <p className="absolute -bottom-8 font-medium text-white selection:bg-green-300">Share</p>
                                             </div>
@@ -934,7 +934,7 @@ export default function Home() {
                     <div className="grid grid-cols-3 gap-24 max-md:gap-16 w-full max-md:grid-cols-1">
                         <div className="w-full flex flex-col">
                             <h3 className="text-lg font-semibold mb-1">Bridge</h3>
-                            <p className="text-gray-500">Bring joy to your hiring process.</p>
+                            <p className="text-gray-500">Unlocking seamless job page creation.</p>
                         </div>
                         <div className="w-full flex flex-col items-end max-md:items-start">
                             <div className="flex flex-col items-start">
