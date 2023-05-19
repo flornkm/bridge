@@ -60,6 +60,11 @@ export default function Home() {
         useRef(null),
         useRef(null),
     ]
+    const circles = [
+        useRef(null),
+        useRef(null),
+        useRef(null),
+    ]
     const keys = [
         useRef(null),
         useRef(null),
@@ -231,10 +236,26 @@ export default function Home() {
                     navRect.current.style.width = navItems[1].current.offsetWidth + "px";
                     navRect.current.style.left = navItems[1].current.offsetLeft + "px";
                 } else if (percentage > 0.4) {
+                    if (circles[0].current && circles[1].current && circles[2].current) {
+                        circles[0].current.style.transform = "translateY(-50%) translateX(-50%) scale(1)";
+                        circles[0].current.style.opacity = 1;
+                        setTimeout(() => {
+                            if (circles[1].current && circles[2].current) {
+                                circles[1].current.style.transform = "translateY(-50%) translateX(-50%) scale(1)";
+                                circles[1].current.style.opacity = 1;
+                                setTimeout(() => {
+                                    if (circles[2].current) {
+                                        circles[2].current.style.transform = "translateY(-50%) translateX(-50%) scale(1)";
+                                        circles[2].current.style.opacity = 1;
+                                    }
+                                }, 100);
+                            }
+                        }, 100);
+                    }
                     navRect.current.style.opacity = 1;
                     navRect.current.style.width = navItems[2].current.offsetWidth + "px";
                     navRect.current.style.left = navItems[2].current.offsetLeft + "px";
-                } 
+                }
             }
         };
 
@@ -346,7 +367,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Bridge - Hire talents with joy</title>
+                <title>Bridge - The flexible hiring tool</title>
                 <meta
                     name="description"
                     content="Hiring talent with joy"
@@ -385,11 +406,11 @@ export default function Home() {
                     height={32}
                     className="cursor-pointer"
                 />
-                <div className="flex gap-8 max-sm:gap-4">
-                    <button className="font-semibold transition-all hover:opacity-80" onClick={() => {
+                <div className="flex gap-4 max-sm:gap-2 mix-blend-screen bg-white ring-4 ring-white rounded-lg">
+                    <button className="font-semibold transition-all hover:text-zinc-800 bg-white px-4 rounded-lg" onClick={() => {
                         router.push('/login')
                     }}>Login</button>
-                    <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:opacity-80 flex gap-3 items-center group" onClick={() => {
+                    <button className="font-medium px-4 py-2 bg-black text-white rounded-lg transition-all hover:bg-zinc-800 flex gap-3 items-center group" onClick={() => {
                         openModal();
                     }}>
                         <span className="text-xs px-2 py-0.5 rounded-sm ring-2 ring-white font-bold -rotate-6 transition-all group-hover:rotate-0 max-sm:hidden">t</span>
@@ -633,10 +654,10 @@ export default function Home() {
                             <div className="sticky top-0 max-md:top-8 w-full h-auto col-span-2 flex items-center justify-center">
                                 {scrollPosition < 0.2 && (
                                     <div className="w-full h-screen flex items-center">
-                                        <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex flex-col items-center justify-center overflow-hidden">
+                                        <div className="bg-gradient-to-br from-purple-300 to-fuchsia-400 h-[90vh] max-md:h-[70vh] max-md:top-8 w-full rounded-3xl relative top-4 flex flex-col items-center justify-center overflow-hidden">
                                             <div className="flex gap-16 justify-center items-start group">
                                                 <div className="flex flex-col gap-16 w-80 h-auto items-center absolute left-[50%] z-10 top-[50%] translate-y-[-50%] transition-all translate-x-[-50%] rotate-0 duration-700" ref={inViewState[5]}>
-                                                    <p className="text-center text-white font-medium text-lg relative z-10 transition-all -rotate-6 group-hover:rotate-0 scale-125 group-hover:scale-100 duration-500" ref={inViewState[4]}>Elegant Colors</p>
+                                                    <p className="text-center text-white font-medium text-lg relative z-10 transition-all -rotate-6 group-hover:rotate-0 scale-125 group-hover:scale-100 duration-500 selection:bg-fuchsia-400" ref={inViewState[4]}>Elegant Colors</p>
                                                     <div className="p-2 bg-black rounded-xl flex gap-2 relative z-10 shadow-xl scale-125 group-hover:scale-100 right-8 transition-all group-hover:right-0 -rotate-6 group-hover:rotate-0 duration-500" ref={inViewState[0]}>
                                                         <div className="h-10 w-10 bg-white rounded-full color-p" />
                                                         <div className="h-10 w-10 bg-zinc-200 rounded-full color-p" />
@@ -671,7 +692,7 @@ export default function Home() {
                                     </div>)}
                                 {scrollPosition > 0.2 && scrollPosition < 0.4 && entries.length > 0 && (
                                     <div className="w-full h-screen flex items-center">
-                                        <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl relative -top-8 flex items-center justify-center flex-col gap-4 p-8">
+                                        <div className="bg-gradient-to-br overflow-hidden from-blue-300 to-indigo-400 h-[90vh] max-md:h-[70vh] max-md:top-8 w-full rounded-3xl relative top-4 flex items-center justify-center flex-col gap-4 p-8">
                                             <p className="text-center text-white font-medium text-lg relative z-10">Manage your candidates</p>
                                             <div className="p-4 rounded-xl mx-auto bg-white shadow-xl w-[512px] max-w-full relative z-30 scale-105 transition-all duration-200" ref={cards[0]}>
                                                 <p className="font-medium text-lg p-2 flex flex-wrap items-center md:gap-2 mb-2">Project Submissions</p>
@@ -757,9 +778,9 @@ export default function Home() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="p-4 rounded-xl mx-auto bg-zinc-100 shadow-xl w-[512px] max-w-full z-20 absolute top-[50%] translate-y-[-24%] scale-95 h-80 transition-all duration-1000" ref={cards[1]} />
-                                            <div className="p-4 rounded-xl mx-auto bg-zinc-100 shadow-xl w-[512px] max-w-full z-10 absolute top-[50%] translate-y-[-14%] scale-90 h-80 transition-all duration-1000" ref={cards[2]} />
-                                            <div className="text-black absolute bottom-24 right-72 max-md:right-24 animate-random-translate pointer-events-none z-40">
+                                            <div className="p-4 rounded-xl mx-auto bg-zinc-100 shadow-xl w-[512px] max-md:w-[72%] max-w-full z-20 absolute top-[50%] translate-y-[-24%] scale-95 h-80 transition-all duration-1000" ref={cards[1]} />
+                                            <div className="p-4 rounded-xl mx-auto bg-zinc-100 shadow-xl w-[512px] max-md:w-[72%] max-w-full z-10 absolute top-[50%] translate-y-[-14%] scale-90 h-80 transition-all duration-1000" ref={cards[2]} />
+                                            {/* <div className="text-black absolute bottom-24 right-72 max-md:right-24 animate-random-translate pointer-events-none z-40">
                                                 <svg width="56" height="59" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <g>
                                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.8407 12.5161L17.4865 10.8649L5 4L8.64025 17.7764L11.3663 13.668L14.63 17.8454L16.1044 16.6935L12.8407 12.5161V12.5161Z" fill="currentColor" />
@@ -777,18 +798,48 @@ export default function Home() {
                                                         </filter>
                                                     </defs>
                                                 </svg>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 )}
                                 {scrollPosition > 0.4 && (
                                     <div className="w-full h-screen flex items-center">
 
-                                        <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[80vh] max-md:h-[60vh] w-full rounded-3xl -top-8 flex flex-col gap-4 justify-center items-center overflow-hidden relative">
-                                            <p className="text-white font-medium text-xl relative z-10">Time needed</p>
-                                            <div className="text-emerald-500 bg-white shadow-xl px-4 py-2 rounded-xl relative z-10 md:h-80 md:w-72 flex items-center justify-center">
+                                        <div className="bg-gradient-to-br from-green-300 to-emerald-400 h-[90vh] max-md:h-[70vh] max-md:top-8 w-full rounded-3xl top-4 flex flex-col gap-4 justify-center items-center overflow-hidden relative">
+                                            <p className="text-white font-medium text-xl relative z-10 selection:bg-green-300">Create in no time</p>
+                                            {/* <div className="text-emerald-500 bg-white shadow-xl px-4 py-2 rounded-xl relative z-10 md:h-80 md:w-72 flex items-center justify-center">
                                                 <h4 className="text-[96px] text-emerald-300 font-bold animate-pulse absolute z-10">≈ 5 <span className="text-4xl">mins</span></h4>
                                                 <h4 className="text-[96px] font-bold relative">≈ 5 <span className="text-4xl">mins</span></h4>
+                                            </div> */}
+                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[30%] bg-white shadow-xl h-28 w-28 md:h-40 md:w-40 rounded-full top-[20%] translate-y-[-0%] transition-all duration-1000 opacity-0" ref={circles[0]}>
+                                                <Image
+                                                    src="/images/general/custom_cursor.svg"
+                                                    alt="Custom Bridge Cursor"
+                                                    width={92}
+                                                    height={92}
+
+                                                />
+                                                <p className="absolute -bottom-8 font-medium text-white">Build</p>
+                                            </div>
+                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] right-[10%] bg-white shadow-xl h-28 w-28 md:h-40 md:w-40 rounded-full top-[30%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:right-[-10%]" ref={circles[1]}>
+                                                <Image
+                                                    src="/images/general/custom_cursor.svg"
+                                                    alt="Custom Bridge Cursor"
+                                                    width={92}
+                                                    height={92}
+
+                                                />
+                                                <p className="absolute -bottom-8 font-medium text-white">Publish</p>
+                                            </div>
+                                            <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[45%] bg-white shadow-xl h-28 w-28 md:h-40 md:w-40 rounded-full top-[80%] translate-y-[-0%] transition-all duration-1000 opacity-0" ref={circles[2]}>
+                                                <Image
+                                                    src="/images/general/custom_cursor.svg"
+                                                    alt="Custom Bridge Cursor"
+                                                    width={92}
+                                                    height={92}
+
+                                                />
+                                                <p className="absolute -bottom-8 font-medium text-white">Share</p>
                                             </div>
                                         </div>
                                     </div>
@@ -921,7 +972,11 @@ export default function Home() {
                                 <h3 className="font-semibold mb-3">Navigation</h3>
                                 <Link href="/" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2">Home</Link>
                                 <Link href="/login" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2">Login</Link>
-                                <Link href="/login" className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2" onClick={openModal}>Sign up</Link>
+                                <p
+                                    className="hover:bg-gray-100 transition-all text-gray-700 px-2 py-1 rounded-md -ml-2 mb-2 cursor-pointer"
+                                    onClick={() => {
+                                        openModal(true);
+                                    }}>Sign up</p>
                             </div>
                         </div>
                         <div className="w-full flex flex-col items-end max-md:items-start">
