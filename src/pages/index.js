@@ -801,15 +801,15 @@ export default function Home() {
                                             </div> */}
                                             <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[30%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[20%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:border-4 max-md:border-emerald-400" ref={circles[0]}>
                                                 <Icon.HandGrabbing size={72} className=" text-black" />
-                                                <p className="absolute -bottom-8 font-medium text-white">Build</p>
+                                                <p className="absolute -bottom-8 font-medium text-white selection:bg-green-300">Build</p>
                                             </div>
                                             <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] right-[10%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[30%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:right-[-10%] max-md:border-4 max-md:border-emerald-400" ref={circles[1]}>
                                                 <Icon.UploadSimple size={72} className="text-black" />
-                                                <p className="absolute -bottom-8 font-medium text-white">Publish</p>
+                                                <p className="absolute -bottom-8 font-medium text-white selection:bg-green-300">Publish</p>
                                             </div>
                                             <div className="absolute z-10 flex flex-col items-center justify-center translate-x-[-50%] left-[45%] bg-white h-28 w-28 md:h-32 md:w-32 max-md:p-4 rounded-full top-[80%] translate-y-[-0%] transition-all duration-1000 opacity-0 max-md:border-4 max-md:border-emerald-400" ref={circles[2]}>
                                                 <Icon.Share size={72} className="text-black" />
-                                                <p className="absolute -bottom-8 font-medium text-white">Share</p>
+                                                <p className="absolute -bottom-8 font-medium text-white selection:bg-green-300">Share</p>
                                             </div>
                                         </div>
                                     </div>
