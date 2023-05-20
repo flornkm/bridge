@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
+import Footer from '@/components/Footer'
 
 export default function Published() {
     return (
@@ -27,23 +28,23 @@ export default function Published() {
                 </div>
             </div>
             <main className="h-full w-full bg-white overflow-hidden">
-                <div className="max-md:w-[90%] w-full max-w-7xl pl-[15%] pr-[15%] m-auto pt-24 bg-white pb-24">
+                <div className="max-md:w-[90%] w-full max-w-7xl pl-[15%] pr-[15%] m-auto pt-24 bg-white">
                     <h1 className="font-semibold text-3xl">
                         Imprint
                     </h1>
                     <div class="text-left">
-                    <div class="text-left pt-8">
-                        <span class="text-gray-500 text-sm">
-                            <strong className="pr-1">Responsible for this tool <br/></strong>
-                            <span>Florian Kiem, Uferstr. 48, 73525 Schwäbisch Gmünd</span>
-                        </span>
-                    </div>
-                    <div class="text-left pt-4">
-                        <span class="text-gray-500 text-sm">
-                            <strong className="pr-1">Contact <br/></strong>
-                            <span>florian@designwithtech.com</span>
-                        </span>
-                    </div>
+                        <div class="text-left pt-8">
+                            <span class="text-gray-500 text-sm">
+                                <strong className="pr-1">Responsible for this tool <br /></strong>
+                                <span>Florian Kiem, Uferstr. 48, 73525 Schwäbisch Gmünd</span>
+                            </span>
+                        </div>
+                        <div class="text-left pt-4">
+                            <span class="text-gray-500 text-sm">
+                                <strong className="pr-1">Contact <br /></strong>
+                                <span>florian@designwithtech.com</span>
+                            </span>
+                        </div>
                     </div>
                     <div class="text-center">
                         <br />
@@ -68,7 +69,7 @@ export default function Published() {
                     </div>
                     <div class="text-left">
                         <p class="text-gray-600">
-                            The information provided by Bridge on https://bridge.supply/ (the Site) is for general informational purposes only.
+                            The information provided by Bridge on https://bridge.supply/ (the &apos;Site&apos;) is for general informational purposes only.
                             All information on the Site is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the Site.
                             UNDER NO CIRCUMSTANCE SHALL WE HAVE ANY LIABILITY TO YOU FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF THE SITE OR RELIANCE ON ANY INFORMATION PROVIDED ON THE SITE.
                             YOUR USE OF THE SITE AND YOUR RELIANCE ON ANY INFORMATION ON THE SITE IS SOLELY AT YOUR OWN RISK.
@@ -98,6 +99,7 @@ export default function Published() {
                             </p>
                         </div>
                     </div>
+                    <Footer />
                 </div>
             </main>
         </>
