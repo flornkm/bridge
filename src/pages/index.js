@@ -413,13 +413,14 @@ export default function Home() {
                         className="min-h-64 md:pt-48 max-md:pt-40 relative z-20 border-b border-b-zinc-200"
 
                     >
-                        <div className="md:mx-auto flex flex-col gap-6 md:w-[80%] md:mb-32">
-                            <h1 className="font-semibold md:text-5xl max-md:text-4xl md:leading-[1.3em]">
+                        <div className="md:mx-auto flex flex-col gap-4 md:w-[80%] md:mb-12">
+                            <h1 className="font-semibold md:text-5xl max-md:text-4xl md:leading-[1.2em]">
                                 Unlocking seamless job page creation
                             </h1>
-                            <p className="text-gray-500 font-medium md:text-3xl max-md:text-xl leading-tight md:leading-[1.3em]">
+                            <p className="text-gray-500 font-medium md:text-3xl max-md:text-xl leading-tight md:leading-[1.3em] mb-6">
                                 Discover Bridge, the intuitive tool that effortlessly enables you to craft and showcase job pages.
                             </p>
+                            <a href="https://www.producthunt.com/posts/bridge-3bd70b3a-9dce-43be-9ebd-fd4ce780ab08?utm_source=badge-top-post-topic-badge&utm_medium=badge&utm_souce=badge-bridge&#0045;3bd70b3a&#0045;9dce&#0045;43be&#0045;9ebd&#0045;fd4ce780ab08" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=395294&theme=light&period=weekly&topic_id=44" alt="Bridge - Unlocking&#0032;seamless&#0032;job&#0032;page&#0032;creation | Product Hunt" width="250" height="54" /></a>
                         </div>
                         <div className="flex justify-between relative left-[50%] translate-x-[-50%] w-[90vw] overflow-hidden max-md:py-48 md:py-10 pl-[5%] pr-[5%] items-center md:cursor-none" onMouseEnter={() => setCustomCursor(true)}
                             onMouseLeave={() => setCustomCursor(false)}>
